@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/JBTCore_0.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jgrapht-0.8.3-src.jar"/>
+	<classpathentry kind="lib" path="lib/jgrapht-0.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/jargs.jar"/>
+	<classpathentry kind="lib" path="lib/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/mmpm.jar"/>
+	<classpathentry kind="lib" path="lib/sourceformatter.jar"/>
+	<classpathentry kind="lib" path="lib/tween-engine-api-6.3.3.jar" sourcepath="lib/tween-engine-api-6.3.3-src.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GDXWorld"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/box2dlights.jar" sourcepath="/GDXWorld/lib/box2dlights-sources.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/gdx-backend-lwjgl.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/gdx-box2d.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/gdx-box2d-natives.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/gdx.jar"/>
+	<classpathentry kind="lib" path="/GDXWorld/lib/jspf.core-1.0.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
