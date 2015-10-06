@@ -115,9 +115,104 @@
             </npc>
           </manifestation>
         </world.quest.GDXQuest>
+        <world.quest.GDXQuest>
+          <name>wave1</name>
+          <prerequisites></prerequisites>
+          <repeatable>false</repeatable>
+          <trigger class="plugin.quest.trigger.time.TimeTrigger">
+            <time>500</time>
+          </trigger>
+          <manifestation class="plugin.quest.manifestation.beingspawn.BeingSpawnManifestation">
+            <npc>
+              <name>NPC-0</name>
+              <coordinates>
+                <x>-7.399322</x>
+                <y>-1.8904071</y>
+              </coordinates>
+              <properties class="tree-map">
+                <entry>
+                  <string>Aim</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Attack</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Behavior</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Cash</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Defense</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Faction</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>HP</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Level</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>NPCData</string>
+                  <string>forestSoldier</string>
+                </entry>
+                <entry>
+                  <string>Path</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Resource</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>Weapons</string>
+                  <string></string>
+                </entry>
+                <entry>
+                  <string>XP</string>
+                  <string></string>
+                </entry>
+              </properties>
+            </npc>
+          </manifestation>
+        </world.quest.GDXQuest>
       </quests>
       <backgrounds/>
-      <lights/>
+      <lights>
+        <world.light.PointLight>
+          <color>-437918337</color>
+          <rays>1000</rays>
+          <coordinates>
+            <x>-6.928036</x>
+            <y>-0.6005802</y>
+          </coordinates>
+          <distance>10.0</distance>
+        </world.light.PointLight>
+        <world.light.PointLight>
+          <color>-437918337</color>
+          <rays>1000</rays>
+          <coordinates>
+            <x>11.32565</x>
+            <y>-0.4530754</y>
+          </coordinates>
+          <distance>10.0</distance>
+        </world.light.PointLight>
+        <world.light.DirectionalLight>
+          <color>-437918337</color>
+          <rays>1000</rays>
+          <direction>270.0</direction>
+        </world.light.DirectionalLight>
+      </lights>
       <groups/>
       <particles/>
       <sounds/>
