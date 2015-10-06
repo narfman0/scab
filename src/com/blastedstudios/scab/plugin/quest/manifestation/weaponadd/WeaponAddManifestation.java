@@ -23,10 +23,10 @@ public class WeaponAddManifestation extends AbstractQuestManifestation {
 	
 	@Override public CompletionEnum execute(float dt) {
 		switch(weaponAddType){
-		case LOCATION:
-			return ((QuestManifestationExecutor)executor).weaponSpawn(weapon, location);
 		case PERSON:
 			return ((QuestManifestationExecutor)executor).weaponAdd(weapon, target);
+		default:
+			break;
 		}
 		Log.log("WeaponAddManifestation.execute", "Case not matched: " + weaponAddType + ", skipping");
 		return CompletionEnum.COMPLETED;

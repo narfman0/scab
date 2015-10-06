@@ -80,11 +80,6 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 			}
 		return CompletionEnum.COMPLETED;
 	}
-	
-	public CompletionEnum weaponSpawn(String weapon, Vector2 location) {
-		worldManager.getDropManager().dropGun(worldManager.getWorld(), WeaponFactory.getWeapon(weapon), location);;
-		return CompletionEnum.COMPLETED;
-	}
 
 	public CompletionEnum weaponAdd(String weapon, String target) {
 		for(Being being : worldManager.getAllBeings())

@@ -71,7 +71,7 @@ public class GameplayScreen extends ScabScreen {
 	private final HUD hud;
 	private OrthographicCamera camera;
 	private WorldManager worldManager;
-	private ScabWindow characterWindow, inventoryWindow, vendorWindow, backWindow;
+	private ScabWindow characterWindow, inventoryWindow, backWindow;
 	private ConsoleWindow consoleWindow;
 	private final Box2DDebugRenderer renderer;
 	private final GDXRenderer gdxRenderer;
@@ -216,25 +216,7 @@ public class GameplayScreen extends ScabScreen {
 					game.pushScreen(new LevelEditorScreen(game, world, selectedFile, level, assetManager));
 					Log.log("GameplayScreen.render", "Edit mode entered");
 				}
-				if(vendorWindow == null){
-					if(!worldManager.isPause() && worldManager.isInputEnable()){
-						NPC npc = worldManager.findVendor();
-						if(npc != null){
-							cleanCharacterWindows();//just to be safe
-							ChangeListener listener = new ChangeListener() {
-								@Override public void changed(ChangeEvent event, Actor actor) {
-									cleanCharacterWindows();
-								}
-							};
-							stage.addActor(vendorWindow = new VendorWindow(skin, npc, stage, worldManager.getPlayer(),
-									worldManager.getWorld(), listener, worldManager.getSharedAssets()));
-							stage.addActor(inventoryWindow = new InventoryWindow(skin, 
-									worldManager.getPlayer(), listener, worldManager.getSharedAssets(), stage, true));
-							worldManager.pause(true);
-						}
-					}
-				}else
-					cleanCharacterWindows();
+				cleanCharacterWindows();
 				DialogStruct struct = dialogManager.poll();
 				if(struct != null){
 					//TODO kinda nasty hack, here... on the slow side and doesn't go through GDXQuestManager
@@ -304,7 +286,6 @@ public class GameplayScreen extends ScabScreen {
 				(inventoryWindow == null || !inventoryWindow.contains(x, y)) &&
 				(characterWindow == null || !characterWindow.contains(x, y)) &&
 				(backWindow == null || !backWindow.contains(x, y)) &&
-				(vendorWindow == null || !vendorWindow.contains(x, y)) && 
 				(consoleWindow == null || !consoleWindow.contains(x, y)))
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
 	}
@@ -386,10 +367,6 @@ public class GameplayScreen extends ScabScreen {
 				Log.log("GameplayScreen.render", "debug.draw: " + Properties.getBool("debug.draw"));
 			}
 			break;
-		case Keys.F9:
-			if(debugCommandEnabled())
-				worldManager.getDropManager().generateDrop(worldManager.getPlayer(), worldManager.getWorld());
-			break;
 		case Keys.F10:
 			if(debugCommandEnabled()){
 				Vector2 position = worldManager.getPlayer().getPosition();
@@ -409,13 +386,12 @@ public class GameplayScreen extends ScabScreen {
 	}
 	
 	private void cleanCharacterWindows(){
-		for(ScabWindow window : new ScabWindow[]{characterWindow, inventoryWindow, vendorWindow, backWindow})
+		for(ScabWindow window : new ScabWindow[]{characterWindow, inventoryWindow, backWindow})
 			if(window != null)
 				window.remove();
 		characterWindow = null;
 		inventoryWindow = null;
 		backWindow = null;
-		vendorWindow = null;
 		worldManager.pause(false);
 	}
 	

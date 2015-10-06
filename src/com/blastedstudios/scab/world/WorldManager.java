@@ -63,7 +63,6 @@ public class WorldManager implements IDeathCallback{
 	private final Player player;
 	private final CreateLevelReturnStruct createLevelStruct;
 	private Vector2 respawnLocation;
-	private final DropManager dropManager;
 	private final GDXLevel level;
 	private final LinkedList<ParticleEffect> particles = new LinkedList<>();
 	private final LinkedList<Turret> turrets = new LinkedList<>();
@@ -81,7 +80,6 @@ public class WorldManager implements IDeathCallback{
 		this.listener = listener;
 		random = new Random();
 		tweenManager = new TweenManager();
-		dropManager = new DropManager();
 		Weapon gun = player.getEquippedWeapon();
 		if(gun != null && !(gun instanceof Melee))
 			((Gun)gun).addCurrentRounds(gun.getRoundsPerClip() - ((Gun)gun).getCurrentRounds());
@@ -111,8 +109,6 @@ public class WorldManager implements IDeathCallback{
 		}
 		for(Turret turret : turrets)
 			turret.render(dt, batch, gdxRenderer, this);
-		if(player.isSpawned())
-			dropManager.render(dt, pause, player, world, batch, gdxRenderer, sharedAssets);
 		renderTransferredParticles(dt, batch);
 		if(Properties.getBool("world.debug.draw", false))
 			debugRenderer.render(aiWorldDebug, cam.combined);
@@ -256,8 +252,6 @@ public class WorldManager implements IDeathCallback{
 	}
 
 	@Override public void dead(Being being) {
-		if(being != player)
-			dropManager.generateDrop(being, world);
 		being.death(this);
 	}
 
@@ -287,10 +281,6 @@ public class WorldManager implements IDeathCallback{
 	
 	public void changePlayerWeapon(int weapon){
 		player.setCurrentWeapon(weapon, world, false);
-	}
-
-	public DropManager getDropManager() {
-		return dropManager;
 	}
 
 	public GDXPath getPath(String path) {
