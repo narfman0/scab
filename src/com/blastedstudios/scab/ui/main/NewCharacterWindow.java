@@ -16,7 +16,7 @@ import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.GDXGameFade;
 import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.blastedstudios.scab.ui.overworld.OverworldScreen;
+import com.blastedstudios.scab.ui.levelselect.LevelSelectScreen;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.util.ui.ScabWindow;
 import com.blastedstudios.scab.util.ui.UIHelper;
@@ -47,7 +47,7 @@ class NewCharacterWindow extends ScabWindow{
 						Stats.parseNPCData(npcData),
 						0,0,1,0, FactionEnum.FRIEND, EnumSet.of(FactionEnum.FRIEND), 
 						npcData.get("Resource"));
-				OverworldScreen screen = new OverworldScreen(game, player, 
+				LevelSelectScreen screen = new LevelSelectScreen(game, player, 
 						gdxWorld, worldFile, gdxRenderer, sharedAssets);
 				GDXGameFade.fadeInPushScreen(game, screen);
 			}

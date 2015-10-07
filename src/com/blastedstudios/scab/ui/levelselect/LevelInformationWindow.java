@@ -1,4 +1,4 @@
-package com.blastedstudios.scab.ui.overworld;
+package com.blastedstudios.scab.ui.levelselect;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -25,7 +25,7 @@ class LevelInformationWindow extends ScabWindow{
 	public LevelInformationWindow(final Skin skin, final GDXLevel level, 
 			final GDXGame game, final Player player, final GDXWorld world, 
 			final FileHandle selectedFile, final GDXRenderer gdxRenderer,
-			final AssetManager sharedAssets, final OverworldScreen screen) {
+			final AssetManager sharedAssets, final LevelSelectScreen screen) {
 		super("", skin);
 		this.level = level;
 		final Button startButton = new ScabTextButton("Start", skin, new ClickListener() {

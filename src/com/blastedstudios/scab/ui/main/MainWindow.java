@@ -12,7 +12,7 @@ import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.GDXGameFade;
 import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.blastedstudios.scab.ui.overworld.OverworldScreen;
+import com.blastedstudios.scab.ui.levelselect.LevelSelectScreen;
 import com.blastedstudios.scab.util.SaveHelper;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.util.ui.ScabWindow;
@@ -45,7 +45,7 @@ class MainWindow extends ScabWindow{
 		for(final Player being : SaveHelper.load()){
 			final Button savedCharacterButton = new ScabTextButton(being.getName(), skin, new ClickListener() {
 				@Override public void clicked(InputEvent event, float x, float y) {
-					OverworldScreen screen = new OverworldScreen(game, being, 
+					LevelSelectScreen screen = new LevelSelectScreen(game, being, 
 							gdxWorld, worldFile, gdxRenderer, sharedAssets); 
 					GDXGameFade.fadeInPushScreen(game, screen);
 				}
