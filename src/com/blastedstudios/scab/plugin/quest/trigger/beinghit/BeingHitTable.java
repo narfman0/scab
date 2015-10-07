@@ -6,11 +6,11 @@ import com.blastedstudios.gdxworld.plugin.mode.quest.TriggerTable;
 import com.blastedstudios.gdxworld.world.quest.trigger.AbstractQuestTrigger;
 
 public class BeingHitTable extends TriggerTable {
-	private final TextField beingText, originText, damageAmountText, damageRatioText;
 	private final BeingHitTrigger trigger;
+	private final TextField beingText, originText, damageAmountText, damageRatioText;
 
 	public BeingHitTable(Skin skin, BeingHitTrigger trigger) {
-		super(skin);
+		super(skin, trigger);
 		this.trigger = trigger;
 		beingText = new TextField(trigger.getTarget(), skin);
 		beingText.setMessageText("<being name regex>");
@@ -34,11 +34,11 @@ public class BeingHitTable extends TriggerTable {
 	}
 
 	@Override public AbstractQuestTrigger apply() {
+		super.apply(trigger);
 		trigger.setTarget(beingText.getText());
 		trigger.setDamageAmount(Float.parseFloat(damageAmountText.getText()));
 		trigger.setDamageRatio(Float.parseFloat(damageRatioText.getText()));
 		trigger.setOrigin(originText.getText());
 		return trigger;
 	}
-
 }
