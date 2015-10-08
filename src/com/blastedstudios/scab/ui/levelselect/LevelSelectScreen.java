@@ -11,11 +11,13 @@ import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.plugin.quest.handler.manifestation.SoundThematicHandlerPlugin;
 import com.blastedstudios.scab.ui.ScabScreen;
+import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow;
 import com.blastedstudios.scab.world.being.Player;
 
 public class LevelSelectScreen extends ScabScreen{
 	private final AssetManager sharedAssets;
 	private final PannerManager panner;
+	private final NetworkWindow networkWindow;
 
 	public LevelSelectScreen(final GDXGame game, Player player, final GDXWorld gdxWorld, final FileHandle worldFile,
 			GDXRenderer gdxRenderer, AssetManager sharedAssets, PannerManager panner){
@@ -26,6 +28,8 @@ public class LevelSelectScreen extends ScabScreen{
 		sharedAssets.finishLoading();
 		stage.addActor(new LevelInformationWindow(skin, 
 				game, player, gdxWorld, worldFile, gdxRenderer, sharedAssets, this));
+		networkWindow = new NetworkWindow(skin, player);
+		stage.addActor(networkWindow);
 		register(ActionEnum.BACK, new AbstractInputHandler() {
 			public void down(){
 				game.popScreen();
@@ -41,6 +45,7 @@ public class LevelSelectScreen extends ScabScreen{
 
 	@Override public void render(float delta){
 		super.render(delta);
+		networkWindow.render();
 		SoundThematicHandlerPlugin.get().tick(delta);
 		sharedAssets.update();
 		panner.updatePanners(delta);
