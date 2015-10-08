@@ -21,7 +21,7 @@ public class HostTable extends Table {
 			@Override public void connected(ClientStruct struct) {
 				clients.getItems().add(struct.socket.getRemoteAddress());
 			}
-			@Override public void clientBeing(ClientStruct struct) {
+			@Override public void nameUpdate(ClientStruct struct) {
 				clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
 				clients.getItems().add(struct.player.getName());
 			}

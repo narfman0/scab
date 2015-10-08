@@ -37,7 +37,7 @@ public class ClientTable extends Table {
 					@Override public void connected(Socket socket) {
 						NetBeing.Builder netBeing = NetBeing.newBuilder();
 						netBeing.setName(player.getName());
-						client.send(MessageType.CLIENT_BEING, netBeing.build());
+						client.send(MessageType.NAME_UPDATE, netBeing.build());
 					}
 				});
 				client.connect(hostnameText.getText());

@@ -66,12 +66,12 @@ public class Host {
 						MessageType messageType = MessageType.values()[stream.readSInt32()];
 						byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 						switch(messageType){
-						case CLIENT_BEING:
+						case NAME_UPDATE:
 							client.player = NetBeing.parseFrom(buffer);
-							Log.debug("Host.render", "Received player: " + socket.getRemoteAddress());
-							listener.clientBeing(client);
+							listener.nameUpdate(client);
 							break;
 						}
+						Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,6 +83,6 @@ public class Host {
 	public interface IHostListener{
 		void connected(ClientStruct struct);
 		void disconnected(ClientStruct struct);
-		void clientBeing(ClientStruct struct);
+		void nameUpdate(ClientStruct struct);
 	}
 }
