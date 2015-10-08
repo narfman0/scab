@@ -1,5 +1,7 @@
 package com.blastedstudios.scab.network;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -36,14 +38,20 @@ public class Client {
 	public void render(){
 		if(!socket.isConnected()){
 			listener.disconnected(socket);
-			Log.debug("Client.render", "Disconnected from server: " + socket.getRemoteAddress());
+			Log.debug("Client.render", "Disconnected from server: " + (socket == null ? "null" : socket.getRemoteAddress()));
 			return;
 		}
 		for(Iterator<SendStruct> iter = sendQueue.iterator(); iter.hasNext();){
 			SendStruct sendStruct = iter.next();
 			try {
-				socket.getOutputStream().write(sendStruct.messageType.ordinal());
-				SERIALIZER.save(socket.getOutputStream(), sendStruct.object);
+				ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+				SERIALIZER.save(ostream, sendStruct.object);
+				ByteBuffer buffer = ByteBuffer.allocate(2 + 4 + ostream.size());
+				buffer.putShort((short) sendStruct.messageType.ordinal());
+				buffer.putInt(ostream.size());
+				buffer.put(ostream.toByteArray());
+				socket.getOutputStream().write(buffer.array());
+				Log.debug("Client.render", "Sent message successfully: " + sendStruct.messageType.name());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,6 +1,7 @@
 package com.blastedstudios.scab.network;
 
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -63,13 +64,16 @@ public class Host {
 				Log.debug("Host.render", "Disconnecting client: " + socket.getRemoteAddress());
 				iter.remove();
 			}else{
-				InputStream stream = socket.getInputStream(); 
+				DataInputStream stream = new DataInputStream(socket.getInputStream()); 
 				try {
 					while(stream.available() > 0){
-						MessageType messageType = MessageType.values()[stream.read()];
+						MessageType messageType = MessageType.values()[stream.readShort()];
+						byte[] buf = new byte[stream.readInt()];
+						stream.read(buf);
+						ByteArrayInputStream byteStream = new ByteArrayInputStream(buf);
 						switch(messageType){
 						case CLIENT_BEING:
-							ClientBeing clientBeing = (ClientBeing) SERIALIZER.load(stream); 
+							ClientBeing clientBeing = (ClientBeing) SERIALIZER.load(byteStream); 
 							client.player = clientBeing.getPlayer();
 							Log.debug("Host.render", "Received player: " + socket.getRemoteAddress());
 							listener.clientBeing(client);
