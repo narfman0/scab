@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.GDXGame;
-import com.blastedstudios.gdxworld.util.GDXGameFade;
+import com.blastedstudios.gdxworld.util.panner.PannerManager;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.scab.ui.levelselect.LevelSelectScreen;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
@@ -31,7 +31,7 @@ class NewCharacterWindow extends ScabWindow{
 	public NewCharacterWindow(final Skin skin, final GDXGame game, 
 			final INewCharacterWindowListener listener, final GDXWorld gdxWorld, 
 			final FileHandle worldFile, final GDXRenderer gdxRenderer,
-			final AssetManager sharedAssets) {
+			final AssetManager sharedAssets, final PannerManager panner) {
 		super("", skin);
 		final TextField nameField = new TextField("", skin);
 		try{
@@ -48,8 +48,8 @@ class NewCharacterWindow extends ScabWindow{
 						0,0,1,0, FactionEnum.FRIEND, EnumSet.of(FactionEnum.FRIEND), 
 						npcData.get("Resource"));
 				LevelSelectScreen screen = new LevelSelectScreen(game, player, 
-						gdxWorld, worldFile, gdxRenderer, sharedAssets);
-				GDXGameFade.fadeInPushScreen(game, screen);
+						gdxWorld, worldFile, gdxRenderer, sharedAssets, panner);
+				game.pushScreen(screen);
 			}
 		});
 		final Button backButton = new ScabTextButton("Back", skin, new ClickListener() {

@@ -34,8 +34,9 @@ public class MainScreen extends ScabScreen implements IMainWindowListener, INewC
 		this.sharedAssets = sharedAssets;
 		this.gdxWorld = gdxWorld;
 		gdxRenderer = new GDXRenderer(true, true);
-		stage.addActor(mainWindow = new MainWindow(skin, game, this, gdxWorld, WORLD_FILE, gdxRenderer, sharedAssets));
 		panner = new PannerManager(gdxWorld, gdxRenderer);
+		mainWindow = new MainWindow(skin, game, this, gdxWorld, WORLD_FILE, gdxRenderer, sharedAssets, panner);
+		stage.addActor(mainWindow);
 		for(ISharedAssetConsumer handler : PluginUtil.getPlugins(ISharedAssetConsumer.class))
 			handler.setAssets(sharedAssets);
 		register(ActionEnum.BACK, new AbstractInputHandler() {
@@ -55,13 +56,13 @@ public class MainScreen extends ScabScreen implements IMainWindowListener, INewC
 
 	@Override public void newCharacterButtonClicked() {
 		mainWindow.remove();
-		stage.addActor(newCharacterWindow = new NewCharacterWindow(skin, game, this, gdxWorld, WORLD_FILE,
-				gdxRenderer, sharedAssets));
+		newCharacterWindow = new NewCharacterWindow(skin, game, this, gdxWorld, WORLD_FILE,	gdxRenderer, sharedAssets, panner);
+		stage.addActor(newCharacterWindow);
 	}
 
 	@Override public void backButtonClicked() {
 		newCharacterWindow.remove();
-		stage.addActor(mainWindow = new MainWindow(skin, game, this, gdxWorld, WORLD_FILE, gdxRenderer, sharedAssets));
+		stage.addActor(mainWindow = new MainWindow(skin, game, this, gdxWorld, WORLD_FILE, gdxRenderer, sharedAssets, panner));
 	}
 
 	@Override public void optionsButtonClicked() {
@@ -73,7 +74,7 @@ public class MainScreen extends ScabScreen implements IMainWindowListener, INewC
 		if(optionsWindow != null)
 			optionsWindow.remove();
 		optionsWindow = null;
-		stage.addActor(mainWindow = new MainWindow(skin, game, this, gdxWorld, WORLD_FILE, gdxRenderer, sharedAssets));
+		stage.addActor(mainWindow = new MainWindow(skin, game, this, gdxWorld, WORLD_FILE, gdxRenderer, sharedAssets, panner));
 	}
 	
 	private void exit(){

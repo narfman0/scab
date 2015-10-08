@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.GDXGame;
-import com.blastedstudios.gdxworld.util.GDXGameFade;
+import com.blastedstudios.gdxworld.util.panner.PannerManager;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.scab.ui.levelselect.LevelSelectScreen;
 import com.blastedstudios.scab.util.SaveHelper;
@@ -21,7 +21,7 @@ import com.blastedstudios.scab.world.being.Player;
 class MainWindow extends ScabWindow{
 	public MainWindow(final Skin skin, final GDXGame game, final IMainWindowListener listener, 
 			final GDXWorld gdxWorld, final FileHandle worldFile, final GDXRenderer gdxRenderer,
-			final AssetManager sharedAssets) {
+			final AssetManager sharedAssets, PannerManager panner) {
 		super("", skin);
 		final Button newButton = new ScabTextButton("Create New", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
@@ -46,8 +46,8 @@ class MainWindow extends ScabWindow{
 			final Button savedCharacterButton = new ScabTextButton(being.getName(), skin, new ClickListener() {
 				@Override public void clicked(InputEvent event, float x, float y) {
 					LevelSelectScreen screen = new LevelSelectScreen(game, being, 
-							gdxWorld, worldFile, gdxRenderer, sharedAssets); 
-					GDXGameFade.fadeInPushScreen(game, screen);
+							gdxWorld, worldFile, gdxRenderer, sharedAssets, panner); 
+					game.pushScreen(screen);
 				}
 			});
 			add(savedCharacterButton).fillX();
