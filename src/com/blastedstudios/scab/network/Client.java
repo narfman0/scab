@@ -1,6 +1,7 @@
 package com.blastedstudios.scab.network;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -56,6 +57,11 @@ public class Client {
 				e.printStackTrace();
 			}
 			iter.remove();
+		}
+		try {
+			socket.getOutputStream().flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
