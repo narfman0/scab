@@ -1,11 +1,11 @@
 package com.blastedstudios.scab.network;
 
 import com.badlogic.gdx.net.Socket;
-import com.blastedstudios.scab.world.being.Being;
+import com.blastedstudios.scab.network.Messages.NetBeing;
 
 public class ClientStruct {
 	public Socket socket;
-	public Being player;
+	public NetBeing player;
 	
 	public ClientStruct(){}
 	
@@ -13,7 +13,7 @@ public class ClientStruct {
 		this.socket = socket;
 	}
 	
-	public ClientStruct(Socket socket, Being player){
+	public ClientStruct(Socket socket, NetBeing player){
 		this.socket = socket;
 		this.player = player;
 	}

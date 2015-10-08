@@ -7,7 +7,8 @@
 	<classpathentry kind="lib" path="lib/jgrapht-0.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/jargs.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
-	<classpathentry kind="lib" path="lib/mmpm.jar"/>
+	<classpathentry kind="lib" path="lib/mmpm.jar"/>>
+	<classpathentry kind="lib" path="lib/protobuf-java-2.6.1.jar" sourcepath="lib/protobuf-java-2.6.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/sourceformatter.jar"/>
 	<classpathentry kind="lib" path="lib/tween-engine-api-6.3.3.jar" sourcepath="lib/tween-engine-api-6.3.3-src.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GDXWorld"/>

@@ -1,24 +1,24 @@
 package com.blastedstudios.scab.network;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.Socket;
-import com.blastedstudios.gdxworld.plugin.serializer.json.JSONSerializer;
-import com.blastedstudios.gdxworld.util.ISerializer;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.CodedOutputStream;
+import com.google.protobuf.Message;
 
 public class Client {
-	private final ISerializer SERIALIZER = new JSONSerializer();
 	private final IClientListener listener;
 	private final LinkedList<SendStruct> sendQueue = new LinkedList<>();
 	private Socket socket;
+	private CodedOutputStream outStream;
+	private CodedInputStream inStream;
 	
 	public Client(IClientListener listener){
 		this.listener = listener;
@@ -32,6 +32,8 @@ public class Client {
 			port = Integer.parseInt(host.split(":")[1]);
 		}
 		socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
+		inStream = CodedInputStream.newInstance(socket.getInputStream());
+		outStream = CodedOutputStream.newInstance(socket.getOutputStream());
 		Log.debug("Client.<init>", "Connected to server: " + socket.getRemoteAddress());
 		listener.connected(socket);
 	}
@@ -45,13 +47,9 @@ public class Client {
 		for(Iterator<SendStruct> iter = sendQueue.iterator(); iter.hasNext();){
 			SendStruct sendStruct = iter.next();
 			try {
-				ByteArrayOutputStream ostream = new ByteArrayOutputStream();
-				SERIALIZER.save(ostream, sendStruct.object);
-				ByteBuffer buffer = ByteBuffer.allocate(2 + 4 + ostream.size());
-				buffer.putShort((short) sendStruct.messageType.ordinal());
-				buffer.putInt(ostream.size());
-				buffer.put(ostream.toByteArray());
-				socket.getOutputStream().write(buffer.array());
+				outStream.writeSInt32NoTag(sendStruct.messageType.ordinal());
+				outStream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
+				sendStruct.message.writeTo(outStream);
 				Log.debug("Client.render", "Sent message successfully: " + sendStruct.messageType.name());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -59,7 +57,7 @@ public class Client {
 			iter.remove();
 		}
 		try {
-			socket.getOutputStream().flush();
+			outStream.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,17 +72,17 @@ public class Client {
 		void disconnected(Socket socket);
 	}
 
-	public void send(MessageType messageType, Object object) {
-		sendQueue.add(new SendStruct(messageType, object));
+	public void send(MessageType messageType, Message message) {
+		sendQueue.add(new SendStruct(messageType, message));
 	}
 	
 	class SendStruct{
 		public MessageType messageType;
-		public Object object;
+		public Message message;
 		
-		public SendStruct(MessageType messageType, Object object){
+		public SendStruct(MessageType messageType, Message message){
 			this.messageType = messageType;
-			this.object = object;
+			this.message = message;
 		}
 	}
 }

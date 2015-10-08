@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Client;
 import com.blastedstudios.scab.network.MessageType;
-import com.blastedstudios.scab.network.message.ClientBeing;
+import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.world.being.Being;
 
@@ -35,7 +35,9 @@ public class ClientTable extends Table {
 						client = null;
 					}
 					@Override public void connected(Socket socket) {
-						client.send(MessageType.CLIENT_BEING, new ClientBeing(player));
+						NetBeing.Builder netBeing = NetBeing.newBuilder();
+						netBeing.setName(player.getName());
+						client.send(MessageType.CLIENT_BEING, netBeing.build());
 					}
 				});
 				client.connect(hostnameText.getText());

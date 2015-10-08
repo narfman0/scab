@@ -18,6 +18,7 @@ Requirements
 ------------
 GDXWorld is installed and active on the eclipse path. Git clone from
 ``https://github.com/narfman0/GDXWorld.git``
+protoc 2.6.1 is installed and on your PATH
 
 Running
 -------

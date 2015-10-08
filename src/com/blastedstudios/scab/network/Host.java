@@ -1,7 +1,5 @@
 package com.blastedstudios.scab.network;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,14 +11,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.Socket;
-import com.blastedstudios.gdxworld.plugin.serializer.json.JSONSerializer;
-import com.blastedstudios.gdxworld.util.ISerializer;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
-import com.blastedstudios.scab.network.message.ClientBeing;
+import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.google.protobuf.CodedInputStream;
 
 public class Host {
-	private final ISerializer SERIALIZER = new JSONSerializer();
 	private final List<ClientStruct> clients = Collections.synchronizedList(new LinkedList<ClientStruct>());
 	private final IHostListener listener;
 	private ServerSocket serverSocket;
@@ -64,17 +60,14 @@ public class Host {
 				Log.debug("Host.render", "Disconnecting client: " + socket.getRemoteAddress());
 				iter.remove();
 			}else{
-				DataInputStream stream = new DataInputStream(socket.getInputStream()); 
+				CodedInputStream stream = CodedInputStream.newInstance(socket.getInputStream()); 
 				try {
-					while(stream.available() > 0){
-						MessageType messageType = MessageType.values()[stream.readShort()];
-						byte[] buf = new byte[stream.readInt()];
-						stream.read(buf);
-						ByteArrayInputStream byteStream = new ByteArrayInputStream(buf);
+					while(!stream.isAtEnd() && socket.isConnected()){
+						MessageType messageType = MessageType.values()[stream.readSInt32()];
+						byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 						switch(messageType){
 						case CLIENT_BEING:
-							ClientBeing clientBeing = (ClientBeing) SERIALIZER.load(byteStream); 
-							client.player = clientBeing.getPlayer();
+							client.player = NetBeing.parseFrom(buffer);
 							Log.debug("Host.render", "Received player: " + socket.getRemoteAddress());
 							listener.clientBeing(client);
 							break;

@@ -1,0 +1,19 @@
+package proto;
+
+option java_package = "com.blastedstudios.scab.network";
+option java_outer_classname = "Messages";
+
+
+message NetBeing {
+  required string name = 1;
+  optional float pos_x = 2;
+  optional float pos_y = 3;
+  optional float vel_x = 4;
+  optional float vel_y = 5;
+  optional float max_hp = 6;
+  optional float hp = 7;
+  optional int32 currentGun = 8;
+  optional int32 cash = 9;
+  optional int32 level = 10;
+  optional int32 xp = 11;
+}
