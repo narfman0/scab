@@ -56,7 +56,7 @@ public class Host extends BaseNetwork{
 				Log.debug("Host.render", "Disconnecting client: " + client.socket.getRemoteAddress());
 				iter.remove();
 			}else{
-				List<MessageStruct> messages = Shared.receiveMessages(client.inStream, client.socket);
+				List<MessageStruct> messages = receiveMessages(client.inStream, client.socket);
 				for(MessageStruct message : messages){
 					switch(message.messageType){
 					case NAME_UPDATE:
@@ -71,7 +71,7 @@ public class Host extends BaseNetwork{
 						receiveMessage(message.messageType, message.message);
 					}
 				}
-				Shared.sendMessages(currentQueue, client.outStream);
+				sendMessages(currentQueue, client.outStream);
 			}
 		}
 	}

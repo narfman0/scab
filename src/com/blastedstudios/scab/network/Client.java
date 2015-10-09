@@ -31,7 +31,7 @@ public class Client extends BaseNetwork {
 			Log.debug("Client.render", "Disconnected from server: " + target);
 			return;
 		}
-		List<MessageStruct> messages = Shared.receiveMessages(hostStruct.inStream, hostStruct.socket);
+		List<MessageStruct> messages = receiveMessages(hostStruct.inStream, hostStruct.socket);
 		for(MessageStruct message : messages){
 			switch(message.messageType){
 			default:
@@ -39,7 +39,7 @@ public class Client extends BaseNetwork {
 				break;
 			}
 		}
-		Shared.sendMessages(sendQueue, hostStruct.outStream);
+		sendMessages(sendQueue, hostStruct.outStream);
 	}
 	
 	@Override public void dispose(){
