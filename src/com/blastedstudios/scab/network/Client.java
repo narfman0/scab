@@ -1,24 +1,19 @@
 package com.blastedstudios.scab.network;
 
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
-import com.google.protobuf.CodedInputStream;
-import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 
 public class Client {
+	private final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
 	private final IClientListener listener;
-	private final LinkedList<SendStruct> sendQueue = new LinkedList<>();
-	private Socket socket;
-	private CodedOutputStream outStream;
-	private CodedInputStream inStream;
+	private HostStruct hostStruct;
 	
 	public Client(IClientListener listener){
 		this.listener = listener;
@@ -31,40 +26,31 @@ public class Client {
 			host = host.split(":")[0];
 			port = Integer.parseInt(host.split(":")[1]);
 		}
-		socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
-		inStream = CodedInputStream.newInstance(socket.getInputStream());
-		outStream = CodedOutputStream.newInstance(socket.getOutputStream());
+		Socket socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
+		hostStruct = new HostStruct(socket);
 		Log.debug("Client.<init>", "Connected to server: " + socket.getRemoteAddress());
 		listener.connected(socket);
 	}
 	
 	public void render(){
-		if(!socket.isConnected()){
-			listener.disconnected(socket);
-			Log.debug("Client.render", "Disconnected from server: " + (socket == null ? "null" : socket.getRemoteAddress()));
+		if(!hostStruct.socket.isConnected()){
+			listener.disconnected(hostStruct.socket);
+			Log.debug("Client.render", "Disconnected from server: " + (hostStruct.socket == null ? "null" : hostStruct.socket.getRemoteAddress()));
 			return;
 		}
-		for(Iterator<SendStruct> iter = sendQueue.iterator(); iter.hasNext();){
-			SendStruct sendStruct = iter.next();
-			try {
-				outStream.writeSInt32NoTag(sendStruct.messageType.ordinal());
-				outStream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
-				sendStruct.message.writeTo(outStream);
-				Log.debug("Client.render", "Sent message successfully: " + sendStruct.messageType.name());
-			} catch (Exception e) {
-				e.printStackTrace();
+		List<MessageStruct> messages = Shared.receiveMessages(hostStruct.inStream, hostStruct.socket);
+		for(MessageStruct message : messages){
+			switch(message.messageType){
+			default:
+				Log.log("Client.render", "Unknown message received: " + message.messageType + " contents: " + message.message);
+				break;
 			}
-			iter.remove();
 		}
-		try {
-			outStream.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Shared.sendMessages(sendQueue, hostStruct.outStream);
 	}
 	
 	public void dispose(){
-		socket.dispose();
+		hostStruct.socket.dispose();
 	}
 	
 	public interface IClientListener{
@@ -73,16 +59,6 @@ public class Client {
 	}
 
 	public void send(MessageType messageType, Message message) {
-		sendQueue.add(new SendStruct(messageType, message));
-	}
-	
-	class SendStruct{
-		public MessageType messageType;
-		public Message message;
-		
-		public SendStruct(MessageType messageType, Message message){
-			this.messageType = messageType;
-			this.message = message;
-		}
+		sendQueue.add(new MessageStruct(messageType, message));
 	}
 }

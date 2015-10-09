@@ -3,7 +3,7 @@ package com.blastedstudios.scab.ui.levelselect.network;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.blastedstudios.scab.network.ClientStruct;
+import com.blastedstudios.scab.network.HostStruct;
 import com.blastedstudios.scab.network.Host;
 
 public class HostTable extends Table {
@@ -13,19 +13,22 @@ public class HostTable extends Table {
 		super(skin);
 		List<String> clients = new List<String>(skin);
 		host = new Host(new Host.IHostListener() {
-			@Override public void disconnected(ClientStruct struct) {
+			@Override public void disconnected(HostStruct struct) {
 				if(struct.player != null)
 					clients.getItems().removeValue(struct.player.getName(), false);
 				clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
 			}
-			@Override public void connected(ClientStruct struct) {
+			@Override public void connected(HostStruct struct) {
 				clients.getItems().add(struct.socket.getRemoteAddress());
 			}
-			@Override public void nameUpdate(ClientStruct struct) {
-				clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
-				clients.getItems().add(struct.player.getName());
+			@Override public void nameUpdate(HostStruct struct) {
+				// got name, append to ip
+				for(int i=0; i<clients.getItems().size; i++)
+					if(clients.getItems().get(i).equals(struct.socket.getRemoteAddress()))
+						clients.getItems().set(i, clients.getItems().get(i) + " " + struct.player.getName());
 			}
 		});
+		add(clients);
 	}
 	
 	public void render(){

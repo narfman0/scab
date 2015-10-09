@@ -1,5 +1,6 @@
 package com.blastedstudios.scab.network;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,10 +15,11 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.NetBeing;
-import com.google.protobuf.CodedInputStream;
+import com.google.protobuf.Message;
 
 public class Host {
-	private final List<ClientStruct> clients = Collections.synchronizedList(new LinkedList<ClientStruct>());
+	private final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
+	private final List<HostStruct> clients = Collections.synchronizedList(new LinkedList<HostStruct>());
 	private final IHostListener listener;
 	private ServerSocket serverSocket;
 	private Timer timer;
@@ -34,7 +36,7 @@ public class Host {
 					return;
 				}
 				Socket socket = serverSocket.accept(null);
-				ClientStruct client = new ClientStruct(socket); 
+				HostStruct client = new HostStruct(socket); 
 				clients.add(client);
 				Log.debug("Host.<init>", "Added client: " + socket.getRemoteAddress());
 				listener.connected(client);
@@ -46,43 +48,51 @@ public class Host {
 	public void dispose(){
 		serverSocket.dispose();
 		serverSocket = null;
-		for(ClientStruct client : clients)
+		for(HostStruct client : clients)
 			client.socket.dispose();
 		timer.cancel();
 	}
 	
 	public void render(){
-		for(Iterator<ClientStruct> iter = clients.iterator(); iter.hasNext();){
-			ClientStruct client = iter.next();
-			Socket socket = client.socket;
-			if(!socket.isConnected()){
+		// Build new list of messages to send this frame. Grab messages initially, don't check queue again!
+		ArrayList<MessageStruct> currentQueue = new ArrayList<>(sendQueue);
+		// "but jrob, thats a queue that could be modified between copying and clearing, you should iterate..."
+		// GTFO /uninstall /uninstall /uninstall
+		// no but you're right... *shrugs*
+		sendQueue.clear();
+		
+		for(Iterator<HostStruct> iter = clients.iterator(); iter.hasNext();){
+			HostStruct client = iter.next();
+			if(!client.socket.isConnected()){
 				listener.disconnected(client);
-				Log.debug("Host.render", "Disconnecting client: " + socket.getRemoteAddress());
+				Log.debug("Host.render", "Disconnecting client: " + client.socket.getRemoteAddress());
 				iter.remove();
 			}else{
-				CodedInputStream stream = CodedInputStream.newInstance(socket.getInputStream()); 
-				try {
-					while(!stream.isAtEnd() && socket.isConnected()){
-						MessageType messageType = MessageType.values()[stream.readSInt32()];
-						byte[] buffer =  stream.readRawBytes(stream.readSInt32());
-						switch(messageType){
-						case NAME_UPDATE:
-							client.player = NetBeing.parseFrom(buffer);
-							listener.nameUpdate(client);
-							break;
-						}
-						Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());
+				List<MessageStruct> messages = Shared.receiveMessages(client.inStream, client.socket);
+				for(MessageStruct message : messages){
+					switch(message.messageType){
+					case NAME_UPDATE:
+						NetBeing being = (NetBeing) message.message;
+						if(client.player == null)
+							client.player = NetBeing.newBuilder(being);
+						else
+							client.player.setName(being.getName());
+						listener.nameUpdate(client);
+						break;
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
+				Shared.sendMessages(currentQueue, client.outStream);
 			}
 		}
 	}
 	
 	public interface IHostListener{
-		void connected(ClientStruct struct);
-		void disconnected(ClientStruct struct);
-		void nameUpdate(ClientStruct struct);
+		void connected(HostStruct struct);
+		void disconnected(HostStruct struct);
+		void nameUpdate(HostStruct struct);
+	}
+
+	public void send(MessageType messageType, Message message) {
+		sendQueue.add(new MessageStruct(messageType, message));
 	}
 }

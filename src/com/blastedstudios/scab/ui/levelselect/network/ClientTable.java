@@ -19,10 +19,8 @@ public class ClientTable extends Table {
 	
 	public ClientTable(Skin skin, Being player){
 		super(skin);
-		add("Hostname: ");
+		final Table connectTable = new Table(skin);
 		final TextField hostnameText = new TextField("127.0.0.1", skin);
-		add(hostnameText);
-		row();
 		TextButton connectButton = new ScabTextButton("Connect", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				if(client != null){
@@ -41,9 +39,14 @@ public class ClientTable extends Table {
 					}
 				});
 				client.connect(hostnameText.getText());
+				connectTable.remove();
 			}
 		});
-		add(connectButton).colspan(2);
+		connectTable.add("Hostname: ");
+		connectTable.add(hostnameText);
+		connectTable.row();
+		connectTable.add(connectButton).colspan(2);
+		add(connectTable);
 	}
 	
 	public void render(){

@@ -13,7 +13,4 @@ message NetBeing {
   optional float max_hp = 6;
   optional float hp = 7;
   optional int32 currentGun = 8;
-  optional int32 cash = 9;
-  optional int32 level = 10;
-  optional int32 xp = 11;
 }

@@ -88,33 +88,6 @@ public final class Messages {
      * <code>optional int32 currentGun = 8;</code>
      */
     int getCurrentGun();
-
-    /**
-     * <code>optional int32 cash = 9;</code>
-     */
-    boolean hasCash();
-    /**
-     * <code>optional int32 cash = 9;</code>
-     */
-    int getCash();
-
-    /**
-     * <code>optional int32 level = 10;</code>
-     */
-    boolean hasLevel();
-    /**
-     * <code>optional int32 level = 10;</code>
-     */
-    int getLevel();
-
-    /**
-     * <code>optional int32 xp = 11;</code>
-     */
-    boolean hasXp();
-    /**
-     * <code>optional int32 xp = 11;</code>
-     */
-    int getXp();
   }
   /**
    * Protobuf type {@code proto.NetBeing}
@@ -207,21 +180,6 @@ public final class Messages {
             case 64: {
               bitField0_ |= 0x00000080;
               currentGun_ = input.readInt32();
-              break;
-            }
-            case 72: {
-              bitField0_ |= 0x00000100;
-              cash_ = input.readInt32();
-              break;
-            }
-            case 80: {
-              bitField0_ |= 0x00000200;
-              level_ = input.readInt32();
-              break;
-            }
-            case 88: {
-              bitField0_ |= 0x00000400;
-              xp_ = input.readInt32();
               break;
             }
           }
@@ -411,51 +369,6 @@ public final class Messages {
       return currentGun_;
     }
 
-    public static final int CASH_FIELD_NUMBER = 9;
-    private int cash_;
-    /**
-     * <code>optional int32 cash = 9;</code>
-     */
-    public boolean hasCash() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    /**
-     * <code>optional int32 cash = 9;</code>
-     */
-    public int getCash() {
-      return cash_;
-    }
-
-    public static final int LEVEL_FIELD_NUMBER = 10;
-    private int level_;
-    /**
-     * <code>optional int32 level = 10;</code>
-     */
-    public boolean hasLevel() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
-    }
-    /**
-     * <code>optional int32 level = 10;</code>
-     */
-    public int getLevel() {
-      return level_;
-    }
-
-    public static final int XP_FIELD_NUMBER = 11;
-    private int xp_;
-    /**
-     * <code>optional int32 xp = 11;</code>
-     */
-    public boolean hasXp() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
-    }
-    /**
-     * <code>optional int32 xp = 11;</code>
-     */
-    public int getXp() {
-      return xp_;
-    }
-
     private void initFields() {
       name_ = "";
       posX_ = 0F;
@@ -465,9 +378,6 @@ public final class Messages {
       maxHp_ = 0F;
       hp_ = 0F;
       currentGun_ = 0;
-      cash_ = 0;
-      level_ = 0;
-      xp_ = 0;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -510,15 +420,6 @@ public final class Messages {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeInt32(8, currentGun_);
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeInt32(9, cash_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeInt32(10, level_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeInt32(11, xp_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -559,18 +460,6 @@ public final class Messages {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(8, currentGun_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, cash_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, level_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(11, xp_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -705,12 +594,6 @@ public final class Messages {
         bitField0_ = (bitField0_ & ~0x00000040);
         currentGun_ = 0;
         bitField0_ = (bitField0_ & ~0x00000080);
-        cash_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000100);
-        level_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000200);
-        xp_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000400);
         return this;
       }
 
@@ -771,18 +654,6 @@ public final class Messages {
           to_bitField0_ |= 0x00000080;
         }
         result.currentGun_ = currentGun_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.cash_ = cash_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000200;
-        }
-        result.level_ = level_;
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
-          to_bitField0_ |= 0x00000400;
-        }
-        result.xp_ = xp_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -824,15 +695,6 @@ public final class Messages {
         }
         if (other.hasCurrentGun()) {
           setCurrentGun(other.getCurrentGun());
-        }
-        if (other.hasCash()) {
-          setCash(other.getCash());
-        }
-        if (other.hasLevel()) {
-          setLevel(other.getLevel());
-        }
-        if (other.hasXp()) {
-          setXp(other.getXp());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1165,102 +1027,6 @@ public final class Messages {
         return this;
       }
 
-      private int cash_ ;
-      /**
-       * <code>optional int32 cash = 9;</code>
-       */
-      public boolean hasCash() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
-      }
-      /**
-       * <code>optional int32 cash = 9;</code>
-       */
-      public int getCash() {
-        return cash_;
-      }
-      /**
-       * <code>optional int32 cash = 9;</code>
-       */
-      public Builder setCash(int value) {
-        bitField0_ |= 0x00000100;
-        cash_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 cash = 9;</code>
-       */
-      public Builder clearCash() {
-        bitField0_ = (bitField0_ & ~0x00000100);
-        cash_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int level_ ;
-      /**
-       * <code>optional int32 level = 10;</code>
-       */
-      public boolean hasLevel() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
-      }
-      /**
-       * <code>optional int32 level = 10;</code>
-       */
-      public int getLevel() {
-        return level_;
-      }
-      /**
-       * <code>optional int32 level = 10;</code>
-       */
-      public Builder setLevel(int value) {
-        bitField0_ |= 0x00000200;
-        level_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 level = 10;</code>
-       */
-      public Builder clearLevel() {
-        bitField0_ = (bitField0_ & ~0x00000200);
-        level_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private int xp_ ;
-      /**
-       * <code>optional int32 xp = 11;</code>
-       */
-      public boolean hasXp() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
-      }
-      /**
-       * <code>optional int32 xp = 11;</code>
-       */
-      public int getXp() {
-        return xp_;
-      }
-      /**
-       * <code>optional int32 xp = 11;</code>
-       */
-      public Builder setXp(int value) {
-        bitField0_ |= 0x00000400;
-        xp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 xp = 11;</code>
-       */
-      public Builder clearXp() {
-        bitField0_ = (bitField0_ & ~0x00000400);
-        xp_ = 0;
-        onChanged();
-        return this;
-      }
-
       // @@protoc_insertion_point(builder_scope:proto.NetBeing)
     }
 
@@ -1286,13 +1052,12 @@ public final class Messages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025network/network.proto\022\005proto\"\255\001\n\010NetBe" +
+      "\n\025network/network.proto\022\005proto\"\204\001\n\010NetBe" +
       "ing\022\014\n\004name\030\001 \002(\t\022\r\n\005pos_x\030\002 \001(\002\022\r\n\005pos_" +
       "y\030\003 \001(\002\022\r\n\005vel_x\030\004 \001(\002\022\r\n\005vel_y\030\005 \001(\002\022\016\n" +
       "\006max_hp\030\006 \001(\002\022\n\n\002hp\030\007 \001(\002\022\022\n\ncurrentGun\030" +
-      "\010 \001(\005\022\014\n\004cash\030\t \001(\005\022\r\n\005level\030\n \001(\005\022\n\n\002xp" +
-      "\030\013 \001(\005B+\n\037com.blastedstudios.scab.networ" +
-      "kB\010Messages"
+      "\010 \001(\005B+\n\037com.blastedstudios.scab.network" +
+      "B\010Messages"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1311,7 +1076,7 @@ public final class Messages {
     internal_static_proto_NetBeing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
-        new java.lang.String[] { "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentGun", "Cash", "Level", "Xp", });
+        new java.lang.String[] { "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentGun", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
