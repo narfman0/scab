@@ -1,6 +1,5 @@
 package com.blastedstudios.scab.network;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -8,11 +7,8 @@ import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
-import com.google.protobuf.Message;
 
-public class Client {
-	private final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
-	private final LinkedList<INetworkListener> listeners = new LinkedList<>();
+public class Client extends BaseNetwork {
 	private HostStruct hostStruct;
 	
 	public void connect(String host){
@@ -25,14 +21,12 @@ public class Client {
 		Socket socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
 		hostStruct = new HostStruct(socket);
 		Log.debug("Client.<init>", "Connected to server: " + socket.getRemoteAddress());
-		for(INetworkListener listener : listeners)
-			listener.connected(hostStruct);
+		receiveMessage(MessageType.CONNECTED, hostStruct);
 	}
 	
 	public void render(){
 		if(!hostStruct.socket.isConnected()){
-			for(INetworkListener listener : listeners)
-				listener.disconnected(hostStruct);
+			receiveMessage(MessageType.DISCONNECTED, hostStruct);
 			String target = hostStruct == null || hostStruct.socket == null ? "null" : hostStruct.socket.getRemoteAddress();
 			Log.debug("Client.render", "Disconnected from server: " + target);
 			return;
@@ -48,19 +42,7 @@ public class Client {
 		Shared.sendMessages(sendQueue, hostStruct.outStream);
 	}
 	
-	public void dispose(){
+	@Override public void dispose(){
 		hostStruct.socket.dispose();
-	}
-
-	public void send(MessageType messageType, Message message) {
-		sendQueue.add(new MessageStruct(messageType, message));
-	}
-	
-	public void addListener(INetworkListener listener){
-		listeners.add(listener);
-	}
-	
-	public void removeListener(INetworkListener listener){
-		listeners.remove(listener);
 	}
 }

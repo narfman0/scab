@@ -43,6 +43,10 @@ public class Shared {
 				case TEXT_MESSAGE:
 					messages.add(new MessageStruct(messageType, Text.parseFrom(buffer)));
 					break;
+				case CONNECTED:
+				case DISCONNECTED:
+					//Do nothing intentionally!
+					break;
 				}
 				Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());
 			}

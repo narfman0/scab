@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Client;
-import com.blastedstudios.scab.network.HostStruct;
-import com.blastedstudios.scab.network.INetworkListener;
+import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.Text;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.world.being.Being;
 
@@ -30,14 +30,8 @@ public class ClientTable extends Table {
 					return;
 				}
 				client = new Client();
-				client.addListener(new INetworkListener() {
-					@Override public void disconnected(HostStruct struct) {
-						client.dispose();
-						client = null;
-						chatTable.remove();
-						chatTable = null;
-					}
-					@Override public void connected(HostStruct struct) {
+				client.addListener(MessageType.CONNECTED, new IMessageListener() {
+					@Override public void receive(Object object) {
 						clientTable.remove();
 						chatTable = new ChatTable(skin);
 						clientTable.add(chatTable);
@@ -46,10 +40,20 @@ public class ClientTable extends Table {
 						netBeing.setName(player.getName());
 						client.send(MessageType.NAME_UPDATE, netBeing.build());
 					}
-					@Override public void nameUpdate(HostStruct struct) {}
-					@Override public void textMessage(HostStruct struct, String text) {
+				});
+				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {
+					@Override public void receive(Object object) {
+						client.dispose();
+						client = null;
+						chatTable.remove();
+						chatTable = null;
+					}
+				});
+				client.addListener(MessageType.TEXT_MESSAGE, new IMessageListener() {
+					@Override public void receive(Object object) {
+						Text message = (Text) object;
 						if(chatTable != null)
-							chatTable.getChatText().appendText("\n" + text);
+							chatTable.getChatText().appendText("\n" + message.getContent());
 					}
 				});
 				client.connect(hostnameText.getText());
