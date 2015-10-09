@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.Text;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 
@@ -38,6 +39,9 @@ public class Shared {
 				switch(messageType){
 				case NAME_UPDATE:
 					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
+					break;
+				case TEXT_MESSAGE:
+					messages.add(new MessageStruct(messageType, Text.parseFrom(buffer)));
 					break;
 				}
 				Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());

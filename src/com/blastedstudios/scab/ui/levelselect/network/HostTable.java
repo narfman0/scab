@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.blastedstudios.scab.network.HostStruct;
 import com.blastedstudios.scab.network.Host;
+import com.blastedstudios.scab.network.INetworkListener;
 
 public class HostTable extends Table {
 	private Host host;
@@ -12,7 +13,8 @@ public class HostTable extends Table {
 	public HostTable(Skin skin){
 		super(skin);
 		List<String> clients = new List<String>(skin);
-		host = new Host(new Host.IHostListener() {
+		host = new Host();
+		host.addListener(new INetworkListener() {
 			@Override public void disconnected(HostStruct struct) {
 				if(struct.player != null)
 					clients.getItems().removeValue(struct.player.getName(), false);
@@ -26,6 +28,9 @@ public class HostTable extends Table {
 				for(int i=0; i<clients.getItems().size; i++)
 					if(clients.getItems().get(i).equals(struct.socket.getRemoteAddress()))
 						clients.getItems().set(i, clients.getItems().get(i) + " " + struct.player.getName());
+			}
+			@Override public void textMessage(HostStruct struct, String text) {
+				// TODO Auto-generated method stub
 			}
 		});
 		add(clients);

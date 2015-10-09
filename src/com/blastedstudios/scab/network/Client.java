@@ -12,12 +12,8 @@ import com.google.protobuf.Message;
 
 public class Client {
 	private final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
-	private final IClientListener listener;
+	private final LinkedList<INetworkListener> listeners = new LinkedList<>();
 	private HostStruct hostStruct;
-	
-	public Client(IClientListener listener){
-		this.listener = listener;
-	}
 	
 	public void connect(String host){
 		int port = Properties.getInt("network.port");
@@ -29,13 +25,16 @@ public class Client {
 		Socket socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
 		hostStruct = new HostStruct(socket);
 		Log.debug("Client.<init>", "Connected to server: " + socket.getRemoteAddress());
-		listener.connected(socket);
+		for(INetworkListener listener : listeners)
+			listener.connected(hostStruct);
 	}
 	
 	public void render(){
 		if(!hostStruct.socket.isConnected()){
-			listener.disconnected(hostStruct.socket);
-			Log.debug("Client.render", "Disconnected from server: " + (hostStruct.socket == null ? "null" : hostStruct.socket.getRemoteAddress()));
+			for(INetworkListener listener : listeners)
+				listener.disconnected(hostStruct);
+			String target = hostStruct == null || hostStruct.socket == null ? "null" : hostStruct.socket.getRemoteAddress();
+			Log.debug("Client.render", "Disconnected from server: " + target);
 			return;
 		}
 		List<MessageStruct> messages = Shared.receiveMessages(hostStruct.inStream, hostStruct.socket);
@@ -52,13 +51,16 @@ public class Client {
 	public void dispose(){
 		hostStruct.socket.dispose();
 	}
-	
-	public interface IClientListener{
-		void connected(Socket socket);
-		void disconnected(Socket socket);
-	}
 
 	public void send(MessageType messageType, Message message) {
 		sendQueue.add(new MessageStruct(messageType, message));
+	}
+	
+	public void addListener(INetworkListener listener){
+		listeners.add(listener);
+	}
+	
+	public void removeListener(INetworkListener listener){
+		listeners.remove(listener);
 	}
 }

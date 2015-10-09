@@ -15,17 +15,17 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.Text;
 import com.google.protobuf.Message;
 
 public class Host {
 	private final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
 	private final List<HostStruct> clients = Collections.synchronizedList(new LinkedList<HostStruct>());
-	private final IHostListener listener;
+	private final LinkedList<INetworkListener> listeners = new LinkedList<>();
 	private ServerSocket serverSocket;
 	private Timer timer;
 	
-	public Host(IHostListener listener){
-		this.listener = listener;
+	public Host(){
 		serverSocket = Gdx.net.newServerSocket(Protocol.TCP, Properties.getInt("network.port"), null);
 		timer = new Timer("Server accept thread");
 		timer.schedule(new TimerTask() {
@@ -39,7 +39,8 @@ public class Host {
 				HostStruct client = new HostStruct(socket); 
 				clients.add(client);
 				Log.debug("Host.<init>", "Added client: " + socket.getRemoteAddress());
-				listener.connected(client);
+				for(INetworkListener listener : listeners)
+					listener.connected(client);
 			}
 		}, 0, 100);
 		Log.debug("Host.<init>", "Network created, listening for conenctions");
@@ -64,7 +65,8 @@ public class Host {
 		for(Iterator<HostStruct> iter = clients.iterator(); iter.hasNext();){
 			HostStruct client = iter.next();
 			if(!client.socket.isConnected()){
-				listener.disconnected(client);
+				for(INetworkListener listener : listeners)
+					listener.disconnected(client);
 				Log.debug("Host.render", "Disconnecting client: " + client.socket.getRemoteAddress());
 				iter.remove();
 			}else{
@@ -77,7 +79,13 @@ public class Host {
 							client.player = NetBeing.newBuilder(being);
 						else
 							client.player.setName(being.getName());
-						listener.nameUpdate(client);
+						for(INetworkListener listener : listeners)
+							listener.nameUpdate(client);
+						break;
+					case TEXT_MESSAGE:
+						Text text = (Text)message.message;
+						for(INetworkListener listener : listeners)
+							listener.textMessage(client, text.getContent());
 						break;
 					}
 				}
@@ -85,14 +93,16 @@ public class Host {
 			}
 		}
 	}
-	
-	public interface IHostListener{
-		void connected(HostStruct struct);
-		void disconnected(HostStruct struct);
-		void nameUpdate(HostStruct struct);
-	}
 
 	public void send(MessageType messageType, Message message) {
 		sendQueue.add(new MessageStruct(messageType, message));
+	}
+	
+	public void addListener(INetworkListener listener){
+		listeners.add(listener);
+	}
+	
+	public void removeListener(INetworkListener listener){
+		listeners.remove(listener);
 	}
 }

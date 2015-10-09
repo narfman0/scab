@@ -14,3 +14,7 @@ message NetBeing {
   optional float hp = 7;
   optional int32 currentGun = 8;
 }
+
+message Text {
+	required string content = 1;
+}
