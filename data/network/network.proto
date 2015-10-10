@@ -21,4 +21,5 @@ message TextRequest {
 
 message Text {
   required string content = 1;
+  required string origin = 2;
 }

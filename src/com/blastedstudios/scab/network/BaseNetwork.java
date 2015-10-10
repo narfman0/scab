@@ -3,6 +3,7 @@ package com.blastedstudios.scab.network;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,8 +30,10 @@ public abstract class BaseNetwork {
 	 * a.k.a. receive, heed, execute, send
 	 */
 	public void receiveMessage(MessageType messageType, Object message){
-		for(IMessageListener listener : listeners.get(messageType))
+		for(Iterator<IMessageListener> iter = listeners.get(messageType).iterator(); iter.hasNext();){
+			IMessageListener listener = iter.next();
 			listener.receive(message);
+		}
 	}
 
 	/**

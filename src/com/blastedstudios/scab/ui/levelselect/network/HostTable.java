@@ -7,14 +7,15 @@ import com.blastedstudios.scab.network.HostStruct;
 import com.blastedstudios.scab.network.Host;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.MessageType;
+import com.blastedstudios.scab.world.being.Being;
 
 public class HostTable extends Table {
 	private final Host host;
 	
-	public HostTable(Skin skin){
+	public HostTable(Skin skin, Being player){
 		super(skin);
 		List<String> clients = new List<String>(skin);
-		host = new Host();
+		host = new Host(player);
 		host.addListener(MessageType.CONNECTED, new IMessageListener() {
 			@Override public void receive(Object object) {
 				if(object != null){
@@ -28,7 +29,8 @@ public class HostTable extends Table {
 				HostStruct struct = (HostStruct) object;
 				if(struct.player != null)
 					clients.getItems().removeValue(struct.player.getName(), false);
-				clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
+				if(struct != null && struct.socket != null)
+					clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
 			}
 		});
 		host.addListener(MessageType.NAME_UPDATE, new IMessageListener() {
@@ -40,7 +42,7 @@ public class HostTable extends Table {
 						clients.getItems().set(i, clients.getItems().get(i) + " " + struct.player.getName());
 			}
 		});
-		add(clients);
+		add(clients).colspan(2).fillX().expandX();
 	}
 	
 	public void render(){

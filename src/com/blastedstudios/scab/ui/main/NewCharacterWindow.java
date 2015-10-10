@@ -41,6 +41,8 @@ class NewCharacterWindow extends ScabWindow{
 		nameField.setMaxLength(12);
 		final Button createButton = new ScabTextButton("Create", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
+				if(nameField.getText().isEmpty())
+					return;
 				NPCData npcData = NPCData.parse("player");
 				Player player = new Player(nameField.getText(), 
 						WeaponFactory.getGuns(npcData.get("Weapons")), new ArrayList<Weapon>(), 

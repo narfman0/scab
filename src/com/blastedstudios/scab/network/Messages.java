@@ -1539,6 +1539,20 @@ public final class Messages {
      */
     com.google.protobuf.ByteString
         getContentBytes();
+
+    /**
+     * <code>required string origin = 2;</code>
+     */
+    boolean hasOrigin();
+    /**
+     * <code>required string origin = 2;</code>
+     */
+    java.lang.String getOrigin();
+    /**
+     * <code>required string origin = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getOriginBytes();
   }
   /**
    * Protobuf type {@code proto.Text}
@@ -1596,6 +1610,12 @@ public final class Messages {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
               content_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              origin_ = bs;
               break;
             }
           }
@@ -1680,8 +1700,51 @@ public final class Messages {
       }
     }
 
+    public static final int ORIGIN_FIELD_NUMBER = 2;
+    private java.lang.Object origin_;
+    /**
+     * <code>required string origin = 2;</code>
+     */
+    public boolean hasOrigin() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string origin = 2;</code>
+     */
+    public java.lang.String getOrigin() {
+      java.lang.Object ref = origin_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          origin_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string origin = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOriginBytes() {
+      java.lang.Object ref = origin_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        origin_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       content_ = "";
+      origin_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1690,6 +1753,10 @@ public final class Messages {
       if (isInitialized == 0) return false;
 
       if (!hasContent()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOrigin()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -1703,6 +1770,9 @@ public final class Messages {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getContentBytes());
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getOriginBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1715,6 +1785,10 @@ public final class Messages {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getContentBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getOriginBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1835,6 +1909,8 @@ public final class Messages {
         super.clear();
         content_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        origin_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -1867,6 +1943,10 @@ public final class Messages {
           to_bitField0_ |= 0x00000001;
         }
         result.content_ = content_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.origin_ = origin_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1888,12 +1968,21 @@ public final class Messages {
           content_ = other.content_;
           onChanged();
         }
+        if (other.hasOrigin()) {
+          bitField0_ |= 0x00000002;
+          origin_ = other.origin_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
         if (!hasContent()) {
+          
+          return false;
+        }
+        if (!hasOrigin()) {
           
           return false;
         }
@@ -1995,6 +2084,82 @@ public final class Messages {
         return this;
       }
 
+      private java.lang.Object origin_ = "";
+      /**
+       * <code>required string origin = 2;</code>
+       */
+      public boolean hasOrigin() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string origin = 2;</code>
+       */
+      public java.lang.String getOrigin() {
+        java.lang.Object ref = origin_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            origin_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string origin = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOriginBytes() {
+        java.lang.Object ref = origin_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          origin_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string origin = 2;</code>
+       */
+      public Builder setOrigin(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        origin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string origin = 2;</code>
+       */
+      public Builder clearOrigin() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        origin_ = getDefaultInstance().getOrigin();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string origin = 2;</code>
+       */
+      public Builder setOriginBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        origin_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:proto.Text)
     }
 
@@ -2034,9 +2199,10 @@ public final class Messages {
       "ing\022\014\n\004name\030\001 \002(\t\022\r\n\005pos_x\030\002 \001(\002\022\r\n\005pos_" +
       "y\030\003 \001(\002\022\r\n\005vel_x\030\004 \001(\002\022\r\n\005vel_y\030\005 \001(\002\022\016\n" +
       "\006max_hp\030\006 \001(\002\022\n\n\002hp\030\007 \001(\002\022\022\n\ncurrentGun\030" +
-      "\010 \001(\005\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t\"\027\n" +
-      "\004Text\022\017\n\007content\030\001 \002(\tB+\n\037com.blastedstu" +
-      "dios.scab.networkB\010Messages"
+      "\010 \001(\005\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t\"\'\n" +
+      "\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002 \002(\tB+" +
+      "\n\037com.blastedstudios.scab.networkB\010Messa" +
+      "ges"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2067,7 +2233,7 @@ public final class Messages {
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
-        new java.lang.String[] { "Content", });
+        new java.lang.String[] { "Content", "Origin", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

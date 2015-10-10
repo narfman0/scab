@@ -33,7 +33,7 @@ public class NetworkWindow extends ScabWindow{
 					clientTable.remove();
 				switch(multiplayerTypeSelect.getSelected()){
 				case Host:
-					hostTable = new HostTable(skin);
+					hostTable = new HostTable(skin, player);
 					multiplayerTypeParentTable.add(hostTable);
 					break;
 				case Client:

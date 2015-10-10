@@ -17,14 +17,17 @@ import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.Text;
 import com.blastedstudios.scab.network.Messages.TextRequest;
+import com.blastedstudios.scab.world.being.Being;
 import com.google.protobuf.Message;
 
 public class Host extends BaseNetwork{
 	private final List<HostStruct> clients = Collections.synchronizedList(new LinkedList<HostStruct>());
 	private ServerSocket serverSocket;
 	private Timer timer;
+	private Being player;
 	
-	public Host(){
+	public Host(Being player){
+		this.player = player;
 		serverSocket = Gdx.net.newServerSocket(Protocol.TCP, Properties.getInt("network.port"), null);
 		timer = new Timer("Server accept thread");
 		timer.schedule(new TimerTask() {
@@ -75,6 +78,7 @@ public class Host extends BaseNetwork{
 						TextRequest request = (TextRequest) message.message;
 						Text.Builder builder = Text.newBuilder();
 						builder.setContent(request.getContent());
+						builder.setOrigin(client.toString());
 						send(MessageType.TEXT, builder.build());
 					default:
 						receiveMessage(message.messageType, message.message);
@@ -94,6 +98,7 @@ public class Host extends BaseNetwork{
 			TextRequest request = (TextRequest) message;
 			Text.Builder builder = Text.newBuilder();
 			builder.setContent(request.getContent());
+			builder.setOrigin(player.getName());
 			message = builder.build();
 			messageType = MessageType.TEXT;
 			receiveMessage(messageType, message);

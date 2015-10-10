@@ -26,7 +26,6 @@ public class ChatWindow extends ScabWindow implements IMessageListener {
 		this.network = network;
 		chatText = new TextArea("", skin);
 		chatText.setPrefRows(5);
-		chatText.setWidth(800f);
 		chatText.setTouchable(Touchable.disabled);
 		sendText = new TextField("", skin);
 		if(network.isConnected()){
@@ -48,15 +47,15 @@ public class ChatWindow extends ScabWindow implements IMessageListener {
 				sendText.setText("");
 			}
 		});
-		sendText.setWidth(chatText.getWidth() - sendButton.getWidth() - 8f);
-		add("Chat");
+		add("Chat").colspan(2).expandX();
 		row();
-		add(chatText).colspan(2);
+		add(chatText).colspan(2).fillX().expandX();
 		row();
-		add(sendText);
+		add(sendText).fillX().expandX();
 		add(sendButton);
 
 		pack();
+		setWidth(Gdx.graphics.getWidth()/2);
 		setX(Gdx.graphics.getWidth()/2 - getWidth()/2);
 		setMovable(false);
 	}
@@ -69,8 +68,9 @@ public class ChatWindow extends ScabWindow implements IMessageListener {
 
 	@Override public void receive(Object object) {
 		Text text = (Text) object;
-		String appended = chatText.getText().equals("") ? "" : "\n";
-		chatText.setText(chatText.getText() + appended + text.getContent());
+		String appended = chatText.getText().isEmpty() ? "" : "\n";
+		appended += text.getOrigin() + ": " + text.getContent();
+		chatText.setText(chatText.getText() + appended);
 		chatText.setCursorPosition(chatText.getText().length()-1);
 	}
 }

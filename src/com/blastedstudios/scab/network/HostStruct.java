@@ -16,4 +16,8 @@ public class HostStruct {
 		inStream = CodedInputStream.newInstance(socket.getInputStream());
 		outStream = CodedOutputStream.newInstance(socket.getOutputStream());
 	}
+	
+	public String toString(){
+		return player != null && player.hasName() ? player.getName() : socket.getRemoteAddress();
+	}
 }
