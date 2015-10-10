@@ -15,6 +15,9 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.Text;
+import com.blastedstudios.scab.network.Messages.TextRequest;
+import com.google.protobuf.Message;
 
 public class Host extends BaseNetwork{
 	private final List<HostStruct> clients = Collections.synchronizedList(new LinkedList<HostStruct>());
@@ -26,19 +29,20 @@ public class Host extends BaseNetwork{
 		timer = new Timer("Server accept thread");
 		timer.schedule(new TimerTask() {
 			@Override public void run() {
-				if(serverSocket == null){
-					// Network has shut down, dispose of everything
+				try{
+					Socket socket = serverSocket.accept(null);
+					HostStruct client = new HostStruct(socket); 
+					clients.add(client);
+					Log.debug("Host.<init>", "Added client: " + socket.getRemoteAddress());
+					receiveMessage(MessageType.CONNECTED, client);
+				}catch(Exception e){
+					Log.error("Host.<init> timer.tick", "Exception received, aborting host thread. Message: " + e.getMessage());
 					this.cancel();
-					return;
 				}
-				Socket socket = serverSocket.accept(null);
-				HostStruct client = new HostStruct(socket); 
-				clients.add(client);
-				Log.debug("Host.<init>", "Added client: " + socket.getRemoteAddress());
-				receiveMessage(MessageType.CONNECTED, client);
 			}
 		}, 0, 100);
 		Log.debug("Host.<init>", "Network created, listening for conenctions");
+		receiveMessage(MessageType.CONNECTED, null);
 	}
 	
 	public void render(){
@@ -67,6 +71,11 @@ public class Host extends BaseNetwork{
 							client.player.setName(being.getName());
 						receiveMessage(MessageType.NAME_UPDATE, client);
 						break;
+					case TEXT_REQUEST:
+						TextRequest request = (TextRequest) message.message;
+						Text.Builder builder = Text.newBuilder();
+						builder.setContent(request.getContent());
+						send(MessageType.TEXT, builder.build());
 					default:
 						receiveMessage(message.messageType, message.message);
 					}
@@ -75,12 +84,41 @@ public class Host extends BaseNetwork{
 			}
 		}
 	}
+
+	/**
+	 * Intercept send messages and translate as need be, e.g. textrequests can just be texts immediately
+	 */
+	@Override public void send(MessageType messageType, Message message) {
+		switch(messageType){
+		case TEXT_REQUEST:
+			TextRequest request = (TextRequest) message;
+			Text.Builder builder = Text.newBuilder();
+			builder.setContent(request.getContent());
+			message = builder.build();
+			messageType = MessageType.TEXT;
+			receiveMessage(messageType, message);
+			break;
+		case TEXT:
+			receiveMessage(messageType, message);
+			break;
+		default:
+			break;
+		}
+		super.send(messageType, message);
+	}
 	
 	@Override public void dispose(){
-		serverSocket.dispose();
+		if(serverSocket != null)
+			serverSocket.dispose();
 		serverSocket = null;
 		for(HostStruct client : clients)
 			client.socket.dispose();
-		timer.cancel();
+		if(timer != null)
+			timer.cancel();
+		timer = null;
+	}
+
+	@Override public boolean isConnected() {
+		return serverSocket != null;
 	}
 }

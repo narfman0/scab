@@ -25,24 +25,28 @@ public class Client extends BaseNetwork {
 	}
 	
 	public void render(){
-		if(!hostStruct.socket.isConnected()){
-			receiveMessage(MessageType.DISCONNECTED, hostStruct);
-			String target = hostStruct == null || hostStruct.socket == null ? "null" : hostStruct.socket.getRemoteAddress();
-			Log.debug("Client.render", "Disconnected from server: " + target);
+		if(!isConnected())
 			return;
-		}
 		List<MessageStruct> messages = receiveMessages(hostStruct.inStream, hostStruct.socket);
 		for(MessageStruct message : messages){
 			switch(message.messageType){
 			default:
-				Log.log("Client.render", "Unknown message received: " + message.messageType + " contents: " + message.message);
+				receiveMessage(message.messageType, message.message);
+				Log.log("Client.render", "Message received: " + message.messageType + " contents: " + message.message);
 				break;
 			}
 		}
 		sendMessages(sendQueue, hostStruct.outStream);
+		sendQueue.clear();
 	}
 	
 	@Override public void dispose(){
-		hostStruct.socket.dispose();
+		if(hostStruct != null && hostStruct.socket != null)
+			hostStruct.socket.dispose();
+		hostStruct = null;
+	}
+
+	@Override public boolean isConnected() {
+		return hostStruct != null && hostStruct.socket != null && hostStruct.socket.isConnected();
 	}
 }

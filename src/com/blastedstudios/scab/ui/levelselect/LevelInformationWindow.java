@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,12 +20,16 @@ import com.blastedstudios.scab.util.ui.ScabWindow;
 import com.blastedstudios.scab.world.being.Player;
 
 class LevelInformationWindow extends ScabWindow{
+	final List<String> levelList;
+	
 	public LevelInformationWindow(final Skin skin, 
 			final GDXGame game, final Player player, final GDXWorld world, 
 			final FileHandle selectedFile, final GDXRenderer gdxRenderer,
-			final AssetManager sharedAssets, final LevelSelectScreen screen) {
+			final AssetManager sharedAssets, final LevelSelectScreen screen,
+			boolean isLocal, boolean isHost) {
 		super("", skin);
-		final List<String> levelList = new List<>(skin);
+		levelList = new List<>(skin);
+		levelList.setTouchable(isLocal || isHost ? Touchable.enabled : Touchable.disabled);
 		for(GDXLevel level : world.getLevels())
 			levelList.getItems().add(level.getName());
 		final Button startButton = new ScabTextButton("Start", skin, new ClickListener() {
@@ -34,11 +39,13 @@ class LevelInformationWindow extends ScabWindow{
 						new GameplayLoadingWindowExecutor(game, player, level, world, selectedFile, gdxRenderer, sharedAssets)));
 			}
 		});
-		add("Select level:");
+		add(isLocal || isHost ? "Select level: " : "Level: ");
 		row();
 		add(levelList);
-		row();
-		add(startButton);
+		if(isLocal || isHost){
+			row();
+			add(startButton);
+		}
 		pack();
 		setX(Gdx.graphics.getWidth()/2 - getWidth()/2);
 		setY(Gdx.graphics.getHeight()/2 - getHeight()/2);

@@ -9,7 +9,7 @@ import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.MessageType;
 
 public class HostTable extends Table {
-	private Host host;
+	private final Host host;
 	
 	public HostTable(Skin skin){
 		super(skin);
@@ -17,8 +17,10 @@ public class HostTable extends Table {
 		host = new Host();
 		host.addListener(MessageType.CONNECTED, new IMessageListener() {
 			@Override public void receive(Object object) {
-				HostStruct struct = (HostStruct) object;
-				clients.getItems().add(struct.socket.getRemoteAddress());
+				if(object != null){
+					HostStruct struct = (HostStruct) object;
+					clients.getItems().add(struct.socket.getRemoteAddress());
+				}
 			}
 		});
 		host.addListener(MessageType.DISCONNECTED, new IMessageListener() {
@@ -48,5 +50,9 @@ public class HostTable extends Table {
 	@Override public boolean remove(){
 		host.dispose();
 		return super.remove();
+	}
+
+	public Host getHost() {
+		return host;
 	}
 }

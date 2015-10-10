@@ -11,13 +11,11 @@ import com.blastedstudios.scab.network.Client;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
-import com.blastedstudios.scab.network.Messages.Text;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.world.being.Being;
 
 public class ClientTable extends Table {
-	private Client client;
-	private ChatTable chatTable;
+	private final Client client = new Client();
 	
 	public ClientTable(Skin skin, Being player){
 		super(skin);
@@ -25,16 +23,12 @@ public class ClientTable extends Table {
 		final TextField hostnameText = new TextField("127.0.0.1", skin);
 		TextButton connectButton = new ScabTextButton("Connect", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
-				if(client != null){
+				if(client.isConnected()){
 					Log.error("ClientTable.<init>", "Already connected to a host, aborting");
 					return;
 				}
-				client = new Client();
 				client.addListener(MessageType.CONNECTED, new IMessageListener() {
 					@Override public void receive(Object object) {
-						clientTable.remove();
-						chatTable = new ChatTable(skin);
-						clientTable.add(chatTable);
 						// send minimal information - name!
 						NetBeing.Builder netBeing = NetBeing.newBuilder();
 						netBeing.setName(player.getName());
@@ -44,16 +38,6 @@ public class ClientTable extends Table {
 				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {
 					@Override public void receive(Object object) {
 						client.dispose();
-						client = null;
-						chatTable.remove();
-						chatTable = null;
-					}
-				});
-				client.addListener(MessageType.TEXT_MESSAGE, new IMessageListener() {
-					@Override public void receive(Object object) {
-						Text message = (Text) object;
-						if(chatTable != null)
-							chatTable.getChatText().appendText("\n" + message.getContent());
 					}
 				});
 				client.connect(hostnameText.getText());
@@ -67,13 +51,15 @@ public class ClientTable extends Table {
 	}
 	
 	public void render(){
-		if(client != null)
-			client.render();
+		client.render();
 	}
 	
 	@Override public boolean remove(){
-		if(client != null)
-			client.dispose();
+		client.dispose();
 		return super.remove();
+	}
+
+	public Client getClient() {
+		return client;
 	}
 }

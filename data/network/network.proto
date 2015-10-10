@@ -15,6 +15,10 @@ message NetBeing {
   optional int32 currentGun = 8;
 }
 
+message TextRequest {
+  required string content = 1;
+}
+
 message Text {
-	required string content = 1;
+  required string content = 1;
 }

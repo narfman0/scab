@@ -10,6 +10,7 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.Text;
+import com.blastedstudios.scab.network.Messages.TextRequest;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
@@ -45,18 +46,24 @@ public abstract class BaseNetwork {
 	}
 	
 	public void removeListener(MessageType messageType, IMessageListener listener){
-		listeners.remove(listener);
+		listeners.get(messageType).remove(listener);
 	}
 	
 	public void removeListener(IMessageListener listener){
 		for(HashSet<IMessageListener> messageListeners : listeners.values())
 			messageListeners.remove(listener);
 	}
+	
+	public void clearListeners(){
+		for(HashSet<IMessageListener> messageListeners : listeners.values())
+			messageListeners.clear();
+	}
 
 	public abstract void dispose();
+	public abstract boolean isConnected();
 
-	protected static void sendMessages(List<MessageStruct> currentQueue, CodedOutputStream stream){
-		for(MessageStruct sendStruct : currentQueue){
+	protected static void sendMessages(List<MessageStruct> messages, CodedOutputStream stream){
+		for(MessageStruct sendStruct : messages){
 			try {
 				stream.writeSInt32NoTag(sendStruct.messageType.ordinal());
 				stream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
@@ -83,8 +90,11 @@ public abstract class BaseNetwork {
 				case NAME_UPDATE:
 					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
 					break;
-				case TEXT_MESSAGE:
+				case TEXT:
 					messages.add(new MessageStruct(messageType, Text.parseFrom(buffer)));
+					break;
+				case TEXT_REQUEST:
+					messages.add(new MessageStruct(messageType, TextRequest.parseFrom(buffer)));
 					break;
 				case CONNECTED:
 				case DISCONNECTED:

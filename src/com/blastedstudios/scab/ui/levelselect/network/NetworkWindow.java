@@ -6,11 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.util.ui.ScabWindow;
 import com.blastedstudios.scab.world.being.Being;
 
 public class NetworkWindow extends ScabWindow{
-	enum MultiplayerType{
+	public enum MultiplayerType{
 		Local, Host, Client
 	}
 	
@@ -18,7 +19,7 @@ public class NetworkWindow extends ScabWindow{
 	private HostTable hostTable = null;
 	private ClientTable clientTable = null;
 
-	public NetworkWindow(Skin skin, Being player) {
+	public NetworkWindow(Skin skin, Being player, INetworkWindowListener listener) {
 		super("", skin);
 		multiplayerTypeParentTable = new Table(skin);
 		final SelectBox<MultiplayerType> multiplayerTypeSelect = new SelectBox<>(skin);
@@ -42,6 +43,7 @@ public class NetworkWindow extends ScabWindow{
 				case Local:
 					break;
 				}
+				listener.networkSelected(multiplayerTypeSelect.getSelected());
 			}
 		});
 		add("Network");
@@ -58,5 +60,17 @@ public class NetworkWindow extends ScabWindow{
 			hostTable.render();
 		if(clientTable != null)
 			clientTable.render();
+	}
+	
+	public BaseNetwork getSource(){
+		if(hostTable != null)
+			return hostTable.getHost();
+		if(clientTable != null)
+			return clientTable.getClient();
+		return null;
+	}
+	
+	public interface INetworkWindowListener{
+		void networkSelected(MultiplayerType type);
 	}
 }

@@ -4,5 +4,6 @@ public enum MessageType {
 	CONNECTED,
 	DISCONNECTED,
 	NAME_UPDATE,
-	TEXT_MESSAGE
+	TEXT,
+	TEXT_REQUEST
 }
