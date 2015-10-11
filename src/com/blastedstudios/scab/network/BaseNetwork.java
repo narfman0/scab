@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.scab.network.Messages.LevelLoad;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.Text;
 import com.blastedstudios.scab.network.Messages.TextRequest;
@@ -98,6 +99,9 @@ public abstract class BaseNetwork {
 					break;
 				case TEXT_REQUEST:
 					messages.add(new MessageStruct(messageType, TextRequest.parseFrom(buffer)));
+					break;
+				case LEVEL_LOAD:
+					messages.add(new MessageStruct(messageType, LevelLoad.parseFrom(buffer)));
 					break;
 				case CONNECTED:
 				case DISCONNECTED:

@@ -1,48 +1,37 @@
 package com.blastedstudios.scab.ui.levelselect;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.blastedstudios.gdxworld.ui.GDXRenderer;
-import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.blastedstudios.scab.ui.loading.GameplayLoadingWindowExecutor;
-import com.blastedstudios.scab.ui.loading.LoadingWindow;
+import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.util.ui.ScabWindow;
-import com.blastedstudios.scab.world.being.Player;
 
 class LevelInformationWindow extends ScabWindow{
 	final List<String> levelList;
 	
-	public LevelInformationWindow(final Skin skin, 
-			final GDXGame game, final Player player, final GDXWorld world, 
-			final FileHandle selectedFile, final GDXRenderer gdxRenderer,
-			final AssetManager sharedAssets, final LevelSelectScreen screen,
-			boolean isLocal, boolean isHost) {
+	public LevelInformationWindow(final Skin skin, final GDXWorld world, final LevelSelectScreen screen, MultiplayerType type) {
 		super("", skin);
+		boolean isControl = type == MultiplayerType.Local || type == MultiplayerType.Host;
 		levelList = new List<>(skin);
-		levelList.setTouchable(isLocal || isHost ? Touchable.enabled : Touchable.disabled);
+		levelList.setTouchable(isControl ? Touchable.enabled : Touchable.disabled);
 		for(GDXLevel level : world.getLevels())
 			levelList.getItems().add(level.getName());
 		final Button startButton = new ScabTextButton("Start", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
-				GDXLevel level = world.getLevel(levelList.getSelected());
-				screen.getStage().addActor(new LoadingWindow(skin, 
-						new GameplayLoadingWindowExecutor(game, player, level, world, selectedFile, gdxRenderer, sharedAssets)));
+				screen.levelSelected(levelList.getSelected());
 			}
 		});
-		add(isLocal || isHost ? "Select level: " : "Level: ");
+		add(isControl ? "Select level: " : "Level: ");
 		row();
 		add(levelList);
-		if(isLocal || isHost){
+		if(isControl){
 			row();
 			add(startButton);
 		}

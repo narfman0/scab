@@ -16,13 +16,14 @@ public class NetworkWindow extends ScabWindow{
 	}
 	
 	private final Table multiplayerTypeParentTable;
+	private final SelectBox<MultiplayerType> multiplayerTypeSelect;
 	private HostTable hostTable = null;
 	private ClientTable clientTable = null;
 
 	public NetworkWindow(Skin skin, Being player, INetworkWindowListener listener) {
 		super("", skin);
 		multiplayerTypeParentTable = new Table(skin);
-		final SelectBox<MultiplayerType> multiplayerTypeSelect = new SelectBox<>(skin);
+		multiplayerTypeSelect = new SelectBox<>(skin);
 		multiplayerTypeSelect.setItems(MultiplayerType.values());
 		multiplayerTypeSelect.addListener(new ChangeListener() {
 			@Override public void changed(ChangeEvent event, Actor actor) {
@@ -68,6 +69,10 @@ public class NetworkWindow extends ScabWindow{
 		if(clientTable != null)
 			return clientTable.getClient();
 		return null;
+	}
+	
+	public MultiplayerType getMultiplayerType(){
+		return multiplayerTypeSelect.getSelected();
 	}
 	
 	public interface INetworkWindowListener{

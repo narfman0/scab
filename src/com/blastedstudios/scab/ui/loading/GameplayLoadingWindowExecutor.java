@@ -10,7 +10,9 @@ import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.GDXGameFade;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
+import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.ui.gameplay.GameplayScreen;
+import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.ui.loading.LoadingWindow.ILoadingWindowExecutor;
 import com.blastedstudios.scab.world.being.Player;
 
@@ -23,12 +25,14 @@ public class GameplayLoadingWindowExecutor implements ILoadingWindowExecutor{
 	private final FileHandle selectedFile;
 	private final GDXRenderer gdxRenderer;
 	private final AssetManager sharedAssets;
+	private final MultiplayerType type;
+	private final BaseNetwork network;
 	private List<String> createdAssetList = null;
 	private GameplayScreen screen = null;
 	private int ticksToTransitionGame = 2;
 	
 	public GameplayLoadingWindowExecutor(final GDXGame game, Player player, GDXLevel level, GDXWorld world,
-			FileHandle selectedFile, final GDXRenderer gdxRenderer, AssetManager sharedAssets){
+			FileHandle selectedFile, final GDXRenderer gdxRenderer, AssetManager sharedAssets, MultiplayerType type, BaseNetwork network){
 		this.game = game;
 		this.player = player;
 		this.level = level;
@@ -36,6 +40,8 @@ public class GameplayLoadingWindowExecutor implements ILoadingWindowExecutor{
 		this.selectedFile = selectedFile;
 		this.gdxRenderer = gdxRenderer;
 		this.sharedAssets = sharedAssets;
+		this.type = type;
+		this.network = network;
 		assetManager = new AssetManager();
 		createdAssetList = level.createAssetList();
 	}
@@ -51,10 +57,12 @@ public class GameplayLoadingWindowExecutor implements ILoadingWindowExecutor{
 		if(createdAssetList.isEmpty() && assetManager.getQueuedAssets() == 0){
 			if(screen == null){
 				screen = new GameplayScreen(game, player, level, world, selectedFile, 
-						gdxRenderer, sharedAssets, assetManager);
-			}else
-				ticksToTransitionGame--;
-			if(ticksToTransitionGame == 0){
+						gdxRenderer, sharedAssets, assetManager, type, network);
+			}else{
+				if(ticksToTransitionGame > 0)
+					ticksToTransitionGame--;
+			}
+			if(ticksToTransitionGame <= 0){
 				GDXGameFade.fadeInPushScreen(game, screen);
 				return true;
 			}

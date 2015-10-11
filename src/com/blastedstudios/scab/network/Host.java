@@ -83,6 +83,8 @@ public class Host extends BaseNetwork{
 					default:
 						receiveMessage(message.messageType, message.message);
 					}
+					Log.debug("Host.render", "Message received: " + message.messageType + " contents: " +
+							message.message + " from " + client.socket.getRemoteAddress());
 				}
 				sendMessages(currentQueue, client.outStream);
 			}

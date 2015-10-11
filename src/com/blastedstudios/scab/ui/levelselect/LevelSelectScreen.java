@@ -7,32 +7,45 @@ import com.blastedstudios.gdxworld.ui.worldeditor.WorldEditorScreen;
 import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.panner.PannerManager;
+import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.scab.input.ActionEnum;
+import com.blastedstudios.scab.network.IMessageListener;
+import com.blastedstudios.scab.network.MessageType;
+import com.blastedstudios.scab.network.Messages.LevelLoad;
 import com.blastedstudios.scab.plugin.quest.handler.manifestation.SoundThematicHandlerPlugin;
 import com.blastedstudios.scab.ui.ScabScreen;
 import com.blastedstudios.scab.ui.levelselect.network.ChatWindow;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.INetworkWindowListener;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.scab.ui.loading.GameplayLoadingWindowExecutor;
+import com.blastedstudios.scab.ui.loading.LoadingWindow;
 import com.blastedstudios.scab.world.being.Player;
 
 public class LevelSelectScreen extends ScabScreen{
 	private final AssetManager sharedAssets;
 	private final PannerManager panner;
 	private final NetworkWindow networkWindow;
+	private final Player player;
+	private final GDXWorld gdxWorld;
+	private final FileHandle worldFile;
+	private final GDXRenderer gdxRenderer;
 	private LevelInformationWindow levelWindow;
 	private ChatWindow chat;
 
 	public LevelSelectScreen(final GDXGame game, final Player player, final GDXWorld gdxWorld, final FileHandle worldFile,
 			final GDXRenderer gdxRenderer, final AssetManager sharedAssets, final PannerManager panner){
 		super(game);
+		this.player = player;
+		this.gdxWorld = gdxWorld;
+		this.worldFile = worldFile;
+		this.gdxRenderer = gdxRenderer;
 		this.sharedAssets = sharedAssets;
 		this.panner = panner;
 		Log.log("LevelSelect.<init>", "Loaded world successfully");
 		sharedAssets.finishLoading();
-		levelWindow = new LevelInformationWindow(skin, 
-				game, player, gdxWorld, worldFile, gdxRenderer, sharedAssets, this, true, false);
+		levelWindow = new LevelInformationWindow(skin, gdxWorld, this, MultiplayerType.Local);
 		stage.addActor(levelWindow);
 		networkWindow = new NetworkWindow(skin, player, new INetworkWindowListener() {
 			@Override public void networkSelected(MultiplayerType type) {
@@ -40,20 +53,20 @@ public class LevelSelectScreen extends ScabScreen{
 				if(chat != null)
 					chat.remove();
 				chat = null;
+				levelWindow = new LevelInformationWindow(skin, gdxWorld, LevelSelectScreen.this, type);
 				switch(type){
 				case Client:
-					levelWindow = new LevelInformationWindow(skin, 
-						game, player, gdxWorld, worldFile, gdxRenderer, sharedAssets, LevelSelectScreen.this, false, false);
-					chat = new ChatWindow(skin, networkWindow.getSource());
-					break;
+					networkWindow.getSource().addListener(MessageType.LEVEL_LOAD, new IMessageListener() {
+						@Override public void receive(Object object) {
+							LevelLoad message = (LevelLoad) object;
+							levelSelected(message.getName());
+							// TODO send full player info!
+						}
+					});
 				case Host:
-					levelWindow = new LevelInformationWindow(skin, 
-						game, player, gdxWorld, worldFile, gdxRenderer, sharedAssets, LevelSelectScreen.this, false, true);
 					chat = new ChatWindow(skin, networkWindow.getSource());
 					break;
 				case Local:
-					levelWindow = new LevelInformationWindow(skin, 
-						game, player, gdxWorld, worldFile, gdxRenderer, sharedAssets, LevelSelectScreen.this, true, false);
 					break;
 				}
 				stage.addActor(levelWindow);
@@ -82,5 +95,17 @@ public class LevelSelectScreen extends ScabScreen{
 		sharedAssets.update();
 		panner.updatePanners(delta);
 		stage.draw();
+	}
+	
+	public void levelSelected(String levelName){
+		if(networkWindow.getMultiplayerType() == MultiplayerType.Host){
+			LevelLoad.Builder levelLoad = LevelLoad.newBuilder();
+			levelLoad.setName(levelName);
+			networkWindow.getSource().send(MessageType.LEVEL_LOAD, levelLoad.build());
+		}
+		GDXLevel level = gdxWorld.getLevel(levelName);
+		stage.addActor(new LoadingWindow(skin, 
+			new GameplayLoadingWindowExecutor(game, player, level, gdxWorld, worldFile, gdxRenderer, sharedAssets, 
+					networkWindow.getMultiplayerType(), networkWindow.getSource())));
 	}
 }

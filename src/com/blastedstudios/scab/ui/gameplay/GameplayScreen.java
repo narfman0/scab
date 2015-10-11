@@ -42,6 +42,7 @@ import com.blastedstudios.gdxworld.world.quest.GDXQuest;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.scab.input.ActionEnum;
+import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.scab.ui.ScabScreen;
 import com.blastedstudios.scab.ui.drawable.ParticleManagerDrawable;
@@ -50,6 +51,7 @@ import com.blastedstudios.scab.ui.gameplay.console.ConsoleWindow;
 import com.blastedstudios.scab.ui.gameplay.hud.HUD;
 import com.blastedstudios.scab.ui.gameplay.inventory.InventoryWindow;
 import com.blastedstudios.scab.ui.gameplay.particles.ParticleManager;
+import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.ui.loading.GameplayLoadingWindowExecutor;
 import com.blastedstudios.scab.ui.loading.LoadingWindow;
 import com.blastedstudios.scab.util.ui.ScabWindow;
@@ -84,11 +86,13 @@ public class GameplayScreen extends ScabScreen {
 	private final SpriteBatch spriteBatch = new SpriteBatch();
 	private final AssetManager sharedAssets, assetManager;
 	private final LinkedList<Drawable> drawables;
+	private final MultiplayerType type;
+	private final BaseNetwork network;
 	private Table tintTable;
 	
 	public GameplayScreen(GDXGame game, Player player, GDXLevel level, GDXWorld world,
 			FileHandle selectedFile, final GDXRenderer gdxRenderer, AssetManager sharedAssets,
-			AssetManager assetManager){
+			AssetManager assetManager, MultiplayerType type, BaseNetwork network){
 		super(game);
 		this.level = level;
 		this.world = world;
@@ -96,6 +100,8 @@ public class GameplayScreen extends ScabScreen {
 		this.gdxRenderer = gdxRenderer;
 		this.sharedAssets = sharedAssets;
 		this.assetManager = assetManager;
+		this.type = type;
+		this.network = network;
 		hud = new HUD(skin, player);
 		dialogManager = new DialogManager(skin);
 		dialogBubble = new DialogBubble(sharedAssets, skin);
@@ -300,7 +306,7 @@ public class GameplayScreen extends ScabScreen {
 					((AbstractScreen)game.getScreen()).getStage().addActor(new LoadingWindow(skin, 
 							new GameplayLoadingWindowExecutor(game, worldManager.getPlayer(), 
 									world.getLevel(nextLevelName), 
-									world, selectedFile, gdxRenderer, sharedAssets)));
+									world, selectedFile, gdxRenderer, sharedAssets, type, network)));
 			}
 		});
 	}

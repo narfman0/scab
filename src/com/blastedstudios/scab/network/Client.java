@@ -29,12 +29,8 @@ public class Client extends BaseNetwork {
 			return;
 		List<MessageStruct> messages = receiveMessages(hostStruct.inStream, hostStruct.socket);
 		for(MessageStruct message : messages){
-			switch(message.messageType){
-			default:
-				receiveMessage(message.messageType, message.message);
-				Log.log("Client.render", "Message received: " + message.messageType + " contents: " + message.message);
-				break;
-			}
+			receiveMessage(message.messageType, message.message);
+			Log.debug("Client.render", "Message received: " + message.messageType + " contents: " + message.message);
 		}
 		sendMessages(sendQueue, hostStruct.outStream);
 		sendQueue.clear();

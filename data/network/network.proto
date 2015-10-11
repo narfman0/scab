@@ -23,3 +23,7 @@ message Text {
   required string content = 1;
   required string origin = 2;
 }
+
+message LevelLoad {
+  required string name = 1;
+}
