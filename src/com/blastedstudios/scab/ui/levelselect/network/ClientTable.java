@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Client;
 import com.blastedstudios.scab.network.IMessageListener;
-import com.blastedstudios.scab.network.MessageType;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.world.being.Being;

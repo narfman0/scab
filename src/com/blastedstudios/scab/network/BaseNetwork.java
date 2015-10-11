@@ -1,6 +1,9 @@
 package com.blastedstudios.scab.network;
 
+import gatech.mmpm.util.Pair;
+
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,19 +13,32 @@ import java.util.UUID;
 
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
-import com.blastedstudios.scab.network.Messages.BeingRespawn;
-import com.blastedstudios.scab.network.Messages.LevelLoad;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
-import com.blastedstudios.scab.network.Messages.Text;
-import com.blastedstudios.scab.network.Messages.TextRequest;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 
 public abstract class BaseNetwork {
+	private static final HashMap<MessageType, Pair<Class<?>, Method>> DESERIALIZERS = new HashMap<>();
 	protected final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
 	private final HashMap<MessageType, HashSet<IMessageListener>> listeners = new HashMap<>();
 	private final UUID uuid;
+	
+	static{
+		// cache all deserializers once in beginning of program
+		for(Class<?> clazz : Messages.class.getClasses())
+			for(MessageType messageType : MessageType.values()){
+				if(clazz.getSimpleName().toUpperCase().equals(messageType.name().replace("_", ""))){
+					try {
+						Method parseMethod = clazz.getMethod("parseFrom", byte[].class);
+						DESERIALIZERS.put(messageType, new Pair<Class<?>, Method>(clazz, parseMethod));
+					} catch (Exception e) {
+						Log.error("BaseNetwork.<init>", "Exception caching parse method for: " + messageType);
+					}
+				}
+			}
+	}
 	
 	public BaseNetwork(){
 		this.uuid = UUID.randomUUID();
@@ -101,24 +117,17 @@ public abstract class BaseNetwork {
 				case NAME_UPDATE:
 					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
 					break;
-				case TEXT:
-					messages.add(new MessageStruct(messageType, Text.parseFrom(buffer)));
-					break;
-				case TEXT_REQUEST:
-					messages.add(new MessageStruct(messageType, TextRequest.parseFrom(buffer)));
-					break;
-				case LEVEL_LOAD:
-					messages.add(new MessageStruct(messageType, LevelLoad.parseFrom(buffer)));
-					break;
 				case PLAYER_UPDATE:
 					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
-					break;
-				case BEING_RESPAWN:
-					messages.add(new MessageStruct(messageType, BeingRespawn.parseFrom(buffer)));
 					break;
 				case CONNECTED:
 				case DISCONNECTED:
 					//Do nothing intentionally!
+					break;
+				default:
+					Pair<Class<?>, Method> pair = DESERIALIZERS.get(messageType);
+					Message message = (Message)pair.getSecond().invoke(pair.getFirst(), buffer);
+					messages.add(new MessageStruct(messageType, message));
 					break;
 				}
 				Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.blastedstudios.scab.network.HostStruct;
 import com.blastedstudios.scab.network.Host;
 import com.blastedstudios.scab.network.IMessageListener;
-import com.blastedstudios.scab.network.MessageType;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.world.being.Being;
 
 public class HostTable extends Table {

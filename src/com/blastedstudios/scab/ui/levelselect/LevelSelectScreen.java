@@ -11,7 +11,7 @@ import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.IMessageListener;
-import com.blastedstudios.scab.network.MessageType;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.LevelLoad;
 import com.blastedstudios.scab.plugin.quest.handler.manifestation.SoundThematicHandlerPlugin;
 import com.blastedstudios.scab.ui.ScabScreen;

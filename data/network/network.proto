@@ -3,6 +3,16 @@ package proto;
 option java_package = "com.blastedstudios.scab.network";
 option java_outer_classname = "Messages";
 
+enum MessageType {
+  BEING_RESPAWN = 1;
+  CONNECTED = 2;
+  DISCONNECTED = 3;
+  LEVEL_LOAD = 4;
+  NAME_UPDATE = 5;
+  PLAYER_UPDATE = 6;
+  TEXT = 7;
+  TEXT_REQUEST = 8;
+}
 
 message NetBeing {
   required string uuid = 1;

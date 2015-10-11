@@ -1,5 +1,6 @@
 package com.blastedstudios.scab.network;
 
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.google.protobuf.Message;
 
 public class MessageStruct{

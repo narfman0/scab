@@ -8,6 +8,142 @@ public final class Messages {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  /**
+   * Protobuf enum {@code proto.MessageType}
+   */
+  public enum MessageType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>BEING_RESPAWN = 1;</code>
+     */
+    BEING_RESPAWN(0, 1),
+    /**
+     * <code>CONNECTED = 2;</code>
+     */
+    CONNECTED(1, 2),
+    /**
+     * <code>DISCONNECTED = 3;</code>
+     */
+    DISCONNECTED(2, 3),
+    /**
+     * <code>LEVEL_LOAD = 4;</code>
+     */
+    LEVEL_LOAD(3, 4),
+    /**
+     * <code>NAME_UPDATE = 5;</code>
+     */
+    NAME_UPDATE(4, 5),
+    /**
+     * <code>PLAYER_UPDATE = 6;</code>
+     */
+    PLAYER_UPDATE(5, 6),
+    /**
+     * <code>TEXT = 7;</code>
+     */
+    TEXT(6, 7),
+    /**
+     * <code>TEXT_REQUEST = 8;</code>
+     */
+    TEXT_REQUEST(7, 8),
+    ;
+
+    /**
+     * <code>BEING_RESPAWN = 1;</code>
+     */
+    public static final int BEING_RESPAWN_VALUE = 1;
+    /**
+     * <code>CONNECTED = 2;</code>
+     */
+    public static final int CONNECTED_VALUE = 2;
+    /**
+     * <code>DISCONNECTED = 3;</code>
+     */
+    public static final int DISCONNECTED_VALUE = 3;
+    /**
+     * <code>LEVEL_LOAD = 4;</code>
+     */
+    public static final int LEVEL_LOAD_VALUE = 4;
+    /**
+     * <code>NAME_UPDATE = 5;</code>
+     */
+    public static final int NAME_UPDATE_VALUE = 5;
+    /**
+     * <code>PLAYER_UPDATE = 6;</code>
+     */
+    public static final int PLAYER_UPDATE_VALUE = 6;
+    /**
+     * <code>TEXT = 7;</code>
+     */
+    public static final int TEXT_VALUE = 7;
+    /**
+     * <code>TEXT_REQUEST = 8;</code>
+     */
+    public static final int TEXT_REQUEST_VALUE = 8;
+
+
+    public final int getNumber() { return value; }
+
+    public static MessageType valueOf(int value) {
+      switch (value) {
+        case 1: return BEING_RESPAWN;
+        case 2: return CONNECTED;
+        case 3: return DISCONNECTED;
+        case 4: return LEVEL_LOAD;
+        case 5: return NAME_UPDATE;
+        case 6: return PLAYER_UPDATE;
+        case 7: return TEXT;
+        case 8: return TEXT_REQUEST;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<MessageType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<MessageType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<MessageType>() {
+            public MessageType findValueByNumber(int number) {
+              return MessageType.valueOf(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.blastedstudios.scab.network.Messages.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final MessageType[] VALUES = values();
+
+    public static MessageType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int index;
+    private final int value;
+
+    private MessageType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:proto.MessageType)
+  }
+
   public interface NetBeingOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.NetBeing)
       com.google.protobuf.MessageOrBuilder {
@@ -5078,8 +5214,12 @@ public final class Messages {
       "ent\030\001 \002(\t\"H\n\014BeingRespawn\022\014\n\004uuid\030\001 \002(\t\022" +
       "\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 " +
       "\001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002" +
-      " \002(\t\"\031\n\tLevelLoad\022\014\n\004name\030\001 \002(\tB+\n\037com.b" +
-      "lastedstudios.scab.networkB\010Messages"
+      " \002(\t\"\031\n\tLevelLoad\022\014\n\004name\030\001 \002(\t*\221\001\n\013Mess" +
+      "ageType\022\021\n\rBEING_RESPAWN\020\001\022\r\n\tCONNECTED\020" +
+      "\002\022\020\n\014DISCONNECTED\020\003\022\016\n\nLEVEL_LOAD\020\004\022\017\n\013N" +
+      "AME_UPDATE\020\005\022\021\n\rPLAYER_UPDATE\020\006\022\010\n\004TEXT\020" +
+      "\007\022\020\n\014TEXT_REQUEST\020\010B+\n\037com.blastedstudio" +
+      "s.scab.networkB\010Messages"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

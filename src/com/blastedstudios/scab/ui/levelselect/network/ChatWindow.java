@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.IMessageListener;
-import com.blastedstudios.scab.network.MessageType;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.Text;
 import com.blastedstudios.scab.network.Messages.TextRequest;
 import com.blastedstudios.scab.util.ui.ScabTextButton;

@@ -7,6 +7,7 @@ import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.scab.network.Messages.MessageType;
 
 public class Client extends BaseNetwork {
 	private HostStruct hostStruct;
