@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
@@ -21,8 +22,10 @@ import com.google.protobuf.Message;
 public abstract class BaseNetwork {
 	protected final LinkedList<MessageStruct> sendQueue = new LinkedList<>();
 	private final HashMap<MessageType, HashSet<IMessageListener>> listeners = new HashMap<>();
+	private final UUID uuid;
 	
 	public BaseNetwork(){
+		this.uuid = UUID.randomUUID();
 		for(MessageType messageType : MessageType.values())
 			listeners.put(messageType, new HashSet<>());
 	}
@@ -65,6 +68,10 @@ public abstract class BaseNetwork {
 	public abstract void dispose();
 	public abstract boolean isConnected();
 	public abstract void render();
+	
+	public UUID getUUID(){
+		return uuid;
+	}
 
 	protected static void sendMessages(List<MessageStruct> messages, CodedOutputStream stream){
 		for(MessageStruct sendStruct : messages){

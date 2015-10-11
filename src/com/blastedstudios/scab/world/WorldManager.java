@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.UUID;
 
 import aurelienribon.tweenengine.TweenManager;
 
@@ -435,10 +436,10 @@ public class WorldManager implements IDeathCallback{
 	public List<Being> getRemotePlayers() {
 		return remotePlayers;
 	}
-
-	public Being getRemotePlayer(String name) {
+	
+	public Being getRemotePlayer(UUID uuid){
 		for(Being being : remotePlayers)
-			if(being.getName().equals(name))
+			if(uuid.equals(being.getUuid()))
 				return being;
 		return null;
 	}

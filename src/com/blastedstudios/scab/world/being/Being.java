@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -66,6 +67,7 @@ public class Being implements Serializable{
 	protected transient Random random;
 	protected transient List<IComponent> listeners;
 	protected transient AssetManager sharedAssets;
+	private transient UUID uuid;
 
 	public Being(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
 			int currentWeapon, int cash, int level, int xp, FactionEnum faction,
@@ -715,6 +717,7 @@ public class Being implements Serializable{
 	
 	public NetBeing buildMessage(boolean complete){
 		NetBeing.Builder builder = NetBeing.newBuilder();
+		builder.setUuid(uuid.toString());
 		builder.setName(name);
 		builder.setHp(getHp());
 		builder.setMaxHp(getMaxHp());
@@ -744,7 +747,17 @@ public class Being implements Serializable{
 		stats.setHp(message.getHp());
 		FactionEnum faction = FactionEnum.valueOf(message.getFaction().name());
 		EnumSet<FactionEnum> factions = EnumSet.noneOf(FactionEnum.class);
-		return new Being(message.getName(), guns, inventory, stats, message.getCurrentWeapon(), 0, 0, 0, 
+		Being being = new Being(message.getName(), guns, inventory, stats, message.getCurrentWeapon(), 0, 0, 0, 
 				faction, factions, message.getResource(), message.getRagdollResource());
+		being.setUuid(UUID.fromString(message.getUuid()));
+		return being;
+	}
+
+	public UUID getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
 	}
 }

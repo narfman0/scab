@@ -13,149 +13,163 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string name = 1;</code>
+     * <code>required string uuid = 1;</code>
+     */
+    boolean hasUuid();
+    /**
+     * <code>required string uuid = 1;</code>
+     */
+    java.lang.String getUuid();
+    /**
+     * <code>required string uuid = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getUuidBytes();
+
+    /**
+     * <code>optional string name = 2;</code>
      */
     boolean hasName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     boolean hasPosX();
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     float getPosX();
 
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     boolean hasPosY();
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     float getPosY();
 
     /**
-     * <code>optional float vel_x = 4;</code>
+     * <code>optional float vel_x = 5;</code>
      */
     boolean hasVelX();
     /**
-     * <code>optional float vel_x = 4;</code>
+     * <code>optional float vel_x = 5;</code>
      */
     float getVelX();
 
     /**
-     * <code>optional float vel_y = 5;</code>
+     * <code>optional float vel_y = 6;</code>
      */
     boolean hasVelY();
     /**
-     * <code>optional float vel_y = 5;</code>
+     * <code>optional float vel_y = 6;</code>
      */
     float getVelY();
 
     /**
-     * <code>optional float max_hp = 6;</code>
+     * <code>optional float max_hp = 7;</code>
      */
     boolean hasMaxHp();
     /**
-     * <code>optional float max_hp = 6;</code>
+     * <code>optional float max_hp = 7;</code>
      */
     float getMaxHp();
 
     /**
-     * <code>optional float hp = 7;</code>
+     * <code>optional float hp = 8;</code>
      */
     boolean hasHp();
     /**
-     * <code>optional float hp = 7;</code>
+     * <code>optional float hp = 8;</code>
      */
     float getHp();
 
     /**
-     * <code>optional int32 currentWeapon = 8;</code>
+     * <code>optional int32 currentWeapon = 9;</code>
      */
     boolean hasCurrentWeapon();
     /**
-     * <code>optional int32 currentWeapon = 8;</code>
+     * <code>optional int32 currentWeapon = 9;</code>
      */
     int getCurrentWeapon();
 
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     java.util.List<com.blastedstudios.scab.network.Messages.NetWeapon> 
         getWeaponsList();
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     com.blastedstudios.scab.network.Messages.NetWeapon getWeapons(int index);
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     int getWeaponsCount();
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     java.util.List<? extends com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder> 
         getWeaponsOrBuilderList();
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder getWeaponsOrBuilder(
         int index);
 
     /**
-     * <code>optional string resource = 10;</code>
+     * <code>optional string resource = 11;</code>
      */
     boolean hasResource();
     /**
-     * <code>optional string resource = 10;</code>
+     * <code>optional string resource = 11;</code>
      */
     java.lang.String getResource();
     /**
-     * <code>optional string resource = 10;</code>
+     * <code>optional string resource = 11;</code>
      */
     com.google.protobuf.ByteString
         getResourceBytes();
 
     /**
-     * <code>optional string ragdoll_resource = 11;</code>
+     * <code>optional string ragdoll_resource = 12;</code>
      */
     boolean hasRagdollResource();
     /**
-     * <code>optional string ragdoll_resource = 11;</code>
+     * <code>optional string ragdoll_resource = 12;</code>
      */
     java.lang.String getRagdollResource();
     /**
-     * <code>optional string ragdoll_resource = 11;</code>
+     * <code>optional string ragdoll_resource = 12;</code>
      */
     com.google.protobuf.ByteString
         getRagdollResourceBytes();
 
     /**
-     * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+     * <code>optional .proto.NetBeing.Faction faction = 13;</code>
      */
     boolean hasFaction();
     /**
-     * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+     * <code>optional .proto.NetBeing.Faction faction = 13;</code>
      */
     com.blastedstudios.scab.network.Messages.NetBeing.Faction getFaction();
 
     /**
-     * <code>optional float aim = 13;</code>
+     * <code>optional float aim = 14;</code>
      */
     boolean hasAim();
     /**
-     * <code>optional float aim = 13;</code>
+     * <code>optional float aim = 14;</code>
      */
     float getAim();
   }
@@ -214,77 +228,83 @@ public final class Messages {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              name_ = bs;
+              uuid_ = bs;
               break;
             }
-            case 21: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              posX_ = input.readFloat();
+              name_ = bs;
               break;
             }
             case 29: {
               bitField0_ |= 0x00000004;
-              posY_ = input.readFloat();
+              posX_ = input.readFloat();
               break;
             }
             case 37: {
               bitField0_ |= 0x00000008;
-              velX_ = input.readFloat();
+              posY_ = input.readFloat();
               break;
             }
             case 45: {
               bitField0_ |= 0x00000010;
-              velY_ = input.readFloat();
+              velX_ = input.readFloat();
               break;
             }
             case 53: {
               bitField0_ |= 0x00000020;
-              maxHp_ = input.readFloat();
+              velY_ = input.readFloat();
               break;
             }
             case 61: {
               bitField0_ |= 0x00000040;
+              maxHp_ = input.readFloat();
+              break;
+            }
+            case 69: {
+              bitField0_ |= 0x00000080;
               hp_ = input.readFloat();
               break;
             }
-            case 64: {
-              bitField0_ |= 0x00000080;
+            case 72: {
+              bitField0_ |= 0x00000100;
               currentWeapon_ = input.readInt32();
               break;
             }
-            case 74: {
-              if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+            case 82: {
+              if (!((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
                 weapons_ = new java.util.ArrayList<com.blastedstudios.scab.network.Messages.NetWeapon>();
-                mutable_bitField0_ |= 0x00000100;
+                mutable_bitField0_ |= 0x00000200;
               }
               weapons_.add(input.readMessage(com.blastedstudios.scab.network.Messages.NetWeapon.PARSER, extensionRegistry));
-              break;
-            }
-            case 82: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000100;
-              resource_ = bs;
               break;
             }
             case 90: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000200;
+              resource_ = bs;
+              break;
+            }
+            case 98: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000400;
               ragdollResource_ = bs;
               break;
             }
-            case 96: {
+            case 104: {
               int rawValue = input.readEnum();
               com.blastedstudios.scab.network.Messages.NetBeing.Faction value = com.blastedstudios.scab.network.Messages.NetBeing.Faction.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(12, rawValue);
+                unknownFields.mergeVarintField(13, rawValue);
               } else {
-                bitField0_ |= 0x00000400;
+                bitField0_ |= 0x00000800;
                 faction_ = value;
               }
               break;
             }
-            case 109: {
-              bitField0_ |= 0x00000800;
+            case 117: {
+              bitField0_ |= 0x00001000;
               aim_ = input.readFloat();
               break;
             }
@@ -296,7 +316,7 @@ public final class Messages {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
           weapons_ = java.util.Collections.unmodifiableList(weapons_);
         }
         this.unknownFields = unknownFields.build();
@@ -413,16 +433,58 @@ public final class Messages {
     }
 
     private int bitField0_;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
+    public static final int UUID_FIELD_NUMBER = 1;
+    private java.lang.Object uuid_;
     /**
-     * <code>required string name = 1;</code>
+     * <code>required string uuid = 1;</code>
      */
-    public boolean hasName() {
+    public boolean hasUuid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>required string uuid = 1;</code>
+     */
+    public java.lang.String getUuid() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          uuid_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string uuid = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUuidBytes() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private java.lang.Object name_;
+    /**
+     * <code>optional string name = 2;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string name = 2;</code>
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -439,7 +501,7 @@ public final class Messages {
       }
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -455,156 +517,156 @@ public final class Messages {
       }
     }
 
-    public static final int POS_X_FIELD_NUMBER = 2;
+    public static final int POS_X_FIELD_NUMBER = 3;
     private float posX_;
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     public boolean hasPosX() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     public float getPosX() {
       return posX_;
     }
 
-    public static final int POS_Y_FIELD_NUMBER = 3;
+    public static final int POS_Y_FIELD_NUMBER = 4;
     private float posY_;
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     public boolean hasPosY() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     public float getPosY() {
       return posY_;
     }
 
-    public static final int VEL_X_FIELD_NUMBER = 4;
+    public static final int VEL_X_FIELD_NUMBER = 5;
     private float velX_;
     /**
-     * <code>optional float vel_x = 4;</code>
+     * <code>optional float vel_x = 5;</code>
      */
     public boolean hasVelX() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional float vel_x = 4;</code>
+     * <code>optional float vel_x = 5;</code>
      */
     public float getVelX() {
       return velX_;
     }
 
-    public static final int VEL_Y_FIELD_NUMBER = 5;
+    public static final int VEL_Y_FIELD_NUMBER = 6;
     private float velY_;
     /**
-     * <code>optional float vel_y = 5;</code>
+     * <code>optional float vel_y = 6;</code>
      */
     public boolean hasVelY() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional float vel_y = 5;</code>
+     * <code>optional float vel_y = 6;</code>
      */
     public float getVelY() {
       return velY_;
     }
 
-    public static final int MAX_HP_FIELD_NUMBER = 6;
+    public static final int MAX_HP_FIELD_NUMBER = 7;
     private float maxHp_;
     /**
-     * <code>optional float max_hp = 6;</code>
+     * <code>optional float max_hp = 7;</code>
      */
     public boolean hasMaxHp() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional float max_hp = 6;</code>
+     * <code>optional float max_hp = 7;</code>
      */
     public float getMaxHp() {
       return maxHp_;
     }
 
-    public static final int HP_FIELD_NUMBER = 7;
+    public static final int HP_FIELD_NUMBER = 8;
     private float hp_;
     /**
-     * <code>optional float hp = 7;</code>
+     * <code>optional float hp = 8;</code>
      */
     public boolean hasHp() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional float hp = 7;</code>
+     * <code>optional float hp = 8;</code>
      */
     public float getHp() {
       return hp_;
     }
 
-    public static final int CURRENTWEAPON_FIELD_NUMBER = 8;
+    public static final int CURRENTWEAPON_FIELD_NUMBER = 9;
     private int currentWeapon_;
     /**
-     * <code>optional int32 currentWeapon = 8;</code>
+     * <code>optional int32 currentWeapon = 9;</code>
      */
     public boolean hasCurrentWeapon() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
-     * <code>optional int32 currentWeapon = 8;</code>
+     * <code>optional int32 currentWeapon = 9;</code>
      */
     public int getCurrentWeapon() {
       return currentWeapon_;
     }
 
-    public static final int WEAPONS_FIELD_NUMBER = 9;
+    public static final int WEAPONS_FIELD_NUMBER = 10;
     private java.util.List<com.blastedstudios.scab.network.Messages.NetWeapon> weapons_;
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     public java.util.List<com.blastedstudios.scab.network.Messages.NetWeapon> getWeaponsList() {
       return weapons_;
     }
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     public java.util.List<? extends com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder> 
         getWeaponsOrBuilderList() {
       return weapons_;
     }
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     public int getWeaponsCount() {
       return weapons_.size();
     }
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     public com.blastedstudios.scab.network.Messages.NetWeapon getWeapons(int index) {
       return weapons_.get(index);
     }
     /**
-     * <code>repeated .proto.NetWeapon weapons = 9;</code>
+     * <code>repeated .proto.NetWeapon weapons = 10;</code>
      */
     public com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder getWeaponsOrBuilder(
         int index) {
       return weapons_.get(index);
     }
 
-    public static final int RESOURCE_FIELD_NUMBER = 10;
+    public static final int RESOURCE_FIELD_NUMBER = 11;
     private java.lang.Object resource_;
     /**
-     * <code>optional string resource = 10;</code>
+     * <code>optional string resource = 11;</code>
      */
     public boolean hasResource() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>optional string resource = 10;</code>
+     * <code>optional string resource = 11;</code>
      */
     public java.lang.String getResource() {
       java.lang.Object ref = resource_;
@@ -621,7 +683,7 @@ public final class Messages {
       }
     }
     /**
-     * <code>optional string resource = 10;</code>
+     * <code>optional string resource = 11;</code>
      */
     public com.google.protobuf.ByteString
         getResourceBytes() {
@@ -637,16 +699,16 @@ public final class Messages {
       }
     }
 
-    public static final int RAGDOLL_RESOURCE_FIELD_NUMBER = 11;
+    public static final int RAGDOLL_RESOURCE_FIELD_NUMBER = 12;
     private java.lang.Object ragdollResource_;
     /**
-     * <code>optional string ragdoll_resource = 11;</code>
+     * <code>optional string ragdoll_resource = 12;</code>
      */
     public boolean hasRagdollResource() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>optional string ragdoll_resource = 11;</code>
+     * <code>optional string ragdoll_resource = 12;</code>
      */
     public java.lang.String getRagdollResource() {
       java.lang.Object ref = ragdollResource_;
@@ -663,7 +725,7 @@ public final class Messages {
       }
     }
     /**
-     * <code>optional string ragdoll_resource = 11;</code>
+     * <code>optional string ragdoll_resource = 12;</code>
      */
     public com.google.protobuf.ByteString
         getRagdollResourceBytes() {
@@ -679,37 +741,38 @@ public final class Messages {
       }
     }
 
-    public static final int FACTION_FIELD_NUMBER = 12;
+    public static final int FACTION_FIELD_NUMBER = 13;
     private com.blastedstudios.scab.network.Messages.NetBeing.Faction faction_;
     /**
-     * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+     * <code>optional .proto.NetBeing.Faction faction = 13;</code>
      */
     public boolean hasFaction() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+     * <code>optional .proto.NetBeing.Faction faction = 13;</code>
      */
     public com.blastedstudios.scab.network.Messages.NetBeing.Faction getFaction() {
       return faction_;
     }
 
-    public static final int AIM_FIELD_NUMBER = 13;
+    public static final int AIM_FIELD_NUMBER = 14;
     private float aim_;
     /**
-     * <code>optional float aim = 13;</code>
+     * <code>optional float aim = 14;</code>
      */
     public boolean hasAim() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+      return ((bitField0_ & 0x00001000) == 0x00001000);
     }
     /**
-     * <code>optional float aim = 13;</code>
+     * <code>optional float aim = 14;</code>
      */
     public float getAim() {
       return aim_;
     }
 
     private void initFields() {
+      uuid_ = "";
       name_ = "";
       posX_ = 0F;
       posY_ = 0F;
@@ -730,7 +793,7 @@ public final class Messages {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasName()) {
+      if (!hasUuid()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -748,43 +811,46 @@ public final class Messages {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+        output.writeBytes(1, getUuidBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeFloat(2, posX_);
+        output.writeBytes(2, getNameBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, posY_);
+        output.writeFloat(3, posX_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeFloat(4, velX_);
+        output.writeFloat(4, posY_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeFloat(5, velY_);
+        output.writeFloat(5, velX_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeFloat(6, maxHp_);
+        output.writeFloat(6, velY_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeFloat(7, hp_);
+        output.writeFloat(7, maxHp_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeInt32(8, currentWeapon_);
-      }
-      for (int i = 0; i < weapons_.size(); i++) {
-        output.writeMessage(9, weapons_.get(i));
+        output.writeFloat(8, hp_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeBytes(10, getResourceBytes());
+        output.writeInt32(9, currentWeapon_);
+      }
+      for (int i = 0; i < weapons_.size(); i++) {
+        output.writeMessage(10, weapons_.get(i));
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeBytes(11, getRagdollResourceBytes());
+        output.writeBytes(11, getResourceBytes());
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeEnum(12, faction_.getNumber());
+        output.writeBytes(12, getRagdollResourceBytes());
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeFloat(13, aim_);
+        output.writeEnum(13, faction_.getNumber());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeFloat(14, aim_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -797,55 +863,59 @@ public final class Messages {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+          .computeBytesSize(1, getUuidBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, posX_);
+          .computeBytesSize(2, getNameBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, posY_);
+          .computeFloatSize(3, posX_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, velX_);
+          .computeFloatSize(4, posY_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, velY_);
+          .computeFloatSize(5, velX_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(6, maxHp_);
+          .computeFloatSize(6, velY_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(7, hp_);
+          .computeFloatSize(7, maxHp_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(8, currentWeapon_);
-      }
-      for (int i = 0; i < weapons_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, weapons_.get(i));
+          .computeFloatSize(8, hp_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(10, getResourceBytes());
+          .computeInt32Size(9, currentWeapon_);
+      }
+      for (int i = 0; i < weapons_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, weapons_.get(i));
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(11, getRagdollResourceBytes());
+          .computeBytesSize(11, getResourceBytes());
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(12, faction_.getNumber());
+          .computeBytesSize(12, getRagdollResourceBytes());
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(13, aim_);
+          .computeEnumSize(13, faction_.getNumber());
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(14, aim_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -965,36 +1035,38 @@ public final class Messages {
 
       public Builder clear() {
         super.clear();
-        name_ = "";
+        uuid_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        posX_ = 0F;
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        posY_ = 0F;
+        posX_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000004);
-        velX_ = 0F;
+        posY_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
-        velY_ = 0F;
+        velX_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000010);
-        maxHp_ = 0F;
+        velY_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000020);
-        hp_ = 0F;
+        maxHp_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000040);
-        currentWeapon_ = 0;
+        hp_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000080);
+        currentWeapon_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
         if (weaponsBuilder_ == null) {
           weapons_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000200);
         } else {
           weaponsBuilder_.clear();
         }
         resource_ = "";
-        bitField0_ = (bitField0_ & ~0x00000200);
-        ragdollResource_ = "";
         bitField0_ = (bitField0_ & ~0x00000400);
-        faction_ = com.blastedstudios.scab.network.Messages.NetBeing.Faction.FRIEND;
+        ragdollResource_ = "";
         bitField0_ = (bitField0_ & ~0x00000800);
-        aim_ = 0F;
+        faction_ = com.blastedstudios.scab.network.Messages.NetBeing.Faction.FRIEND;
         bitField0_ = (bitField0_ & ~0x00001000);
+        aim_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00002000);
         return this;
       }
 
@@ -1026,58 +1098,62 @@ public final class Messages {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.name_ = name_;
+        result.uuid_ = uuid_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.posX_ = posX_;
+        result.name_ = name_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.posY_ = posY_;
+        result.posX_ = posX_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.velX_ = velX_;
+        result.posY_ = posY_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.velY_ = velY_;
+        result.velX_ = velX_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.maxHp_ = maxHp_;
+        result.velY_ = velY_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.hp_ = hp_;
+        result.maxHp_ = maxHp_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
+        result.hp_ = hp_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
         result.currentWeapon_ = currentWeapon_;
         if (weaponsBuilder_ == null) {
-          if (((bitField0_ & 0x00000100) == 0x00000100)) {
+          if (((bitField0_ & 0x00000200) == 0x00000200)) {
             weapons_ = java.util.Collections.unmodifiableList(weapons_);
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000200);
           }
           result.weapons_ = weapons_;
         } else {
           result.weapons_ = weaponsBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.resource_ = resource_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.ragdollResource_ = ragdollResource_;
+        result.resource_ = resource_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000400;
         }
-        result.faction_ = faction_;
+        result.ragdollResource_ = ragdollResource_;
         if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
           to_bitField0_ |= 0x00000800;
+        }
+        result.faction_ = faction_;
+        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+          to_bitField0_ |= 0x00001000;
         }
         result.aim_ = aim_;
         result.bitField0_ = to_bitField0_;
@@ -1096,8 +1172,13 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.scab.network.Messages.NetBeing other) {
         if (other == com.blastedstudios.scab.network.Messages.NetBeing.getDefaultInstance()) return this;
-        if (other.hasName()) {
+        if (other.hasUuid()) {
           bitField0_ |= 0x00000001;
+          uuid_ = other.uuid_;
+          onChanged();
+        }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000002;
           name_ = other.name_;
           onChanged();
         }
@@ -1126,7 +1207,7 @@ public final class Messages {
           if (!other.weapons_.isEmpty()) {
             if (weapons_.isEmpty()) {
               weapons_ = other.weapons_;
-              bitField0_ = (bitField0_ & ~0x00000100);
+              bitField0_ = (bitField0_ & ~0x00000200);
             } else {
               ensureWeaponsIsMutable();
               weapons_.addAll(other.weapons_);
@@ -1139,7 +1220,7 @@ public final class Messages {
               weaponsBuilder_.dispose();
               weaponsBuilder_ = null;
               weapons_ = other.weapons_;
-              bitField0_ = (bitField0_ & ~0x00000100);
+              bitField0_ = (bitField0_ & ~0x00000200);
               weaponsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getWeaponsFieldBuilder() : null;
@@ -1149,12 +1230,12 @@ public final class Messages {
           }
         }
         if (other.hasResource()) {
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000400;
           resource_ = other.resource_;
           onChanged();
         }
         if (other.hasRagdollResource()) {
-          bitField0_ |= 0x00000400;
+          bitField0_ |= 0x00000800;
           ragdollResource_ = other.ragdollResource_;
           onChanged();
         }
@@ -1169,7 +1250,7 @@ public final class Messages {
       }
 
       public final boolean isInitialized() {
-        if (!hasName()) {
+        if (!hasUuid()) {
           
           return false;
         }
@@ -1201,15 +1282,91 @@ public final class Messages {
       }
       private int bitField0_;
 
-      private java.lang.Object name_ = "";
+      private java.lang.Object uuid_ = "";
       /**
-       * <code>required string name = 1;</code>
+       * <code>required string uuid = 1;</code>
        */
-      public boolean hasName() {
+      public boolean hasUuid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>required string uuid = 1;</code>
+       */
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            uuid_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public Builder setUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public Builder clearUuid() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        uuid_ = getDefaultInstance().getUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public Builder setUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>optional string name = 2;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string name = 2;</code>
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -1226,7 +1383,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -1242,36 +1399,36 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder setName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
@@ -1279,31 +1436,31 @@ public final class Messages {
 
       private float posX_ ;
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public boolean hasPosX() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public float getPosX() {
         return posX_;
       }
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public Builder setPosX(float value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         posX_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public Builder clearPosX() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         posX_ = 0F;
         onChanged();
         return this;
@@ -1311,31 +1468,31 @@ public final class Messages {
 
       private float posY_ ;
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public boolean hasPosY() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public float getPosY() {
         return posY_;
       }
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public Builder setPosY(float value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         posY_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public Builder clearPosY() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         posY_ = 0F;
         onChanged();
         return this;
@@ -1343,31 +1500,31 @@ public final class Messages {
 
       private float velX_ ;
       /**
-       * <code>optional float vel_x = 4;</code>
+       * <code>optional float vel_x = 5;</code>
        */
       public boolean hasVelX() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional float vel_x = 4;</code>
+       * <code>optional float vel_x = 5;</code>
        */
       public float getVelX() {
         return velX_;
       }
       /**
-       * <code>optional float vel_x = 4;</code>
+       * <code>optional float vel_x = 5;</code>
        */
       public Builder setVelX(float value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         velX_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float vel_x = 4;</code>
+       * <code>optional float vel_x = 5;</code>
        */
       public Builder clearVelX() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         velX_ = 0F;
         onChanged();
         return this;
@@ -1375,31 +1532,31 @@ public final class Messages {
 
       private float velY_ ;
       /**
-       * <code>optional float vel_y = 5;</code>
+       * <code>optional float vel_y = 6;</code>
        */
       public boolean hasVelY() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional float vel_y = 5;</code>
+       * <code>optional float vel_y = 6;</code>
        */
       public float getVelY() {
         return velY_;
       }
       /**
-       * <code>optional float vel_y = 5;</code>
+       * <code>optional float vel_y = 6;</code>
        */
       public Builder setVelY(float value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         velY_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float vel_y = 5;</code>
+       * <code>optional float vel_y = 6;</code>
        */
       public Builder clearVelY() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         velY_ = 0F;
         onChanged();
         return this;
@@ -1407,31 +1564,31 @@ public final class Messages {
 
       private float maxHp_ ;
       /**
-       * <code>optional float max_hp = 6;</code>
+       * <code>optional float max_hp = 7;</code>
        */
       public boolean hasMaxHp() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional float max_hp = 6;</code>
+       * <code>optional float max_hp = 7;</code>
        */
       public float getMaxHp() {
         return maxHp_;
       }
       /**
-       * <code>optional float max_hp = 6;</code>
+       * <code>optional float max_hp = 7;</code>
        */
       public Builder setMaxHp(float value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         maxHp_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float max_hp = 6;</code>
+       * <code>optional float max_hp = 7;</code>
        */
       public Builder clearMaxHp() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         maxHp_ = 0F;
         onChanged();
         return this;
@@ -1439,31 +1596,31 @@ public final class Messages {
 
       private float hp_ ;
       /**
-       * <code>optional float hp = 7;</code>
+       * <code>optional float hp = 8;</code>
        */
       public boolean hasHp() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional float hp = 7;</code>
+       * <code>optional float hp = 8;</code>
        */
       public float getHp() {
         return hp_;
       }
       /**
-       * <code>optional float hp = 7;</code>
+       * <code>optional float hp = 8;</code>
        */
       public Builder setHp(float value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         hp_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float hp = 7;</code>
+       * <code>optional float hp = 8;</code>
        */
       public Builder clearHp() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         hp_ = 0F;
         onChanged();
         return this;
@@ -1471,31 +1628,31 @@ public final class Messages {
 
       private int currentWeapon_ ;
       /**
-       * <code>optional int32 currentWeapon = 8;</code>
+       * <code>optional int32 currentWeapon = 9;</code>
        */
       public boolean hasCurrentWeapon() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>optional int32 currentWeapon = 8;</code>
+       * <code>optional int32 currentWeapon = 9;</code>
        */
       public int getCurrentWeapon() {
         return currentWeapon_;
       }
       /**
-       * <code>optional int32 currentWeapon = 8;</code>
+       * <code>optional int32 currentWeapon = 9;</code>
        */
       public Builder setCurrentWeapon(int value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         currentWeapon_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 currentWeapon = 8;</code>
+       * <code>optional int32 currentWeapon = 9;</code>
        */
       public Builder clearCurrentWeapon() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         currentWeapon_ = 0;
         onChanged();
         return this;
@@ -1504,9 +1661,9 @@ public final class Messages {
       private java.util.List<com.blastedstudios.scab.network.Messages.NetWeapon> weapons_ =
         java.util.Collections.emptyList();
       private void ensureWeaponsIsMutable() {
-        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (!((bitField0_ & 0x00000200) == 0x00000200)) {
           weapons_ = new java.util.ArrayList<com.blastedstudios.scab.network.Messages.NetWeapon>(weapons_);
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000200;
          }
       }
 
@@ -1514,7 +1671,7 @@ public final class Messages {
           com.blastedstudios.scab.network.Messages.NetWeapon, com.blastedstudios.scab.network.Messages.NetWeapon.Builder, com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder> weaponsBuilder_;
 
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public java.util.List<com.blastedstudios.scab.network.Messages.NetWeapon> getWeaponsList() {
         if (weaponsBuilder_ == null) {
@@ -1524,7 +1681,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public int getWeaponsCount() {
         if (weaponsBuilder_ == null) {
@@ -1534,7 +1691,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public com.blastedstudios.scab.network.Messages.NetWeapon getWeapons(int index) {
         if (weaponsBuilder_ == null) {
@@ -1544,7 +1701,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder setWeapons(
           int index, com.blastedstudios.scab.network.Messages.NetWeapon value) {
@@ -1561,7 +1718,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder setWeapons(
           int index, com.blastedstudios.scab.network.Messages.NetWeapon.Builder builderForValue) {
@@ -1575,7 +1732,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder addWeapons(com.blastedstudios.scab.network.Messages.NetWeapon value) {
         if (weaponsBuilder_ == null) {
@@ -1591,7 +1748,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder addWeapons(
           int index, com.blastedstudios.scab.network.Messages.NetWeapon value) {
@@ -1608,7 +1765,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder addWeapons(
           com.blastedstudios.scab.network.Messages.NetWeapon.Builder builderForValue) {
@@ -1622,7 +1779,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder addWeapons(
           int index, com.blastedstudios.scab.network.Messages.NetWeapon.Builder builderForValue) {
@@ -1636,7 +1793,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder addAllWeapons(
           java.lang.Iterable<? extends com.blastedstudios.scab.network.Messages.NetWeapon> values) {
@@ -1651,12 +1808,12 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder clearWeapons() {
         if (weaponsBuilder_ == null) {
           weapons_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000200);
           onChanged();
         } else {
           weaponsBuilder_.clear();
@@ -1664,7 +1821,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public Builder removeWeapons(int index) {
         if (weaponsBuilder_ == null) {
@@ -1677,14 +1834,14 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public com.blastedstudios.scab.network.Messages.NetWeapon.Builder getWeaponsBuilder(
           int index) {
         return getWeaponsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder getWeaponsOrBuilder(
           int index) {
@@ -1694,7 +1851,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public java.util.List<? extends com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder> 
            getWeaponsOrBuilderList() {
@@ -1705,14 +1862,14 @@ public final class Messages {
         }
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public com.blastedstudios.scab.network.Messages.NetWeapon.Builder addWeaponsBuilder() {
         return getWeaponsFieldBuilder().addBuilder(
             com.blastedstudios.scab.network.Messages.NetWeapon.getDefaultInstance());
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public com.blastedstudios.scab.network.Messages.NetWeapon.Builder addWeaponsBuilder(
           int index) {
@@ -1720,7 +1877,7 @@ public final class Messages {
             index, com.blastedstudios.scab.network.Messages.NetWeapon.getDefaultInstance());
       }
       /**
-       * <code>repeated .proto.NetWeapon weapons = 9;</code>
+       * <code>repeated .proto.NetWeapon weapons = 10;</code>
        */
       public java.util.List<com.blastedstudios.scab.network.Messages.NetWeapon.Builder> 
            getWeaponsBuilderList() {
@@ -1733,7 +1890,7 @@ public final class Messages {
           weaponsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.blastedstudios.scab.network.Messages.NetWeapon, com.blastedstudios.scab.network.Messages.NetWeapon.Builder, com.blastedstudios.scab.network.Messages.NetWeaponOrBuilder>(
                   weapons_,
-                  ((bitField0_ & 0x00000100) == 0x00000100),
+                  ((bitField0_ & 0x00000200) == 0x00000200),
                   getParentForChildren(),
                   isClean());
           weapons_ = null;
@@ -1743,13 +1900,13 @@ public final class Messages {
 
       private java.lang.Object resource_ = "";
       /**
-       * <code>optional string resource = 10;</code>
+       * <code>optional string resource = 11;</code>
        */
       public boolean hasResource() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>optional string resource = 10;</code>
+       * <code>optional string resource = 11;</code>
        */
       public java.lang.String getResource() {
         java.lang.Object ref = resource_;
@@ -1766,7 +1923,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional string resource = 10;</code>
+       * <code>optional string resource = 11;</code>
        */
       public com.google.protobuf.ByteString
           getResourceBytes() {
@@ -1782,36 +1939,36 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional string resource = 10;</code>
+       * <code>optional string resource = 11;</code>
        */
       public Builder setResource(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000200;
+  bitField0_ |= 0x00000400;
         resource_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string resource = 10;</code>
+       * <code>optional string resource = 11;</code>
        */
       public Builder clearResource() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         resource_ = getDefaultInstance().getResource();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string resource = 10;</code>
+       * <code>optional string resource = 11;</code>
        */
       public Builder setResourceBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000200;
+  bitField0_ |= 0x00000400;
         resource_ = value;
         onChanged();
         return this;
@@ -1819,13 +1976,13 @@ public final class Messages {
 
       private java.lang.Object ragdollResource_ = "";
       /**
-       * <code>optional string ragdoll_resource = 11;</code>
+       * <code>optional string ragdoll_resource = 12;</code>
        */
       public boolean hasRagdollResource() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>optional string ragdoll_resource = 11;</code>
+       * <code>optional string ragdoll_resource = 12;</code>
        */
       public java.lang.String getRagdollResource() {
         java.lang.Object ref = ragdollResource_;
@@ -1842,7 +1999,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional string ragdoll_resource = 11;</code>
+       * <code>optional string ragdoll_resource = 12;</code>
        */
       public com.google.protobuf.ByteString
           getRagdollResourceBytes() {
@@ -1858,36 +2015,36 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional string ragdoll_resource = 11;</code>
+       * <code>optional string ragdoll_resource = 12;</code>
        */
       public Builder setRagdollResource(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000400;
+  bitField0_ |= 0x00000800;
         ragdollResource_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string ragdoll_resource = 11;</code>
+       * <code>optional string ragdoll_resource = 12;</code>
        */
       public Builder clearRagdollResource() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         ragdollResource_ = getDefaultInstance().getRagdollResource();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string ragdoll_resource = 11;</code>
+       * <code>optional string ragdoll_resource = 12;</code>
        */
       public Builder setRagdollResourceBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000400;
+  bitField0_ |= 0x00000800;
         ragdollResource_ = value;
         onChanged();
         return this;
@@ -1895,34 +2052,34 @@ public final class Messages {
 
       private com.blastedstudios.scab.network.Messages.NetBeing.Faction faction_ = com.blastedstudios.scab.network.Messages.NetBeing.Faction.FRIEND;
       /**
-       * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+       * <code>optional .proto.NetBeing.Faction faction = 13;</code>
        */
       public boolean hasFaction() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       /**
-       * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+       * <code>optional .proto.NetBeing.Faction faction = 13;</code>
        */
       public com.blastedstudios.scab.network.Messages.NetBeing.Faction getFaction() {
         return faction_;
       }
       /**
-       * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+       * <code>optional .proto.NetBeing.Faction faction = 13;</code>
        */
       public Builder setFaction(com.blastedstudios.scab.network.Messages.NetBeing.Faction value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         faction_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional .proto.NetBeing.Faction faction = 12;</code>
+       * <code>optional .proto.NetBeing.Faction faction = 13;</code>
        */
       public Builder clearFaction() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         faction_ = com.blastedstudios.scab.network.Messages.NetBeing.Faction.FRIEND;
         onChanged();
         return this;
@@ -1930,31 +2087,31 @@ public final class Messages {
 
       private float aim_ ;
       /**
-       * <code>optional float aim = 13;</code>
+       * <code>optional float aim = 14;</code>
        */
       public boolean hasAim() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+        return ((bitField0_ & 0x00002000) == 0x00002000);
       }
       /**
-       * <code>optional float aim = 13;</code>
+       * <code>optional float aim = 14;</code>
        */
       public float getAim() {
         return aim_;
       }
       /**
-       * <code>optional float aim = 13;</code>
+       * <code>optional float aim = 14;</code>
        */
       public Builder setAim(float value) {
-        bitField0_ |= 0x00001000;
+        bitField0_ |= 0x00002000;
         aim_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float aim = 13;</code>
+       * <code>optional float aim = 14;</code>
        */
       public Builder clearAim() {
-        bitField0_ = (bitField0_ & ~0x00001000);
+        bitField0_ = (bitField0_ & ~0x00002000);
         aim_ = 0F;
         onChanged();
         return this;
@@ -2944,34 +3101,48 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string name = 1;</code>
+     * <code>required string uuid = 1;</code>
+     */
+    boolean hasUuid();
+    /**
+     * <code>required string uuid = 1;</code>
+     */
+    java.lang.String getUuid();
+    /**
+     * <code>required string uuid = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getUuidBytes();
+
+    /**
+     * <code>optional string name = 2;</code>
      */
     boolean hasName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     boolean hasPosX();
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     float getPosX();
 
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     boolean hasPosY();
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     float getPosY();
   }
@@ -3030,16 +3201,22 @@ public final class Messages {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              name_ = bs;
+              uuid_ = bs;
               break;
             }
-            case 21: {
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              posX_ = input.readFloat();
+              name_ = bs;
               break;
             }
             case 29: {
               bitField0_ |= 0x00000004;
+              posX_ = input.readFloat();
+              break;
+            }
+            case 37: {
+              bitField0_ |= 0x00000008;
               posY_ = input.readFloat();
               break;
             }
@@ -3083,16 +3260,58 @@ public final class Messages {
     }
 
     private int bitField0_;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
+    public static final int UUID_FIELD_NUMBER = 1;
+    private java.lang.Object uuid_;
     /**
-     * <code>required string name = 1;</code>
+     * <code>required string uuid = 1;</code>
      */
-    public boolean hasName() {
+    public boolean hasUuid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>required string uuid = 1;</code>
+     */
+    public java.lang.String getUuid() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          uuid_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string uuid = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUuidBytes() {
+      java.lang.Object ref = uuid_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uuid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private java.lang.Object name_;
+    /**
+     * <code>optional string name = 2;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string name = 2;</code>
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -3109,7 +3328,7 @@ public final class Messages {
       }
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 2;</code>
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -3125,37 +3344,38 @@ public final class Messages {
       }
     }
 
-    public static final int POS_X_FIELD_NUMBER = 2;
+    public static final int POS_X_FIELD_NUMBER = 3;
     private float posX_;
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     public boolean hasPosX() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional float pos_x = 2;</code>
+     * <code>optional float pos_x = 3;</code>
      */
     public float getPosX() {
       return posX_;
     }
 
-    public static final int POS_Y_FIELD_NUMBER = 3;
+    public static final int POS_Y_FIELD_NUMBER = 4;
     private float posY_;
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     public boolean hasPosY() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional float pos_y = 3;</code>
+     * <code>optional float pos_y = 4;</code>
      */
     public float getPosY() {
       return posY_;
     }
 
     private void initFields() {
+      uuid_ = "";
       name_ = "";
       posX_ = 0F;
       posY_ = 0F;
@@ -3166,7 +3386,7 @@ public final class Messages {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasName()) {
+      if (!hasUuid()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -3178,13 +3398,16 @@ public final class Messages {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+        output.writeBytes(1, getUuidBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeFloat(2, posX_);
+        output.writeBytes(2, getNameBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, posY_);
+        output.writeFloat(3, posX_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeFloat(4, posY_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3197,15 +3420,19 @@ public final class Messages {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+          .computeBytesSize(1, getUuidBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, posX_);
+          .computeBytesSize(2, getNameBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, posY_);
+          .computeFloatSize(3, posX_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(4, posY_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3324,12 +3551,14 @@ public final class Messages {
 
       public Builder clear() {
         super.clear();
-        name_ = "";
+        uuid_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        posX_ = 0F;
+        name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        posY_ = 0F;
+        posX_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000004);
+        posY_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -3361,13 +3590,17 @@ public final class Messages {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.name_ = name_;
+        result.uuid_ = uuid_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.posX_ = posX_;
+        result.name_ = name_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
+        }
+        result.posX_ = posX_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
         result.posY_ = posY_;
         result.bitField0_ = to_bitField0_;
@@ -3386,8 +3619,13 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.scab.network.Messages.BeingRespawn other) {
         if (other == com.blastedstudios.scab.network.Messages.BeingRespawn.getDefaultInstance()) return this;
-        if (other.hasName()) {
+        if (other.hasUuid()) {
           bitField0_ |= 0x00000001;
+          uuid_ = other.uuid_;
+          onChanged();
+        }
+        if (other.hasName()) {
+          bitField0_ |= 0x00000002;
           name_ = other.name_;
           onChanged();
         }
@@ -3402,7 +3640,7 @@ public final class Messages {
       }
 
       public final boolean isInitialized() {
-        if (!hasName()) {
+        if (!hasUuid()) {
           
           return false;
         }
@@ -3428,15 +3666,91 @@ public final class Messages {
       }
       private int bitField0_;
 
-      private java.lang.Object name_ = "";
+      private java.lang.Object uuid_ = "";
       /**
-       * <code>required string name = 1;</code>
+       * <code>required string uuid = 1;</code>
        */
-      public boolean hasName() {
+      public boolean hasUuid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>required string uuid = 1;</code>
+       */
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            uuid_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uuid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public Builder setUuid(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public Builder clearUuid() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        uuid_ = getDefaultInstance().getUuid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string uuid = 1;</code>
+       */
+      public Builder setUuidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        uuid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>optional string name = 2;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string name = 2;</code>
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -3453,7 +3767,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -3469,36 +3783,36 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder setName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 2;</code>
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         name_ = value;
         onChanged();
         return this;
@@ -3506,31 +3820,31 @@ public final class Messages {
 
       private float posX_ ;
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public boolean hasPosX() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public float getPosX() {
         return posX_;
       }
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public Builder setPosX(float value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         posX_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float pos_x = 2;</code>
+       * <code>optional float pos_x = 3;</code>
        */
       public Builder clearPosX() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         posX_ = 0F;
         onChanged();
         return this;
@@ -3538,31 +3852,31 @@ public final class Messages {
 
       private float posY_ ;
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public boolean hasPosY() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public float getPosY() {
         return posY_;
       }
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public Builder setPosY(float value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         posY_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float pos_y = 3;</code>
+       * <code>optional float pos_y = 4;</code>
        */
       public Builder clearPosY() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         posY_ = 0F;
         onChanged();
         return this;
@@ -4751,21 +5065,21 @@ public final class Messages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025network/network.proto\022\005proto\"\257\002\n\010NetBe" +
-      "ing\022\014\n\004name\030\001 \002(\t\022\r\n\005pos_x\030\002 \001(\002\022\r\n\005pos_" +
-      "y\030\003 \001(\002\022\r\n\005vel_x\030\004 \001(\002\022\r\n\005vel_y\030\005 \001(\002\022\016\n" +
-      "\006max_hp\030\006 \001(\002\022\n\n\002hp\030\007 \001(\002\022\025\n\rcurrentWeap" +
-      "on\030\010 \001(\005\022!\n\007weapons\030\t \003(\0132\020.proto.NetWea" +
-      "pon\022\020\n\010resource\030\n \001(\t\022\030\n\020ragdoll_resourc" +
-      "e\030\013 \001(\t\022(\n\007faction\030\014 \001(\0162\027.proto.NetBein" +
-      "g.Faction\022\013\n\003aim\030\r \001(\002\" \n\007Faction\022\n\n\006FRI" +
-      "END\020\001\022\t\n\005ENEMY\020\002\"\031\n\tNetWeapon\022\014\n\004name\030\001 " +
-      "\002(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t\":\n\014B",
-      "eingRespawn\022\014\n\004name\030\001 \002(\t\022\r\n\005pos_x\030\002 \001(\002" +
-      "\022\r\n\005pos_y\030\003 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t" +
-      "\022\016\n\006origin\030\002 \002(\t\"\031\n\tLevelLoad\022\014\n\004name\030\001 " +
-      "\002(\tB+\n\037com.blastedstudios.scab.networkB\010" +
-      "Messages"
+      "\n\025network/network.proto\022\005proto\"\275\002\n\010NetBe" +
+      "ing\022\014\n\004uuid\030\001 \002(\t\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x" +
+      "\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002\022\r\n\005" +
+      "vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 \001(\002\022" +
+      "\025\n\rcurrentWeapon\030\t \001(\005\022!\n\007weapons\030\n \003(\0132" +
+      "\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(\t\022\030\n\020r" +
+      "agdoll_resource\030\014 \001(\t\022(\n\007faction\030\r \001(\0162\027" +
+      ".proto.NetBeing.Faction\022\013\n\003aim\030\016 \001(\002\" \n\007" +
+      "Faction\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"\031\n\tNetWea" +
+      "pon\022\014\n\004name\030\001 \002(\t\"\036\n\013TextRequest\022\017\n\007cont",
+      "ent\030\001 \002(\t\"H\n\014BeingRespawn\022\014\n\004uuid\030\001 \002(\t\022" +
+      "\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 " +
+      "\001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002" +
+      " \002(\t\"\031\n\tLevelLoad\022\014\n\004name\030\001 \002(\tB+\n\037com.b" +
+      "lastedstudios.scab.networkB\010Messages"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4784,7 +5098,7 @@ public final class Messages {
     internal_static_proto_NetBeing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
-        new java.lang.String[] { "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", });
+        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", });
     internal_static_proto_NetWeapon_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
@@ -4802,7 +5116,7 @@ public final class Messages {
     internal_static_proto_BeingRespawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_BeingRespawn_descriptor,
-        new java.lang.String[] { "Name", "PosX", "PosY", });
+        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_proto_Text_fieldAccessorTable = new

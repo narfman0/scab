@@ -32,6 +32,7 @@ public class ClientTable extends Table {
 						// send minimal information - name!
 						NetBeing.Builder netBeing = NetBeing.newBuilder();
 						netBeing.setName(player.getName());
+						netBeing.setUuid(client.getUUID().toString());
 						client.send(MessageType.NAME_UPDATE, netBeing.build());
 					}
 				});

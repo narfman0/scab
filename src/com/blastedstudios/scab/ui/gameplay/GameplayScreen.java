@@ -43,10 +43,6 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.BaseNetwork;
-import com.blastedstudios.scab.network.IMessageListener;
-import com.blastedstudios.scab.network.MessageType;
-import com.blastedstudios.scab.network.Messages.BeingRespawn;
-import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.scab.ui.ScabScreen;
 import com.blastedstudios.scab.ui.drawable.ParticleManagerDrawable;
@@ -66,12 +62,11 @@ import com.blastedstudios.scab.world.QuestManifestationExecutor;
 import com.blastedstudios.scab.world.QuestTriggerInformationProvider;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
-import com.blastedstudios.scab.world.being.Being.BodyPart;
 import com.blastedstudios.scab.world.being.NPC;
 import com.blastedstudios.scab.world.being.Player;
 import com.blastedstudios.scab.world.being.component.IComponent;
 
-public class GameplayScreen extends ScabScreen implements IMessageListener {
+public class GameplayScreen extends ScabScreen {
 	private final DialogManager dialogManager;
 	private final DialogBubble dialogBubble;
 	private final ParticleManager particleManager;
@@ -91,8 +86,7 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 	private final SpriteBatch spriteBatch = new SpriteBatch();
 	private final AssetManager sharedAssets, assetManager;
 	private final LinkedList<Drawable> drawables;
-	private final MultiplayerType type;
-	private final BaseNetwork network;
+	private final GameplayNetReceiver receiver;
 	private Table tintTable;
 	
 	public GameplayScreen(GDXGame game, Player player, GDXLevel level, GDXWorld world,
@@ -105,8 +99,6 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 		this.gdxRenderer = gdxRenderer;
 		this.sharedAssets = sharedAssets;
 		this.assetManager = assetManager;
-		this.type = type;
-		this.network = network;
 		hud = new HUD(skin, player);
 		dialogManager = new DialogManager(skin);
 		dialogBubble = new DialogBubble(sharedAssets, skin);
@@ -118,6 +110,7 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 				hud.npcAdded(npc);
 			}
 		});
+		receiver = new GameplayNetReceiver(worldManager, type, network);
 		player.getQuestManager().initialize(new QuestTriggerInformationProvider(this, worldManager), 
 				new QuestManifestationExecutor(this, worldManager));
 		player.getQuestManager().setCurrentLevel(level);
@@ -147,12 +140,6 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 		drawables.add(startIndex, new ParticleManagerDrawable(particleManager, worldManager));
 		drawables.add(startIndex, new WorldManagerDrawable(worldManager));
 		drawables.add(startIndex, new TiledMeshRendererDrawable(tiledMeshRenderer));
-		
-		// multiplayer subscribe to updates
-		if(type != MultiplayerType.Local){
-			network.addListener(MessageType.BEING_RESPAWN, this);
-			network.addListener(MessageType.PLAYER_UPDATE, this);
-		}
 	}
 	
 	private void registerInput(){
@@ -306,16 +293,11 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 				(consoleWindow == null || !consoleWindow.contains(x, y)))
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
 		
-		// multiplayer send update
-		if(type != MultiplayerType.Local){
-			network.render();
-			network.send(MessageType.PLAYER_UPDATE, worldManager.getPlayer().buildMessage(true));
-		}
+		receiver.render(delta);
 	}
 	
 	public void levelComplete(final boolean success, final String nextLevelName){
-		if(type != MultiplayerType.Local)
-			network.removeListener(this);
+		receiver.dispose();
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, nextLevelName, worldManager, level);
 		GDXGameFade.fadeOutPopScreen(game, new IPopListener() {
@@ -324,8 +306,8 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 				if(success && nextLevelName != null && !nextLevelName.equals(""))
 					((AbstractScreen)game.getScreen()).getStage().addActor(new LoadingWindow(skin, 
 							new GameplayLoadingWindowExecutor(game, worldManager.getPlayer(), 
-									world.getLevel(nextLevelName), 
-									world, selectedFile, gdxRenderer, sharedAssets, type, network)));
+									world.getLevel(nextLevelName), world, selectedFile, gdxRenderer,
+									sharedAssets, receiver.type, receiver.network)));
 			}
 		});
 	}
@@ -471,38 +453,5 @@ public class GameplayScreen extends ScabScreen implements IMessageListener {
 
 	public interface IGameplayListener{
 		void npcAdded(NPC npc);
-	}
-
-	@Override public void receive(MessageType messageType, Object object) {
-		switch(messageType){
-		case BEING_RESPAWN:{
-			BeingRespawn message = (BeingRespawn) object;
-			Being existing = worldManager.getRemotePlayer(message.getName());
-			if(existing != null)
-				existing.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
-			break;
-		}
-		case PLAYER_UPDATE:{
-			NetBeing message = (NetBeing) object;
-			if(message.getName().equals(worldManager.getPlayer().getName()))
-				// don't want to make a new player with my name! should refactor to use ids somehow in future
-				break;
-			Being existing = worldManager.getRemotePlayer(message.getName());
-			if(existing == null){
-				Being being = Being.fromMessage(message);
-				worldManager.getRemotePlayers().add(being);
-				being.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
-				Log.log("GameplayScreen.receive", "Received first player update: " + message.getName());
-			}else if(existing.getPosition() != null && message.hasPosX()){
-				existing.getRagdoll().getBodyPart(BodyPart.torso).setTransform(message.getPosX(), message.getPosY(), 0);
-				existing.setVelocity(new Vector2(message.getVelX(), message.getVelY()));
-				existing.aim(message.getAim());
-			}
-			if(type == MultiplayerType.Host)
-				network.send(messageType, message);
-			break;
-		}default:
-			break;
-		}
 	}
 }

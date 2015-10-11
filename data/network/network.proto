@@ -5,19 +5,20 @@ option java_outer_classname = "Messages";
 
 
 message NetBeing {
-  required string name = 1;
-  optional float pos_x = 2;
-  optional float pos_y = 3;
-  optional float vel_x = 4;
-  optional float vel_y = 5;
-  optional float max_hp = 6;
-  optional float hp = 7;
-  optional int32 currentWeapon = 8;
-  repeated NetWeapon weapons = 9;
-  optional string resource = 10;
-  optional string ragdoll_resource = 11;
-  optional Faction faction = 12;
-  optional float aim = 13;
+  required string uuid = 1;
+  optional string name = 2;
+  optional float pos_x = 3;
+  optional float pos_y = 4;
+  optional float vel_x = 5;
+  optional float vel_y = 6;
+  optional float max_hp = 7;
+  optional float hp = 8;
+  optional int32 currentWeapon = 9;
+  repeated NetWeapon weapons = 10;
+  optional string resource = 11;
+  optional string ragdoll_resource = 12;
+  optional Faction faction = 13;
+  optional float aim = 14;
 
   enum Faction {
   	FRIEND = 1;
@@ -34,9 +35,10 @@ message TextRequest {
 }
 
 message BeingRespawn {
-  required string name = 1;
-  optional float pos_x = 2;
-  optional float pos_y = 3;
+  required string uuid = 1;
+  optional string name = 2;
+  optional float pos_x = 3;
+  optional float pos_y = 4;
 }
 
 message Text {
