@@ -15,6 +15,7 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.MessageType;
+import com.blastedstudios.scab.network.Messages.NameUpdate;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.Text;
 import com.blastedstudios.scab.network.Messages.TextRequest;
@@ -65,27 +66,26 @@ public class Host extends BaseNetwork{
 				iter.remove();
 			}else{
 				List<MessageStruct> messages = receiveMessages(client.inStream, client.socket);
-				for(MessageStruct message : messages){
-					switch(message.messageType){
+				for(MessageStruct struct : messages){
+					switch(struct.messageType){
 					case NAME_UPDATE:
-						NetBeing being = (NetBeing) message.message;
+						NameUpdate message = (NameUpdate) struct.message;
 						if(client.player == null)
-							client.player = NetBeing.newBuilder(being);
-						else
-							client.player.setName(being.getName());
+							client.player = NetBeing.newBuilder();
+						client.player.setName(message.getName());
 						receiveMessage(MessageType.NAME_UPDATE, client);
 						break;
 					case TEXT_REQUEST:
-						TextRequest request = (TextRequest) message.message;
+						TextRequest request = (TextRequest) struct.message;
 						Text.Builder builder = Text.newBuilder();
 						builder.setContent(request.getContent());
 						builder.setOrigin(client.toString());
 						send(MessageType.TEXT, builder.build());
 					default:
-						receiveMessage(message.messageType, message.message);
+						receiveMessage(struct.messageType, struct.message);
 					}
-					Log.debug("Host.render", "Message received: " + message.messageType + " contents: " +
-							message.message + " from " + client.socket.getRemoteAddress());
+					Log.debug("Host.render", "Message received: " + struct.messageType + " contents: " +
+							struct.message + " from " + client.socket.getRemoteAddress());
 				}
 				sendMessages(currentQueue, client.outStream);
 			}

@@ -10,7 +10,7 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Client;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.Messages.MessageType;
-import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.NameUpdate;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.world.being.Being;
 
@@ -30,10 +30,9 @@ public class ClientTable extends Table {
 				client.addListener(MessageType.CONNECTED, new IMessageListener() {
 					@Override public void receive(MessageType messageType, Object object) {
 						// send minimal information - name!
-						NetBeing.Builder netBeing = NetBeing.newBuilder();
-						netBeing.setName(player.getName());
-						netBeing.setUuid(client.getUUID().toString());
-						client.send(MessageType.NAME_UPDATE, netBeing.build());
+						NameUpdate.Builder builder = NameUpdate.newBuilder();
+						builder.setName(player.getName());
+						client.send(MessageType.NAME_UPDATE, builder.build());
 					}
 				});
 				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {

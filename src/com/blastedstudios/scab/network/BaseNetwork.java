@@ -114,9 +114,6 @@ public abstract class BaseNetwork {
 				MessageType messageType = MessageType.values()[stream.readSInt32()];
 				byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 				switch(messageType){
-				case NAME_UPDATE:
-					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
-					break;
 				case PLAYER_UPDATE:
 					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
 					break;

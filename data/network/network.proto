@@ -40,6 +40,10 @@ message NetWeapon {
   required string name = 1;
 }
 
+message NameUpdate {
+  required string name = 1;
+}
+
 message TextRequest {
   required string content = 1;
 }

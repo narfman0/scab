@@ -50,7 +50,7 @@ public class NetworkWindow extends ScabWindow{
 		add("Network");
 		add(multiplayerTypeSelect);
 		row();
-		add(multiplayerTypeParentTable).colspan(2);
+		add(multiplayerTypeParentTable).colspan(2).fillX().expandX();
 		setY(Gdx.graphics.getHeight()/2 - getHeight()/2);
 		setSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/3f);
 		setMovable(false);

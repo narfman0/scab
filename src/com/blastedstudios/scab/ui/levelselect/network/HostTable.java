@@ -42,7 +42,7 @@ public class HostTable extends Table {
 						clients.getItems().set(i, clients.getItems().get(i) + " " + struct.player.getName());
 			}
 		});
-		add(clients).colspan(2).fillX().expandX();
+		add(clients);
 	}
 	
 	public void render(){
