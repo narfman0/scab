@@ -59,8 +59,9 @@ public class WorldManager implements IDeathCallback{
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
 	private final Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	private final List<NPC> npcs = new LinkedList<>();
-	private final Map<Body,GunShot> gunshots = new HashMap<>();
+	private final List<Being> remotePlayers = new LinkedList<>();
 	private final Player player;
+	private final Map<Body,GunShot> gunshots = new HashMap<>();
 	private final CreateLevelReturnStruct createLevelStruct;
 	private Vector2 respawnLocation;
 	private final GDXLevel level;
@@ -100,6 +101,8 @@ public class WorldManager implements IDeathCallback{
 			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable);
 		for(NPC npc : npcs)
 			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
+		for(Being being : remotePlayers)
+			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(entry.getValue().isCanRemove())
@@ -262,6 +265,7 @@ public class WorldManager implements IDeathCallback{
 	public List<Being> getAllBeings() {
 		List<Being> beings = new LinkedList<>();
 		beings.addAll(npcs);
+		beings.addAll(remotePlayers);
 		if(player.isSpawned())
 			beings.add(player);
 		return beings;
@@ -397,6 +401,7 @@ public class WorldManager implements IDeathCallback{
 	public void dispose(Being being) {
 		being.dispose(world);
 		npcs.remove(being);
+		remotePlayers.remove(being);
 	}
 
 	public Random getRandom() {
@@ -425,5 +430,16 @@ public class WorldManager implements IDeathCallback{
 
 	public World getWorld() {
 		return world;
+	}
+
+	public List<Being> getRemotePlayers() {
+		return remotePlayers;
+	}
+
+	public Being getRemotePlayer(String name) {
+		for(Being being : remotePlayers)
+			if(being.getName().equals(name))
+				return being;
+		return null;
 	}
 }

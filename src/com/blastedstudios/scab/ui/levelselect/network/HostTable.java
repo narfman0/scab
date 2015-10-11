@@ -17,7 +17,7 @@ public class HostTable extends Table {
 		List<String> clients = new List<String>(skin);
 		host = new Host(player);
 		host.addListener(MessageType.CONNECTED, new IMessageListener() {
-			@Override public void receive(Object object) {
+			@Override public void receive(MessageType messageType, Object object) {
 				if(object != null){
 					HostStruct struct = (HostStruct) object;
 					clients.getItems().add(struct.socket.getRemoteAddress());
@@ -25,16 +25,16 @@ public class HostTable extends Table {
 			}
 		});
 		host.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-			@Override public void receive(Object object) {
+			@Override public void receive(MessageType messageType, Object object) {
 				HostStruct struct = (HostStruct) object;
 				if(struct.player != null)
 					clients.getItems().removeValue(struct.player.getName(), false);
-				if(struct != null && struct.socket != null)
+				if(struct != null && struct.isConnected())
 					clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
 			}
 		});
 		host.addListener(MessageType.NAME_UPDATE, new IMessageListener() {
-			@Override public void receive(Object object) {
+			@Override public void receive(MessageType messageType, Object object) {
 				HostStruct struct = (HostStruct) object;
 				// got name, append to ip
 				for(int i=0; i<clients.getItems().size; i++)
@@ -46,11 +46,13 @@ public class HostTable extends Table {
 	}
 	
 	public void render(){
-		host.render();
+		if(host != null)
+			host.render();
 	}
 	
 	@Override public boolean remove(){
-		host.dispose();
+		if(host != null)
+			host.dispose();
 		return super.remove();
 	}
 

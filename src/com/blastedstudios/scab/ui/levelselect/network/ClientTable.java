@@ -28,7 +28,7 @@ public class ClientTable extends Table {
 					return;
 				}
 				client.addListener(MessageType.CONNECTED, new IMessageListener() {
-					@Override public void receive(Object object) {
+					@Override public void receive(MessageType messageType, Object object) {
 						// send minimal information - name!
 						NetBeing.Builder netBeing = NetBeing.newBuilder();
 						netBeing.setName(player.getName());
@@ -36,7 +36,7 @@ public class ClientTable extends Table {
 					}
 				});
 				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-					@Override public void receive(Object object) {
+					@Override public void receive(MessageType messageType, Object object) {
 						client.dispose();
 					}
 				});

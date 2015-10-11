@@ -32,7 +32,7 @@ public class ChatWindow extends ScabWindow implements IMessageListener {
 			network.addListener(MessageType.TEXT, this);
 		}else
 			network.addListener(MessageType.CONNECTED, new IMessageListener() {
-				@Override public void receive(Object object) {
+				@Override public void receive(MessageType messageType, Object object) {
 					network.removeListener(MessageType.CONNECTED, this);
 					network.addListener(MessageType.TEXT, ChatWindow.this);
 				}
@@ -66,7 +66,7 @@ public class ChatWindow extends ScabWindow implements IMessageListener {
 		return super.remove();
 	}
 
-	@Override public void receive(Object object) {
+	@Override public void receive(MessageType messageType, Object object) {
 		Text text = (Text) object;
 		String appended = chatText.getText().isEmpty() ? "" : "\n";
 		appended += text.getOrigin() + ": " + text.getContent();

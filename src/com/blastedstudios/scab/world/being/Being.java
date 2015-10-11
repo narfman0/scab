@@ -22,6 +22,8 @@ import com.blastedstudios.gdxworld.util.FileUtil;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.NetWeapon;
 import com.blastedstudios.scab.physics.PhysicsEnvironment;
 import com.blastedstudios.scab.physics.VisibleQueryCallback;
 import com.blastedstudios.scab.physics.ragdoll.IRagdoll;
@@ -35,6 +37,7 @@ import com.blastedstudios.scab.world.weapon.DamageStruct;
 import com.blastedstudios.scab.world.weapon.Gun;
 import com.blastedstudios.scab.world.weapon.Melee;
 import com.blastedstudios.scab.world.weapon.Weapon;
+import com.blastedstudios.scab.world.weapon.WeaponFactory;
 
 public class Being implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -708,5 +711,40 @@ public class Being implements Serializable{
 
 	public boolean isInvulnerable() {
 		return invulnerable;
+	}
+	
+	public NetBeing buildMessage(boolean complete){
+		NetBeing.Builder builder = NetBeing.newBuilder();
+		builder.setName(name);
+		builder.setHp(getHp());
+		builder.setMaxHp(getMaxHp());
+		builder.setAim(lastGunHeadingRadians);
+		if(getPosition() != null){
+			builder.setPosX(getPosition().x);
+			builder.setPosY(getPosition().y);
+			builder.setVelX(getVelocity().x);
+			builder.setVelY(getVelocity().y);
+		}
+		if(complete){
+			builder.setCurrentWeapon(currentWeapon);
+			for(Weapon weapon : guns)
+				builder.addWeapons(weapon.buildMessage());
+			builder.setResource(resource);
+			if(ragdollResource != null && !ragdollResource.isEmpty())
+				builder.setRagdollResource(ragdollResource);
+		}
+		return builder.build();
+	}
+	
+	public static Being fromMessage(NetBeing message){
+		LinkedList<Weapon> guns = new LinkedList<>(), inventory = new LinkedList<>();
+		for(NetWeapon netWeapon : message.getWeaponsList())
+			guns.add(WeaponFactory.getWeapon(netWeapon.getName()));
+		Stats stats = new Stats();
+		stats.setHp(message.getHp());
+		FactionEnum faction = FactionEnum.valueOf(message.getFaction().name());
+		EnumSet<FactionEnum> factions = EnumSet.noneOf(FactionEnum.class);
+		return new Being(message.getName(), guns, inventory, stats, message.getCurrentWeapon(), 0, 0, 0, 
+				faction, factions, message.getResource(), message.getRagdollResource());
 	}
 }

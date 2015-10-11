@@ -57,10 +57,9 @@ public class LevelSelectScreen extends ScabScreen{
 				switch(type){
 				case Client:
 					networkWindow.getSource().addListener(MessageType.LEVEL_LOAD, new IMessageListener() {
-						@Override public void receive(Object object) {
+						@Override public void receive(MessageType messageType, Object object) {
 							LevelLoad message = (LevelLoad) object;
 							levelSelected(message.getName());
-							// TODO send full player info!
 						}
 					});
 				case Host:

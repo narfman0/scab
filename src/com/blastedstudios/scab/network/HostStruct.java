@@ -17,6 +17,10 @@ public class HostStruct {
 		outStream = CodedOutputStream.newInstance(socket.getOutputStream());
 	}
 	
+	public boolean isConnected(){
+		return socket != null && socket.isConnected();
+	}
+	
 	public String toString(){
 		return player != null && player.hasName() ? player.getName() : socket.getRemoteAddress();
 	}

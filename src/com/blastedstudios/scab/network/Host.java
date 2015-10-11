@@ -48,7 +48,7 @@ public class Host extends BaseNetwork{
 		receiveMessage(MessageType.CONNECTED, null);
 	}
 	
-	public void render(){
+	@Override public void render(){
 		// Build new list of messages to send this frame. Grab messages initially, don't check queue again!
 		ArrayList<MessageStruct> currentQueue = new ArrayList<>(sendQueue);
 		// "but jrob, thats a queue that could be modified between copying and clearing, you should iterate..."

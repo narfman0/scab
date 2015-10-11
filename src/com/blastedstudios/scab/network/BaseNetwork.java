@@ -1,14 +1,15 @@
 package com.blastedstudios.scab.network;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.scab.network.Messages.BeingRespawn;
 import com.blastedstudios.scab.network.Messages.LevelLoad;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.Text;
@@ -31,10 +32,8 @@ public abstract class BaseNetwork {
 	 * a.k.a. receive, heed, execute, send
 	 */
 	public void receiveMessage(MessageType messageType, Object message){
-		for(Iterator<IMessageListener> iter = listeners.get(messageType).iterator(); iter.hasNext();){
-			IMessageListener listener = iter.next();
-			listener.receive(message);
-		}
+		for(IMessageListener listener : new ArrayList<>(listeners.get(messageType)))
+			listener.receive(messageType, message);
 	}
 
 	/**
@@ -65,6 +64,7 @@ public abstract class BaseNetwork {
 
 	public abstract void dispose();
 	public abstract boolean isConnected();
+	public abstract void render();
 
 	protected static void sendMessages(List<MessageStruct> messages, CodedOutputStream stream){
 		for(MessageStruct sendStruct : messages){
@@ -102,6 +102,12 @@ public abstract class BaseNetwork {
 					break;
 				case LEVEL_LOAD:
 					messages.add(new MessageStruct(messageType, LevelLoad.parseFrom(buffer)));
+					break;
+				case PLAYER_UPDATE:
+					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
+					break;
+				case BEING_RESPAWN:
+					messages.add(new MessageStruct(messageType, BeingRespawn.parseFrom(buffer)));
 					break;
 				case CONNECTED:
 				case DISCONNECTED:

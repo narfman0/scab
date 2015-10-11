@@ -24,7 +24,7 @@ public class Client extends BaseNetwork {
 		receiveMessage(MessageType.CONNECTED, hostStruct);
 	}
 	
-	public void render(){
+	@Override public void render(){
 		if(!isConnected())
 			return;
 		List<MessageStruct> messages = receiveMessages(hostStruct.inStream, hostStruct.socket);

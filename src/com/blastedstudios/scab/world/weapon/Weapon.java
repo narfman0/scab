@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.blastedstudios.scab.network.Messages.NetWeapon;
 import com.blastedstudios.scab.physics.ragdoll.IRagdoll;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.WorldManager;
@@ -140,4 +141,10 @@ public abstract class Weapon implements Serializable{
 	public void activate(World world, IRagdoll ragdoll, Being owner){}
 	public void dispose(World world){}
 	public void death(World world){}
+	
+	public NetWeapon buildMessage(){
+		NetWeapon.Builder builder = NetWeapon.newBuilder();
+		builder.setName(name);
+		return builder.build();
+	}
 }

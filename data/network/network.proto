@@ -12,11 +12,31 @@ message NetBeing {
   optional float vel_y = 5;
   optional float max_hp = 6;
   optional float hp = 7;
-  optional int32 currentGun = 8;
+  optional int32 currentWeapon = 8;
+  repeated NetWeapon weapons = 9;
+  optional string resource = 10;
+  optional string ragdoll_resource = 11;
+  optional Faction faction = 12;
+  optional float aim = 13;
+
+  enum Faction {
+  	FRIEND = 1;
+  	ENEMY = 2;
+  }
+}
+
+message NetWeapon {
+  required string name = 1;
 }
 
 message TextRequest {
   required string content = 1;
+}
+
+message BeingRespawn {
+  required string name = 1;
+  optional float pos_x = 2;
+  optional float pos_y = 3;
 }
 
 message Text {
