@@ -32,6 +32,7 @@ import com.blastedstudios.scab.physics.VisibleQueryCallback;
 import com.blastedstudios.scab.physics.ragdoll.IRagdoll;
 import com.blastedstudios.scab.physics.ragdoll.IRagdoll.IRagdollPlugin;
 import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
+import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.util.VectorHelper;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.WorldManager;
@@ -118,7 +119,7 @@ public class Being implements Serializable{
 			BeingDead.Builder builder = BeingDead.newBuilder();
 			builder.setName(name);
 			if(uuid != null)
-				builder.setUuid(uuid.toString());
+				builder.setUuid(UUIDConvert.convert(uuid));
 			receiver.send(MessageType.BEING_DEAD, builder.build());
 			deathCallback.dead(this);
 		}
@@ -728,7 +729,7 @@ public class Being implements Serializable{
 	public NetBeing buildMessage(boolean complete){
 		NetBeing.Builder builder = NetBeing.newBuilder();
 		if(uuid != null)
-			builder.setUuid(uuid.toString());
+			builder.setUuid(UUIDConvert.convert(uuid));
 		builder.setName(name);
 		builder.setHp(getHp());
 		builder.setMaxHp(getMaxHp());
@@ -760,7 +761,7 @@ public class Being implements Serializable{
 		EnumSet<FactionEnum> factions = EnumSet.noneOf(FactionEnum.class);
 		Being being = new Being(message.getName(), guns, inventory, stats, message.getCurrentWeapon(), 0, 0, 0, 
 				faction, factions, message.getResource(), message.getRagdollResource());
-		being.setUuid(UUID.fromString(message.getUuid()));
+		being.setUuid(UUIDConvert.convert(message.getUuid()));
 		return being;
 	}
 	

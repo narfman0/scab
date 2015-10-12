@@ -12,6 +12,7 @@ import com.blastedstudios.scab.network.Messages.NPCState;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.PlayerState;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
 import com.blastedstudios.scab.world.being.NPC;
@@ -42,7 +43,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			BeingDead message = (BeingDead) object;
 			Being existing = null;
 			if(message.hasUuid())
-				existing = worldManager.getRemotePlayer(UUID.fromString(message.getUuid()));
+				existing = worldManager.getRemotePlayer(UUIDConvert.convert(message.getUuid()));
 			else
 				for(Being being : worldManager.getAllBeings())
 					if(being.getName().equals(message.getName()))
@@ -64,7 +65,7 @@ public class GameplayNetReceiver implements IMessageListener{
 				if(netBeing.getName().equals(worldManager.getPlayer().getName()))
 					// don't want to make a new player with my name! should refactor to use ids somehow in future
 					break;
-				UUID uuid = UUID.fromString(netBeing.getUuid());
+				UUID uuid = UUIDConvert.convert(netBeing.getUuid());
 				Being remotePlayer = worldManager.getRemotePlayer(uuid);
 				if(remotePlayer == null){
 					remotePlayer = Being.fromMessage(netBeing);

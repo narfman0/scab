@@ -16,8 +16,13 @@ enum MessageType {
   NPC_STATE = 9;
 }
 
+message UUID {
+  required sint64 least_significant_bits = 1;
+  required sint64 most_significant_bits = 2;
+}
+
 message NetBeing {
-  optional string uuid = 1;
+  optional UUID uuid = 1;
   optional string name = 2;
   optional float pos_x = 3;
   optional float pos_y = 4;
@@ -40,7 +45,7 @@ message NetBeing {
 
 message BeingDead {
   optional string name = 1;
-  optional string uuid = 2;
+  optional UUID uuid = 2;
 }
 
 message PlayerState {
