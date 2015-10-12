@@ -12,6 +12,7 @@ import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.gdxworld.world.quest.GDXQuestManager;
+import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.weapon.Gun;
 import com.blastedstudios.scab.world.weapon.Weapon;
@@ -29,8 +30,8 @@ public class Player extends Being {
 	
 	@Override public void render(float dt, World world, Batch batch, 
 			AssetManager sharedAssets, GDXRenderer gdxRenderer, IDeathCallback deathCallback,
-			boolean paused, boolean inputEnabled){
-		super.render(dt, world, batch, sharedAssets, gdxRenderer, deathCallback, paused, inputEnabled);
+			boolean paused, boolean inputEnabled, GameplayNetReceiver receiver){
+		super.render(dt, world, batch, sharedAssets, gdxRenderer, deathCallback, paused, inputEnabled, receiver);
 		questManager.tick(dt);
 	}
 

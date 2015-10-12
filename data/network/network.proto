@@ -4,6 +4,7 @@ option java_package = "com.blastedstudios.scab.network";
 option java_outer_classname = "Messages";
 
 enum MessageType {
+  BEING_DEAD = 0;
   BEING_RESPAWN = 1;
   CONNECTED = 2;
   DISCONNECTED = 3;
@@ -35,6 +36,11 @@ message NetBeing {
   	FRIEND = 1;
   	ENEMY = 2;
   }
+}
+
+message BeingDead {
+  optional string name = 1;
+  optional string uuid = 2;
 }
 
 message PlayerState {

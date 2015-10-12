@@ -19,6 +19,7 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.scab.ai.AIWorld;
+import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.weapon.DamageStruct;
@@ -70,8 +71,8 @@ public class NPC extends Being {
 	
 	public void render(float dt, World world, Batch batch, 
 			AssetManager sharedAssets, GDXRenderer gdxRenderer, IDeathCallback callback,
-			boolean paused, boolean inputEnabled, boolean simulate){
-		super.render(dt, world, batch, sharedAssets, gdxRenderer, callback, paused, inputEnabled);
+			boolean paused, boolean inputEnabled, boolean simulate, GameplayNetReceiver receiver){
+		super.render(dt, world, batch, sharedAssets, gdxRenderer, callback, paused, inputEnabled, receiver);
 		if(!dead && btExecutor != null && simulate)
 			btExecutor.tick();
 	}

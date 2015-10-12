@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Client;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.Messages.MessageType;
@@ -20,9 +21,10 @@ public class ClientTable extends Table {
 	public ClientTable(Skin skin, Being player){
 		super(skin);
 		final Table clientTable = new Table(skin);
-		final TextField hostnameText = new TextField("127.0.0.1", skin);
+		final TextField hostnameText = new TextField(Properties.get("host.default", "127.0.0.1"), skin);
 		TextButton connectButton = new ScabTextButton("Connect", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
+				Properties.set("host.default", hostnameText.getText());
 				if(client.isConnected()){
 					Log.error("ClientTable.<init>", "Already connected to a host, aborting");
 					return;

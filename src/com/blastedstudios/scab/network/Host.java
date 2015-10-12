@@ -80,9 +80,17 @@ public class Host extends BaseNetwork{
 						Text.Builder builder = Text.newBuilder();
 						builder.setContent(request.getContent());
 						builder.setOrigin(client.toString());
-						send(MessageType.TEXT, builder.build());
+						Text text = builder.build();
+						send(MessageType.TEXT, text);
+						receiveMessage(MessageType.TEXT, struct.message);
+						break;
+					case BEING_DEAD:
+						send(MessageType.BEING_DEAD, struct.message);
+						receiveMessage(struct.messageType, struct.message);
+						break;
 					default:
 						receiveMessage(struct.messageType, struct.message);
+						break;
 					}
 					Log.debug("Host.render", "Message received: " + struct.messageType + " contents: " +
 							struct.message + " from " + client.socket.getRemoteAddress());

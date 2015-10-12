@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.IMessageListener;
+import com.blastedstudios.scab.network.Messages.BeingDead;
 import com.blastedstudios.scab.network.Messages.BeingRespawn;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NPCState;
@@ -26,6 +27,7 @@ public class GameplayNetReceiver implements IMessageListener{
 		this.network = network;
 		if(type != MultiplayerType.Local){
 			worldManager.getPlayer().setUuid(network.getUUID());
+			network.addListener(MessageType.BEING_DEAD, this);
 			network.addListener(MessageType.BEING_RESPAWN, this);
 			network.addListener(MessageType.PLAYER_STATE, this);
 			network.addListener(MessageType.NPC_STATE, this);
@@ -35,7 +37,20 @@ public class GameplayNetReceiver implements IMessageListener{
 
 	@Override public void receive(MessageType messageType, Object object) {
 		switch(messageType){
-		case BEING_RESPAWN:{
+		case BEING_DEAD:{
+			// nothing is triggering this yet
+			BeingDead message = (BeingDead) object;
+			Being existing = null;
+			if(message.hasUuid())
+				existing = worldManager.getRemotePlayer(UUID.fromString(message.getUuid()));
+			else
+				for(Being being : worldManager.getAllBeings())
+					if(being.getName().equals(message.getName()))
+						existing = being;
+			if(existing != null)
+				existing.death(worldManager);
+			break;
+		}case BEING_RESPAWN:{
 			// nothing is triggering this yet
 			BeingRespawn message = (BeingRespawn) object;
 			UUID uuid = UUID.fromString(message.getUuid());
@@ -43,8 +58,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			if(existing != null)
 				existing.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
 			break;
-		}
-		case PLAYER_STATE:{
+		}case PLAYER_STATE:{
 			PlayerState message = (PlayerState)object;
 			for(NetBeing netBeing : message.getPlayersList()){
 				if(netBeing.getName().equals(worldManager.getPlayer().getName()))
@@ -67,7 +81,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			NPCState message = (NPCState) object;
 			for(NetBeing updateNPC : message.getNpcsList())
 				for(NPC npc : worldManager.getNpcs())
-					if(npc.getName().equals(updateNPC.getName()))
+					if(!npc.isDead() && npc.getName().equals(updateNPC.getName()))
 						npc.updateFromMessage(updateNPC);
 			break;
 		}default:
@@ -95,5 +109,10 @@ public class GameplayNetReceiver implements IMessageListener{
 	public void dispose(){
 		if(type != MultiplayerType.Local)
 			network.removeListener(this);
+	}
+
+	public void send(MessageType messageType, BeingDead message) {
+		if(network != null)
+			network.send(messageType, message);
 	}
 }

@@ -38,6 +38,7 @@ import com.blastedstudios.gdxworld.world.GDXNPC;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.scab.ai.AIWorld;
 import com.blastedstudios.scab.physics.ContactListener;
+import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.ui.gameplay.GameplayScreen.IGameplayListener;
 import com.blastedstudios.scab.util.VisibilityReturnStruct;
 import com.blastedstudios.scab.world.being.Being;
@@ -74,6 +75,7 @@ public class WorldManager implements IDeathCallback{
 	private final IGameplayListener listener;
 	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
+	private GameplayNetReceiver receiver;
 	
 	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets, IGameplayListener listener){
 		this.player = player;
@@ -99,11 +101,11 @@ public class WorldManager implements IDeathCallback{
 		batch.end();
 		batch.begin();
 		if(player.isSpawned())
-			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable);
+			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable, receiver);
 		for(NPC npc : npcs)
-			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, simulate);
+			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, simulate, receiver);
 		for(Being being : remotePlayers)
-			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
+			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(entry.getValue().isCanRemove())
@@ -454,5 +456,13 @@ public class WorldManager implements IDeathCallback{
 
 	public void setSimulate(boolean simulate) {
 		this.simulate = simulate;
+	}
+
+	public GameplayNetReceiver getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(GameplayNetReceiver receiver) {
+		this.receiver = receiver;
 	}
 }

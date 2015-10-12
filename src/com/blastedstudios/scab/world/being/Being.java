@@ -23,12 +23,15 @@ import com.blastedstudios.gdxworld.util.FileUtil;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.scab.network.Messages.BeingDead;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.NetWeapon;
 import com.blastedstudios.scab.physics.PhysicsEnvironment;
 import com.blastedstudios.scab.physics.VisibleQueryCallback;
 import com.blastedstudios.scab.physics.ragdoll.IRagdoll;
 import com.blastedstudios.scab.physics.ragdoll.IRagdoll.IRagdollPlugin;
+import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.util.VectorHelper;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.WorldManager;
@@ -96,7 +99,8 @@ public class Being implements Serializable{
 	}
 
 	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,
-			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, boolean inputEnabled){
+			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, 
+			boolean inputEnabled, GameplayNetReceiver receiver){
 		if(ticksToActivateWeapon != -1 && getEquippedWeapon() != null && ticksToActivateWeapon-- == 0)
 			getEquippedWeapon().activate(world, ragdoll, this);
 		this.sharedAssets = sharedAssets;
@@ -110,8 +114,14 @@ public class Being implements Serializable{
 		if(paused)
 			return;
 		
-		if(!dead && hp <= 0 && deathCallback != null)
+		if(!dead && hp <= 0 && deathCallback != null){
+			BeingDead.Builder builder = BeingDead.newBuilder();
+			builder.setName(name);
+			if(uuid != null)
+				builder.setUuid(uuid.toString());
+			receiver.send(MessageType.BEING_DEAD, builder.build());
 			deathCallback.dead(this);
+		}
 		if(dead)
 			return;
 

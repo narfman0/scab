@@ -111,6 +111,7 @@ public class GameplayScreen extends ScabScreen {
 			}
 		});
 		receiver = new GameplayNetReceiver(worldManager, type, network);
+		worldManager.setReceiver(receiver);
 		player.getQuestManager().initialize(new QuestTriggerInformationProvider(this, worldManager), 
 				new QuestManifestationExecutor(this, worldManager));
 		player.getQuestManager().setCurrentLevel(level);
