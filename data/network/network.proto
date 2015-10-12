@@ -9,7 +9,7 @@ enum MessageType {
   DISCONNECTED = 3;
   LEVEL_LOAD = 4;
   NAME_UPDATE = 5;
-  PLAYER_UPDATE = 6;
+  PLAYER_STATE = 6;
   TEXT = 7;
   TEXT_REQUEST = 8;
   NPC_STATE = 9;
@@ -35,6 +35,10 @@ message NetBeing {
   	FRIEND = 1;
   	ENEMY = 2;
   }
+}
+
+message PlayerState {
+	repeated NetBeing players = 1;
 }
 
 message NPCState {

@@ -14,7 +14,6 @@ import java.util.UUID;
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.Messages.MessageType;
-import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.google.protobuf.CodedInputStream;
 import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
@@ -114,9 +113,6 @@ public abstract class BaseNetwork {
 				MessageType messageType = MessageType.values()[stream.readSInt32()];
 				byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 				switch(messageType){
-				case PLAYER_UPDATE:
-					messages.add(new MessageStruct(messageType, NetBeing.parseFrom(buffer)));
-					break;
 				case CONNECTED:
 				case DISCONNECTED:
 					//Do nothing intentionally!

@@ -9,6 +9,7 @@ import com.blastedstudios.scab.network.Messages.BeingRespawn;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NPCState;
 import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.PlayerState;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
@@ -26,7 +27,7 @@ public class GameplayNetReceiver implements IMessageListener{
 		if(type != MultiplayerType.Local){
 			worldManager.getPlayer().setUuid(network.getUUID());
 			network.addListener(MessageType.BEING_RESPAWN, this);
-			network.addListener(MessageType.PLAYER_UPDATE, this);
+			network.addListener(MessageType.PLAYER_STATE, this);
 			network.addListener(MessageType.NPC_STATE, this);
 		}
 		worldManager.setSimulate(type != MultiplayerType.Client);
@@ -43,20 +44,22 @@ public class GameplayNetReceiver implements IMessageListener{
 				existing.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
 			break;
 		}
-		case PLAYER_UPDATE:{
-			NetBeing message = (NetBeing) object;
-			if(message.getName().equals(worldManager.getPlayer().getName()))
-				// don't want to make a new player with my name! should refactor to use ids somehow in future
-				break;
-			UUID uuid = UUID.fromString(message.getUuid());
-			Being existing = worldManager.getRemotePlayer(uuid);
-			if(existing == null){
-				Being being = Being.fromMessage(message);
-				worldManager.getRemotePlayers().add(being);
-				being.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
-				Log.log("GameplayScreen.receive", "Received first player update: " + message.getName());
-			}else if(existing.getPosition() != null && message.hasPosX())
-				existing.updateFromMessage(message);
+		case PLAYER_STATE:{
+			PlayerState message = (PlayerState)object;
+			for(NetBeing netBeing : message.getPlayersList()){
+				if(netBeing.getName().equals(worldManager.getPlayer().getName()))
+					// don't want to make a new player with my name! should refactor to use ids somehow in future
+					break;
+				UUID uuid = UUID.fromString(netBeing.getUuid());
+				Being remotePlayer = worldManager.getRemotePlayer(uuid);
+				if(remotePlayer == null){
+					remotePlayer = Being.fromMessage(netBeing);
+					worldManager.getRemotePlayers().add(remotePlayer);
+					remotePlayer.respawn(worldManager.getWorld(), netBeing.getPosX(), netBeing.getPosY());
+					Log.log("GameplayScreen.receive", "Received first player update: " + netBeing.getName());
+				}else if(remotePlayer.getPosition() != null && netBeing.hasPosX())
+					remotePlayer.updateFromMessage(netBeing);
+			}
 			if(type == MultiplayerType.Host)
 				network.send(messageType, message);
 			break;
@@ -75,14 +78,17 @@ public class GameplayNetReceiver implements IMessageListener{
 	public void render(float dt){
 		if(type != MultiplayerType.Local){
 			network.render();
-			if(!worldManager.getPlayer().isDead())
-				network.send(MessageType.PLAYER_UPDATE, worldManager.getPlayer().buildMessage(true));
+			if(!worldManager.getPlayer().isDead()){
+				PlayerState.Builder builder = PlayerState.newBuilder();
+				builder.addPlayers(worldManager.getPlayer().buildMessage(true));
+				network.send(MessageType.PLAYER_STATE, builder.build());
+			}
 		}
 		if(type == MultiplayerType.Host){
-			NPCState.Builder npcState = NPCState.newBuilder(); 
+			NPCState.Builder builder = NPCState.newBuilder(); 
 			for(NPC npc : worldManager.getNpcs())
-				npcState.addNpcs(npc.buildMessage(false));
-			network.send(MessageType.NPC_STATE, npcState.build());
+				builder.addNpcs(npc.buildMessage(false));
+			network.send(MessageType.NPC_STATE, builder.build());
 		}
 	}
 	

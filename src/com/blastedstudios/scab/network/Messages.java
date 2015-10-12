@@ -34,9 +34,9 @@ public final class Messages {
      */
     NAME_UPDATE(4, 5),
     /**
-     * <code>PLAYER_UPDATE = 6;</code>
+     * <code>PLAYER_STATE = 6;</code>
      */
-    PLAYER_UPDATE(5, 6),
+    PLAYER_STATE(5, 6),
     /**
      * <code>TEXT = 7;</code>
      */
@@ -72,9 +72,9 @@ public final class Messages {
      */
     public static final int NAME_UPDATE_VALUE = 5;
     /**
-     * <code>PLAYER_UPDATE = 6;</code>
+     * <code>PLAYER_STATE = 6;</code>
      */
-    public static final int PLAYER_UPDATE_VALUE = 6;
+    public static final int PLAYER_STATE_VALUE = 6;
     /**
      * <code>TEXT = 7;</code>
      */
@@ -98,7 +98,7 @@ public final class Messages {
         case 3: return DISCONNECTED;
         case 4: return LEVEL_LOAD;
         case 5: return NAME_UPDATE;
-        case 6: return PLAYER_UPDATE;
+        case 6: return PLAYER_STATE;
         case 7: return TEXT;
         case 8: return TEXT_REQUEST;
         case 9: return NPC_STATE;
@@ -2263,6 +2263,694 @@ public final class Messages {
     }
 
     // @@protoc_insertion_point(class_scope:proto.NetBeing)
+  }
+
+  public interface PlayerStateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.PlayerState)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> 
+        getPlayersList();
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    com.blastedstudios.scab.network.Messages.NetBeing getPlayers(int index);
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    int getPlayersCount();
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    java.util.List<? extends com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+        getPlayersOrBuilderList();
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    com.blastedstudios.scab.network.Messages.NetBeingOrBuilder getPlayersOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code proto.PlayerState}
+   */
+  public static final class PlayerState extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:proto.PlayerState)
+      PlayerStateOrBuilder {
+    // Use PlayerState.newBuilder() to construct.
+    private PlayerState(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private PlayerState(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final PlayerState defaultInstance;
+    public static PlayerState getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public PlayerState getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PlayerState(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                players_ = new java.util.ArrayList<com.blastedstudios.scab.network.Messages.NetBeing>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              players_.add(input.readMessage(com.blastedstudios.scab.network.Messages.NetBeing.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          players_ = java.util.Collections.unmodifiableList(players_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.scab.network.Messages.internal_static_proto_PlayerState_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.scab.network.Messages.internal_static_proto_PlayerState_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.scab.network.Messages.PlayerState.class, com.blastedstudios.scab.network.Messages.PlayerState.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<PlayerState> PARSER =
+        new com.google.protobuf.AbstractParser<PlayerState>() {
+      public PlayerState parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PlayerState(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PlayerState> getParserForType() {
+      return PARSER;
+    }
+
+    public static final int PLAYERS_FIELD_NUMBER = 1;
+    private java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> players_;
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    public java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> getPlayersList() {
+      return players_;
+    }
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    public java.util.List<? extends com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+        getPlayersOrBuilderList() {
+      return players_;
+    }
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    public int getPlayersCount() {
+      return players_.size();
+    }
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    public com.blastedstudios.scab.network.Messages.NetBeing getPlayers(int index) {
+      return players_.get(index);
+    }
+    /**
+     * <code>repeated .proto.NetBeing players = 1;</code>
+     */
+    public com.blastedstudios.scab.network.Messages.NetBeingOrBuilder getPlayersOrBuilder(
+        int index) {
+      return players_.get(index);
+    }
+
+    private void initFields() {
+      players_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getPlayersCount(); i++) {
+        if (!getPlayers(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < players_.size(); i++) {
+        output.writeMessage(1, players_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < players_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, players_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.blastedstudios.scab.network.Messages.PlayerState parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.blastedstudios.scab.network.Messages.PlayerState prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.PlayerState}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.PlayerState)
+        com.blastedstudios.scab.network.Messages.PlayerStateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.scab.network.Messages.internal_static_proto_PlayerState_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.scab.network.Messages.internal_static_proto_PlayerState_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.scab.network.Messages.PlayerState.class, com.blastedstudios.scab.network.Messages.PlayerState.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.scab.network.Messages.PlayerState.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPlayersFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (playersBuilder_ == null) {
+          players_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          playersBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.scab.network.Messages.internal_static_proto_PlayerState_descriptor;
+      }
+
+      public com.blastedstudios.scab.network.Messages.PlayerState getDefaultInstanceForType() {
+        return com.blastedstudios.scab.network.Messages.PlayerState.getDefaultInstance();
+      }
+
+      public com.blastedstudios.scab.network.Messages.PlayerState build() {
+        com.blastedstudios.scab.network.Messages.PlayerState result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.scab.network.Messages.PlayerState buildPartial() {
+        com.blastedstudios.scab.network.Messages.PlayerState result = new com.blastedstudios.scab.network.Messages.PlayerState(this);
+        int from_bitField0_ = bitField0_;
+        if (playersBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            players_ = java.util.Collections.unmodifiableList(players_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.players_ = players_;
+        } else {
+          result.players_ = playersBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.scab.network.Messages.PlayerState) {
+          return mergeFrom((com.blastedstudios.scab.network.Messages.PlayerState)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.scab.network.Messages.PlayerState other) {
+        if (other == com.blastedstudios.scab.network.Messages.PlayerState.getDefaultInstance()) return this;
+        if (playersBuilder_ == null) {
+          if (!other.players_.isEmpty()) {
+            if (players_.isEmpty()) {
+              players_ = other.players_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePlayersIsMutable();
+              players_.addAll(other.players_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.players_.isEmpty()) {
+            if (playersBuilder_.isEmpty()) {
+              playersBuilder_.dispose();
+              playersBuilder_ = null;
+              players_ = other.players_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              playersBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getPlayersFieldBuilder() : null;
+            } else {
+              playersBuilder_.addAllMessages(other.players_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        for (int i = 0; i < getPlayersCount(); i++) {
+          if (!getPlayers(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.scab.network.Messages.PlayerState parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.scab.network.Messages.PlayerState) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> players_ =
+        java.util.Collections.emptyList();
+      private void ensurePlayersIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          players_ = new java.util.ArrayList<com.blastedstudios.scab.network.Messages.NetBeing>(players_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.blastedstudios.scab.network.Messages.NetBeing, com.blastedstudios.scab.network.Messages.NetBeing.Builder, com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> playersBuilder_;
+
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> getPlayersList() {
+        if (playersBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(players_);
+        } else {
+          return playersBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public int getPlayersCount() {
+        if (playersBuilder_ == null) {
+          return players_.size();
+        } else {
+          return playersBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing getPlayers(int index) {
+        if (playersBuilder_ == null) {
+          return players_.get(index);
+        } else {
+          return playersBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder setPlayers(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing value) {
+        if (playersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayersIsMutable();
+          players_.set(index, value);
+          onChanged();
+        } else {
+          playersBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder setPlayers(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing.Builder builderForValue) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          playersBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder addPlayers(com.blastedstudios.scab.network.Messages.NetBeing value) {
+        if (playersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayersIsMutable();
+          players_.add(value);
+          onChanged();
+        } else {
+          playersBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder addPlayers(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing value) {
+        if (playersBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePlayersIsMutable();
+          players_.add(index, value);
+          onChanged();
+        } else {
+          playersBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder addPlayers(
+          com.blastedstudios.scab.network.Messages.NetBeing.Builder builderForValue) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.add(builderForValue.build());
+          onChanged();
+        } else {
+          playersBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder addPlayers(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing.Builder builderForValue) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          playersBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder addAllPlayers(
+          java.lang.Iterable<? extends com.blastedstudios.scab.network.Messages.NetBeing> values) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, players_);
+          onChanged();
+        } else {
+          playersBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder clearPlayers() {
+        if (playersBuilder_ == null) {
+          players_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          playersBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public Builder removePlayers(int index) {
+        if (playersBuilder_ == null) {
+          ensurePlayersIsMutable();
+          players_.remove(index);
+          onChanged();
+        } else {
+          playersBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing.Builder getPlayersBuilder(
+          int index) {
+        return getPlayersFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeingOrBuilder getPlayersOrBuilder(
+          int index) {
+        if (playersBuilder_ == null) {
+          return players_.get(index);  } else {
+          return playersBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public java.util.List<? extends com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+           getPlayersOrBuilderList() {
+        if (playersBuilder_ != null) {
+          return playersBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(players_);
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing.Builder addPlayersBuilder() {
+        return getPlayersFieldBuilder().addBuilder(
+            com.blastedstudios.scab.network.Messages.NetBeing.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing.Builder addPlayersBuilder(
+          int index) {
+        return getPlayersFieldBuilder().addBuilder(
+            index, com.blastedstudios.scab.network.Messages.NetBeing.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.NetBeing players = 1;</code>
+       */
+      public java.util.List<com.blastedstudios.scab.network.Messages.NetBeing.Builder> 
+           getPlayersBuilderList() {
+        return getPlayersFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.blastedstudios.scab.network.Messages.NetBeing, com.blastedstudios.scab.network.Messages.NetBeing.Builder, com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+          getPlayersFieldBuilder() {
+        if (playersBuilder_ == null) {
+          playersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.blastedstudios.scab.network.Messages.NetBeing, com.blastedstudios.scab.network.Messages.NetBeing.Builder, com.blastedstudios.scab.network.Messages.NetBeingOrBuilder>(
+                  players_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          players_ = null;
+        }
+        return playersBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:proto.PlayerState)
+    }
+
+    static {
+      defaultInstance = new PlayerState(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.PlayerState)
   }
 
   public interface NPCStateOrBuilder extends
@@ -6341,6 +7029,11 @@ public final class Messages {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_proto_NetBeing_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_PlayerState_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_proto_PlayerState_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NPCState_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -6392,19 +7085,20 @@ public final class Messages {
       "\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(\t\022\030\n\020r" +
       "agdoll_resource\030\014 \001(\t\022(\n\007faction\030\r \001(\0162\027" +
       ".proto.NetBeing.Faction\022\013\n\003aim\030\016 \001(\002\" \n\007" +
-      "Faction\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\")\n\010NPCSta" +
-      "te\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\031\n\tNet",
-      "Weapon\022\014\n\004name\030\001 \002(\t\"\032\n\nNameUpdate\022\014\n\004na" +
-      "me\030\001 \002(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t" +
-      "\"H\n\014BeingRespawn\022\014\n\004uuid\030\001 \002(\t\022\014\n\004name\030\002" +
-      " \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Te" +
-      "xt\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002 \002(\t\"\031\n\tL" +
-      "evelLoad\022\014\n\004name\030\001 \002(\t*\240\001\n\013MessageType\022\021" +
-      "\n\rBEING_RESPAWN\020\001\022\r\n\tCONNECTED\020\002\022\020\n\014DISC" +
-      "ONNECTED\020\003\022\016\n\nLEVEL_LOAD\020\004\022\017\n\013NAME_UPDAT" +
-      "E\020\005\022\021\n\rPLAYER_UPDATE\020\006\022\010\n\004TEXT\020\007\022\020\n\014TEXT" +
-      "_REQUEST\020\010\022\r\n\tNPC_STATE\020\tB+\n\037com.blasted",
-      "studios.scab.networkB\010Messages"
+      "Faction\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"/\n\013Player" +
+      "State\022 \n\007players\030\001 \003(\0132\017.proto.NetBeing\"",
+      ")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBei" +
+      "ng\"\031\n\tNetWeapon\022\014\n\004name\030\001 \002(\t\"\032\n\nNameUpd" +
+      "ate\022\014\n\004name\030\001 \002(\t\"\036\n\013TextRequest\022\017\n\007cont" +
+      "ent\030\001 \002(\t\"H\n\014BeingRespawn\022\014\n\004uuid\030\001 \002(\t\022" +
+      "\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 " +
+      "\001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002" +
+      " \002(\t\"\031\n\tLevelLoad\022\014\n\004name\030\001 \002(\t*\237\001\n\013Mess" +
+      "ageType\022\021\n\rBEING_RESPAWN\020\001\022\r\n\tCONNECTED\020" +
+      "\002\022\020\n\014DISCONNECTED\020\003\022\016\n\nLEVEL_LOAD\020\004\022\017\n\013N" +
+      "AME_UPDATE\020\005\022\020\n\014PLAYER_STATE\020\006\022\010\n\004TEXT\020\007",
+      "\022\020\n\014TEXT_REQUEST\020\010\022\r\n\tNPC_STATE\020\tB+\n\037com" +
+      ".blastedstudios.scab.networkB\010Messages"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6424,44 +7118,50 @@ public final class Messages {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", });
-    internal_static_proto_NPCState_descriptor =
+    internal_static_proto_PlayerState_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_proto_PlayerState_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_proto_PlayerState_descriptor,
+        new java.lang.String[] { "Players", });
+    internal_static_proto_NPCState_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_proto_NPCState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NetWeapon_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetWeapon_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,
         new java.lang.String[] { "Content", });
     internal_static_proto_BeingRespawn_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_proto_BeingRespawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_BeingRespawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_LevelLoad_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_LevelLoad_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_LevelLoad_descriptor,
