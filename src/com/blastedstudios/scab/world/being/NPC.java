@@ -68,11 +68,11 @@ public class NPC extends Being {
 		}
 	}
 	
-	@Override public void render(float dt, World world, Batch batch, 
+	public void render(float dt, World world, Batch batch, 
 			AssetManager sharedAssets, GDXRenderer gdxRenderer, IDeathCallback callback,
-			boolean paused, boolean inputEnabled){
+			boolean paused, boolean inputEnabled, boolean simulate){
 		super.render(dt, world, batch, sharedAssets, gdxRenderer, callback, paused, inputEnabled);
-		if(!dead && btExecutor != null)
+		if(!dead && btExecutor != null && simulate)
 			btExecutor.tick();
 	}
 

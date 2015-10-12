@@ -2,17 +2,17 @@ package com.blastedstudios.scab.ui.gameplay;
 
 import java.util.UUID;
 
-import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.Messages.BeingRespawn;
 import com.blastedstudios.scab.network.Messages.MessageType;
+import com.blastedstudios.scab.network.Messages.NPCState;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
-import com.blastedstudios.scab.world.being.Being.BodyPart;
+import com.blastedstudios.scab.world.being.NPC;
 
 public class GameplayNetReceiver implements IMessageListener{
 	private final WorldManager worldManager;
@@ -27,7 +27,9 @@ public class GameplayNetReceiver implements IMessageListener{
 			worldManager.getPlayer().setUuid(network.getUUID());
 			network.addListener(MessageType.BEING_RESPAWN, this);
 			network.addListener(MessageType.PLAYER_UPDATE, this);
+			network.addListener(MessageType.NPC_STATE, this);
 		}
+		worldManager.setSimulate(type != MultiplayerType.Client);
 	}
 
 	@Override public void receive(MessageType messageType, Object object) {
@@ -53,13 +55,17 @@ public class GameplayNetReceiver implements IMessageListener{
 				worldManager.getRemotePlayers().add(being);
 				being.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
 				Log.log("GameplayScreen.receive", "Received first player update: " + message.getName());
-			}else if(existing.getPosition() != null && message.hasPosX()){
-				existing.getRagdoll().getBodyPart(BodyPart.torso).setTransform(message.getPosX(), message.getPosY(), 0);
-				existing.setVelocity(new Vector2(message.getVelX(), message.getVelY()));
-				existing.aim(message.getAim());
-			}
+			}else if(existing.getPosition() != null && message.hasPosX())
+				existing.updateFromMessage(message);
 			if(type == MultiplayerType.Host)
 				network.send(messageType, message);
+			break;
+		}case NPC_STATE:{
+			NPCState message = (NPCState) object;
+			for(NetBeing updateNPC : message.getNpcsList())
+				for(NPC npc : worldManager.getNpcs())
+					if(npc.getName().equals(updateNPC.getName()))
+						npc.updateFromMessage(updateNPC);
 			break;
 		}default:
 			break;
@@ -71,6 +77,12 @@ public class GameplayNetReceiver implements IMessageListener{
 			network.render();
 			if(!worldManager.getPlayer().isDead())
 				network.send(MessageType.PLAYER_UPDATE, worldManager.getPlayer().buildMessage(true));
+		}
+		if(type == MultiplayerType.Host){
+			NPCState.Builder npcState = NPCState.newBuilder(); 
+			for(NPC npc : worldManager.getNpcs())
+				npcState.addNpcs(npc.buildMessage(false));
+			network.send(MessageType.NPC_STATE, npcState.build());
 		}
 	}
 	

@@ -72,7 +72,7 @@ public class WorldManager implements IDeathCallback{
 	private final TweenManager tweenManager;
 	private final AssetManager sharedAssets;
 	private final IGameplayListener listener;
-	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true;
+	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
 	
 	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets, IGameplayListener listener){
@@ -101,7 +101,7 @@ public class WorldManager implements IDeathCallback{
 		if(player.isSpawned())
 			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable);
 		for(NPC npc : npcs)
-			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
+			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, simulate);
 		for(Being being : remotePlayers)
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
@@ -429,12 +429,16 @@ public class WorldManager implements IDeathCallback{
 		return player;
 	}
 
-	public World getWorld() {
-		return world;
-	}
-
 	public List<Being> getRemotePlayers() {
 		return remotePlayers;
+	}
+
+	public List<NPC> getNpcs() {
+		return npcs;
+	}
+
+	public World getWorld() {
+		return world;
 	}
 	
 	public Being getRemotePlayer(UUID uuid){
@@ -442,5 +446,13 @@ public class WorldManager implements IDeathCallback{
 			if(uuid.equals(being.getUuid()))
 				return being;
 		return null;
+	}
+
+	public boolean isSimulate() {
+		return simulate;
+	}
+
+	public void setSimulate(boolean simulate) {
+		this.simulate = simulate;
 	}
 }

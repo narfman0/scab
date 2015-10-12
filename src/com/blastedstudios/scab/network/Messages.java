@@ -45,6 +45,10 @@ public final class Messages {
      * <code>TEXT_REQUEST = 8;</code>
      */
     TEXT_REQUEST(7, 8),
+    /**
+     * <code>NPC_STATE = 9;</code>
+     */
+    NPC_STATE(8, 9),
     ;
 
     /**
@@ -79,6 +83,10 @@ public final class Messages {
      * <code>TEXT_REQUEST = 8;</code>
      */
     public static final int TEXT_REQUEST_VALUE = 8;
+    /**
+     * <code>NPC_STATE = 9;</code>
+     */
+    public static final int NPC_STATE_VALUE = 9;
 
 
     public final int getNumber() { return value; }
@@ -93,6 +101,7 @@ public final class Messages {
         case 6: return PLAYER_UPDATE;
         case 7: return TEXT;
         case 8: return TEXT_REQUEST;
+        case 9: return NPC_STATE;
         default: return null;
       }
     }
@@ -149,15 +158,15 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string uuid = 1;</code>
+     * <code>optional string uuid = 1;</code>
      */
     boolean hasUuid();
     /**
-     * <code>required string uuid = 1;</code>
+     * <code>optional string uuid = 1;</code>
      */
     java.lang.String getUuid();
     /**
-     * <code>required string uuid = 1;</code>
+     * <code>optional string uuid = 1;</code>
      */
     com.google.protobuf.ByteString
         getUuidBytes();
@@ -572,13 +581,13 @@ public final class Messages {
     public static final int UUID_FIELD_NUMBER = 1;
     private java.lang.Object uuid_;
     /**
-     * <code>required string uuid = 1;</code>
+     * <code>optional string uuid = 1;</code>
      */
     public boolean hasUuid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string uuid = 1;</code>
+     * <code>optional string uuid = 1;</code>
      */
     public java.lang.String getUuid() {
       java.lang.Object ref = uuid_;
@@ -595,7 +604,7 @@ public final class Messages {
       }
     }
     /**
-     * <code>required string uuid = 1;</code>
+     * <code>optional string uuid = 1;</code>
      */
     public com.google.protobuf.ByteString
         getUuidBytes() {
@@ -929,10 +938,6 @@ public final class Messages {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasUuid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       for (int i = 0; i < getWeaponsCount(); i++) {
         if (!getWeapons(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -1386,10 +1391,6 @@ public final class Messages {
       }
 
       public final boolean isInitialized() {
-        if (!hasUuid()) {
-          
-          return false;
-        }
         for (int i = 0; i < getWeaponsCount(); i++) {
           if (!getWeapons(i).isInitialized()) {
             
@@ -1420,13 +1421,13 @@ public final class Messages {
 
       private java.lang.Object uuid_ = "";
       /**
-       * <code>required string uuid = 1;</code>
+       * <code>optional string uuid = 1;</code>
        */
       public boolean hasUuid() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string uuid = 1;</code>
+       * <code>optional string uuid = 1;</code>
        */
       public java.lang.String getUuid() {
         java.lang.Object ref = uuid_;
@@ -1443,7 +1444,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string uuid = 1;</code>
+       * <code>optional string uuid = 1;</code>
        */
       public com.google.protobuf.ByteString
           getUuidBytes() {
@@ -1459,7 +1460,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string uuid = 1;</code>
+       * <code>optional string uuid = 1;</code>
        */
       public Builder setUuid(
           java.lang.String value) {
@@ -1472,7 +1473,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>required string uuid = 1;</code>
+       * <code>optional string uuid = 1;</code>
        */
       public Builder clearUuid() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1481,7 +1482,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>required string uuid = 1;</code>
+       * <code>optional string uuid = 1;</code>
        */
       public Builder setUuidBytes(
           com.google.protobuf.ByteString value) {
@@ -2262,6 +2263,694 @@ public final class Messages {
     }
 
     // @@protoc_insertion_point(class_scope:proto.NetBeing)
+  }
+
+  public interface NPCStateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.NPCState)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> 
+        getNpcsList();
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    com.blastedstudios.scab.network.Messages.NetBeing getNpcs(int index);
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    int getNpcsCount();
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    java.util.List<? extends com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+        getNpcsOrBuilderList();
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    com.blastedstudios.scab.network.Messages.NetBeingOrBuilder getNpcsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code proto.NPCState}
+   */
+  public static final class NPCState extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:proto.NPCState)
+      NPCStateOrBuilder {
+    // Use NPCState.newBuilder() to construct.
+    private NPCState(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private NPCState(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final NPCState defaultInstance;
+    public static NPCState getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public NPCState getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private NPCState(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                npcs_ = new java.util.ArrayList<com.blastedstudios.scab.network.Messages.NetBeing>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              npcs_.add(input.readMessage(com.blastedstudios.scab.network.Messages.NetBeing.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          npcs_ = java.util.Collections.unmodifiableList(npcs_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.scab.network.Messages.internal_static_proto_NPCState_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.scab.network.Messages.internal_static_proto_NPCState_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.scab.network.Messages.NPCState.class, com.blastedstudios.scab.network.Messages.NPCState.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<NPCState> PARSER =
+        new com.google.protobuf.AbstractParser<NPCState>() {
+      public NPCState parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new NPCState(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NPCState> getParserForType() {
+      return PARSER;
+    }
+
+    public static final int NPCS_FIELD_NUMBER = 1;
+    private java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> npcs_;
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    public java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> getNpcsList() {
+      return npcs_;
+    }
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    public java.util.List<? extends com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+        getNpcsOrBuilderList() {
+      return npcs_;
+    }
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    public int getNpcsCount() {
+      return npcs_.size();
+    }
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    public com.blastedstudios.scab.network.Messages.NetBeing getNpcs(int index) {
+      return npcs_.get(index);
+    }
+    /**
+     * <code>repeated .proto.NetBeing npcs = 1;</code>
+     */
+    public com.blastedstudios.scab.network.Messages.NetBeingOrBuilder getNpcsOrBuilder(
+        int index) {
+      return npcs_.get(index);
+    }
+
+    private void initFields() {
+      npcs_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getNpcsCount(); i++) {
+        if (!getNpcs(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < npcs_.size(); i++) {
+        output.writeMessage(1, npcs_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < npcs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, npcs_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.blastedstudios.scab.network.Messages.NPCState parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.blastedstudios.scab.network.Messages.NPCState prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.NPCState}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.NPCState)
+        com.blastedstudios.scab.network.Messages.NPCStateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.scab.network.Messages.internal_static_proto_NPCState_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.scab.network.Messages.internal_static_proto_NPCState_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.scab.network.Messages.NPCState.class, com.blastedstudios.scab.network.Messages.NPCState.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.scab.network.Messages.NPCState.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getNpcsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (npcsBuilder_ == null) {
+          npcs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          npcsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.scab.network.Messages.internal_static_proto_NPCState_descriptor;
+      }
+
+      public com.blastedstudios.scab.network.Messages.NPCState getDefaultInstanceForType() {
+        return com.blastedstudios.scab.network.Messages.NPCState.getDefaultInstance();
+      }
+
+      public com.blastedstudios.scab.network.Messages.NPCState build() {
+        com.blastedstudios.scab.network.Messages.NPCState result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.scab.network.Messages.NPCState buildPartial() {
+        com.blastedstudios.scab.network.Messages.NPCState result = new com.blastedstudios.scab.network.Messages.NPCState(this);
+        int from_bitField0_ = bitField0_;
+        if (npcsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            npcs_ = java.util.Collections.unmodifiableList(npcs_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.npcs_ = npcs_;
+        } else {
+          result.npcs_ = npcsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.scab.network.Messages.NPCState) {
+          return mergeFrom((com.blastedstudios.scab.network.Messages.NPCState)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.scab.network.Messages.NPCState other) {
+        if (other == com.blastedstudios.scab.network.Messages.NPCState.getDefaultInstance()) return this;
+        if (npcsBuilder_ == null) {
+          if (!other.npcs_.isEmpty()) {
+            if (npcs_.isEmpty()) {
+              npcs_ = other.npcs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureNpcsIsMutable();
+              npcs_.addAll(other.npcs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.npcs_.isEmpty()) {
+            if (npcsBuilder_.isEmpty()) {
+              npcsBuilder_.dispose();
+              npcsBuilder_ = null;
+              npcs_ = other.npcs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              npcsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getNpcsFieldBuilder() : null;
+            } else {
+              npcsBuilder_.addAllMessages(other.npcs_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        for (int i = 0; i < getNpcsCount(); i++) {
+          if (!getNpcs(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.scab.network.Messages.NPCState parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.scab.network.Messages.NPCState) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> npcs_ =
+        java.util.Collections.emptyList();
+      private void ensureNpcsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          npcs_ = new java.util.ArrayList<com.blastedstudios.scab.network.Messages.NetBeing>(npcs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.blastedstudios.scab.network.Messages.NetBeing, com.blastedstudios.scab.network.Messages.NetBeing.Builder, com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> npcsBuilder_;
+
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public java.util.List<com.blastedstudios.scab.network.Messages.NetBeing> getNpcsList() {
+        if (npcsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(npcs_);
+        } else {
+          return npcsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public int getNpcsCount() {
+        if (npcsBuilder_ == null) {
+          return npcs_.size();
+        } else {
+          return npcsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing getNpcs(int index) {
+        if (npcsBuilder_ == null) {
+          return npcs_.get(index);
+        } else {
+          return npcsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder setNpcs(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing value) {
+        if (npcsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNpcsIsMutable();
+          npcs_.set(index, value);
+          onChanged();
+        } else {
+          npcsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder setNpcs(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing.Builder builderForValue) {
+        if (npcsBuilder_ == null) {
+          ensureNpcsIsMutable();
+          npcs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          npcsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder addNpcs(com.blastedstudios.scab.network.Messages.NetBeing value) {
+        if (npcsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNpcsIsMutable();
+          npcs_.add(value);
+          onChanged();
+        } else {
+          npcsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder addNpcs(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing value) {
+        if (npcsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNpcsIsMutable();
+          npcs_.add(index, value);
+          onChanged();
+        } else {
+          npcsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder addNpcs(
+          com.blastedstudios.scab.network.Messages.NetBeing.Builder builderForValue) {
+        if (npcsBuilder_ == null) {
+          ensureNpcsIsMutable();
+          npcs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          npcsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder addNpcs(
+          int index, com.blastedstudios.scab.network.Messages.NetBeing.Builder builderForValue) {
+        if (npcsBuilder_ == null) {
+          ensureNpcsIsMutable();
+          npcs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          npcsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder addAllNpcs(
+          java.lang.Iterable<? extends com.blastedstudios.scab.network.Messages.NetBeing> values) {
+        if (npcsBuilder_ == null) {
+          ensureNpcsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, npcs_);
+          onChanged();
+        } else {
+          npcsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder clearNpcs() {
+        if (npcsBuilder_ == null) {
+          npcs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          npcsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public Builder removeNpcs(int index) {
+        if (npcsBuilder_ == null) {
+          ensureNpcsIsMutable();
+          npcs_.remove(index);
+          onChanged();
+        } else {
+          npcsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing.Builder getNpcsBuilder(
+          int index) {
+        return getNpcsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeingOrBuilder getNpcsOrBuilder(
+          int index) {
+        if (npcsBuilder_ == null) {
+          return npcs_.get(index);  } else {
+          return npcsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public java.util.List<? extends com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+           getNpcsOrBuilderList() {
+        if (npcsBuilder_ != null) {
+          return npcsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(npcs_);
+        }
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing.Builder addNpcsBuilder() {
+        return getNpcsFieldBuilder().addBuilder(
+            com.blastedstudios.scab.network.Messages.NetBeing.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public com.blastedstudios.scab.network.Messages.NetBeing.Builder addNpcsBuilder(
+          int index) {
+        return getNpcsFieldBuilder().addBuilder(
+            index, com.blastedstudios.scab.network.Messages.NetBeing.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.NetBeing npcs = 1;</code>
+       */
+      public java.util.List<com.blastedstudios.scab.network.Messages.NetBeing.Builder> 
+           getNpcsBuilderList() {
+        return getNpcsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.blastedstudios.scab.network.Messages.NetBeing, com.blastedstudios.scab.network.Messages.NetBeing.Builder, com.blastedstudios.scab.network.Messages.NetBeingOrBuilder> 
+          getNpcsFieldBuilder() {
+        if (npcsBuilder_ == null) {
+          npcsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.blastedstudios.scab.network.Messages.NetBeing, com.blastedstudios.scab.network.Messages.NetBeing.Builder, com.blastedstudios.scab.network.Messages.NetBeingOrBuilder>(
+                  npcs_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          npcs_ = null;
+        }
+        return npcsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:proto.NPCState)
+    }
+
+    static {
+      defaultInstance = new NPCState(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.NPCState)
   }
 
   public interface NetWeaponOrBuilder extends
@@ -5652,6 +6341,11 @@ public final class Messages {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_proto_NetBeing_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_NPCState_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_proto_NPCState_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NetWeapon_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -5691,25 +6385,26 @@ public final class Messages {
   static {
     java.lang.String[] descriptorData = {
       "\n\025network/network.proto\022\005proto\"\275\002\n\010NetBe" +
-      "ing\022\014\n\004uuid\030\001 \002(\t\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x" +
+      "ing\022\014\n\004uuid\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x" +
       "\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002\022\r\n\005" +
       "vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 \001(\002\022" +
       "\025\n\rcurrentWeapon\030\t \001(\005\022!\n\007weapons\030\n \003(\0132" +
       "\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(\t\022\030\n\020r" +
       "agdoll_resource\030\014 \001(\t\022(\n\007faction\030\r \001(\0162\027" +
       ".proto.NetBeing.Faction\022\013\n\003aim\030\016 \001(\002\" \n\007" +
-      "Faction\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"\031\n\tNetWea" +
-      "pon\022\014\n\004name\030\001 \002(\t\"\032\n\nNameUpdate\022\014\n\004name\030",
-      "\001 \002(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t\"H\n" +
-      "\014BeingRespawn\022\014\n\004uuid\030\001 \002(\t\022\014\n\004name\030\002 \001(" +
-      "\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022" +
-      "\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002 \002(\t\"\031\n\tLeve" +
-      "lLoad\022\014\n\004name\030\001 \002(\t*\221\001\n\013MessageType\022\021\n\rB" +
-      "EING_RESPAWN\020\001\022\r\n\tCONNECTED\020\002\022\020\n\014DISCONN" +
-      "ECTED\020\003\022\016\n\nLEVEL_LOAD\020\004\022\017\n\013NAME_UPDATE\020\005" +
-      "\022\021\n\rPLAYER_UPDATE\020\006\022\010\n\004TEXT\020\007\022\020\n\014TEXT_RE" +
-      "QUEST\020\010B+\n\037com.blastedstudios.scab.netwo" +
-      "rkB\010Messages"
+      "Faction\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\")\n\010NPCSta" +
+      "te\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\031\n\tNet",
+      "Weapon\022\014\n\004name\030\001 \002(\t\"\032\n\nNameUpdate\022\014\n\004na" +
+      "me\030\001 \002(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t" +
+      "\"H\n\014BeingRespawn\022\014\n\004uuid\030\001 \002(\t\022\014\n\004name\030\002" +
+      " \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Te" +
+      "xt\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002 \002(\t\"\031\n\tL" +
+      "evelLoad\022\014\n\004name\030\001 \002(\t*\240\001\n\013MessageType\022\021" +
+      "\n\rBEING_RESPAWN\020\001\022\r\n\tCONNECTED\020\002\022\020\n\014DISC" +
+      "ONNECTED\020\003\022\016\n\nLEVEL_LOAD\020\004\022\017\n\013NAME_UPDAT" +
+      "E\020\005\022\021\n\rPLAYER_UPDATE\020\006\022\010\n\004TEXT\020\007\022\020\n\014TEXT" +
+      "_REQUEST\020\010\022\r\n\tNPC_STATE\020\tB+\n\037com.blasted",
+      "studios.scab.networkB\010Messages"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5729,38 +6424,44 @@ public final class Messages {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", });
-    internal_static_proto_NetWeapon_descriptor =
+    internal_static_proto_NPCState_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_proto_NPCState_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_proto_NPCState_descriptor,
+        new java.lang.String[] { "Npcs", });
+    internal_static_proto_NetWeapon_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetWeapon_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,
         new java.lang.String[] { "Content", });
     internal_static_proto_BeingRespawn_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_proto_BeingRespawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_BeingRespawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_LevelLoad_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_LevelLoad_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_LevelLoad_descriptor,

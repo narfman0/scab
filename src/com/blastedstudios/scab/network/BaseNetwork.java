@@ -95,7 +95,7 @@ public abstract class BaseNetwork {
 				stream.writeSInt32NoTag(sendStruct.messageType.ordinal());
 				stream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
 				sendStruct.message.writeTo(stream);
-				Log.debug("Client.render", "Sent message successfully: " + sendStruct.messageType.name());
+				Log.debug("BaseNetwork.render", "Sent message successfully: " + sendStruct.messageType.name());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

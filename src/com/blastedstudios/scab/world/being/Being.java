@@ -717,7 +717,8 @@ public class Being implements Serializable{
 	
 	public NetBeing buildMessage(boolean complete){
 		NetBeing.Builder builder = NetBeing.newBuilder();
-		builder.setUuid(uuid.toString());
+		if(uuid != null)
+			builder.setUuid(uuid.toString());
 		builder.setName(name);
 		builder.setHp(getHp());
 		builder.setMaxHp(getMaxHp());
@@ -751,6 +752,12 @@ public class Being implements Serializable{
 				faction, factions, message.getResource(), message.getRagdollResource());
 		being.setUuid(UUID.fromString(message.getUuid()));
 		return being;
+	}
+	
+	public void updateFromMessage(NetBeing update){
+		getRagdoll().getBodyPart(BodyPart.torso).setTransform(update.getPosX(), update.getPosY(), 0);
+		setVelocity(new Vector2(update.getVelX(), update.getVelY()));
+		aim(update.getAim());
 	}
 
 	public UUID getUuid() {

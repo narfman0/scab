@@ -11,4 +11,8 @@ public class MessageStruct{
 		this.messageType = messageType;
 		this.message = message;
 	}
+	
+	@Override public String toString(){
+		return "[MessageStruct type: " + messageType.name() + " message: " + message.toString() + "]";
+	}
 }

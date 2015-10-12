@@ -12,10 +12,11 @@ enum MessageType {
   PLAYER_UPDATE = 6;
   TEXT = 7;
   TEXT_REQUEST = 8;
+  NPC_STATE = 9;
 }
 
 message NetBeing {
-  required string uuid = 1;
+  optional string uuid = 1;
   optional string name = 2;
   optional float pos_x = 3;
   optional float pos_y = 4;
@@ -34,6 +35,10 @@ message NetBeing {
   	FRIEND = 1;
   	ENEMY = 2;
   }
+}
+
+message NPCState {
+	repeated NetBeing npcs = 1;
 }
 
 message NetWeapon {
