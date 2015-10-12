@@ -70,6 +70,8 @@ public class Host extends BaseNetwork{
 					switch(struct.messageType){
 					case ATTACK:
 					case DEAD:
+					case RELOAD:
+					case RESPAWN:
 						send(struct.messageType, struct.message);
 						receiveMessage(struct.messageType, struct.message);
 						break;

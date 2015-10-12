@@ -23,6 +23,7 @@ import com.blastedstudios.gdxworld.util.FileUtil;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.scab.network.Messages.Attack;
 import com.blastedstudios.scab.network.Messages.Dead;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
@@ -588,6 +589,16 @@ public class Being implements Serializable{
 			return false;
 		Weapon weapon = getEquippedWeapon();
 		if(canAttack()){
+			// send network message request first, so clients start mulling it over
+			Attack.Builder builder = Attack.newBuilder();
+			if(uuid != null)
+				builder.setUuid(UUIDConvert.convert(uuid));
+			else
+				builder.setName(name);
+			builder.setPosX(direction.x);
+			builder.setPosY(direction.y);
+			world.getReceiver().send(MessageType.ATTACK, builder.build());
+			//process as normal
 			if(!(weapon instanceof Melee)){
 				Gun gun = (Gun) weapon;
 				gun.shoot(this, random, direction, world, ragdoll.getHandFacing().getPosition());

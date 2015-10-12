@@ -43,9 +43,9 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.BaseNetwork;
-import com.blastedstudios.scab.network.Messages.Attack;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.Reload;
+import com.blastedstudios.scab.network.Messages.Respawn;
 import com.blastedstudios.scab.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.scab.ui.ScabScreen;
 import com.blastedstudios.scab.ui.drawable.ParticleManagerDrawable;
@@ -241,8 +241,12 @@ public class GameplayScreen extends ScabScreen {
 								break;
 							}
 						}
-				}else if(worldManager.getPlayer().isDead() && worldManager.getRespawnLocation() != null)
+				}else if(worldManager.getPlayer().isDead() && worldManager.getRespawnLocation() != null){
 					worldManager.respawnPlayer();
+					Respawn.Builder builder = Respawn.newBuilder();
+					builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+					receiver.send(MessageType.RESPAWN, builder.build());
+				}
 			}
 		});
 	}
@@ -299,14 +303,8 @@ public class GameplayScreen extends ScabScreen {
 				(inventoryWindow == null || !inventoryWindow.contains(x, y)) &&
 				(characterWindow == null || !characterWindow.contains(x, y)) &&
 				(backWindow == null || !backWindow.contains(x, y)) &&
-				(consoleWindow == null || !consoleWindow.contains(x, y))){
+				(consoleWindow == null || !consoleWindow.contains(x, y)))
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
-			Attack.Builder builder = Attack.newBuilder();
-			builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
-			builder.setPosX(touchedDirection.x);
-			builder.setPosY(touchedDirection.y);
-			receiver.send(MessageType.ATTACK, builder.build());
-		}
 		
 		receiver.render(delta);
 	}

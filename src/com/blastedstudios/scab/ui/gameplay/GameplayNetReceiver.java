@@ -34,10 +34,10 @@ public class GameplayNetReceiver implements IMessageListener{
 			worldManager.getPlayer().setUuid(network.getUUID());
 			network.addListener(MessageType.ATTACK, this);
 			network.addListener(MessageType.DEAD, this);
+			network.addListener(MessageType.NPC_STATE, this);
+			network.addListener(MessageType.PLAYER_STATE, this);
 			network.addListener(MessageType.RELOAD, this);
 			network.addListener(MessageType.RESPAWN, this);
-			network.addListener(MessageType.PLAYER_STATE, this);
-			network.addListener(MessageType.NPC_STATE, this);
 		}
 		worldManager.setSimulate(type != MultiplayerType.Client);
 	}
@@ -76,7 +76,6 @@ public class GameplayNetReceiver implements IMessageListener{
 				existing.reload();
 			break;
 		}case RESPAWN:{
-			//nothing triggering this yet
 			Respawn message = (Respawn) object;
 			UUID uuid = UUIDConvert.convert(message.getUuid());
 			Being existing = worldManager.getRemotePlayer(uuid);
