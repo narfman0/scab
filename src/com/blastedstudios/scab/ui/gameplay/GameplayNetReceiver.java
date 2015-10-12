@@ -2,11 +2,14 @@ package com.blastedstudios.scab.ui.gameplay;
 
 import java.util.UUID;
 
+import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.IMessageListener;
-import com.blastedstudios.scab.network.Messages.BeingDead;
-import com.blastedstudios.scab.network.Messages.BeingRespawn;
+import com.blastedstudios.scab.network.Messages.Attack;
+import com.blastedstudios.scab.network.Messages.Reload;
+import com.blastedstudios.scab.network.Messages.Respawn;
+import com.blastedstudios.scab.network.Messages.Dead;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NPCState;
 import com.blastedstudios.scab.network.Messages.NetBeing;
@@ -16,6 +19,7 @@ import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
 import com.blastedstudios.scab.world.being.NPC;
+import com.google.protobuf.Message;
 
 public class GameplayNetReceiver implements IMessageListener{
 	private final WorldManager worldManager;
@@ -28,8 +32,10 @@ public class GameplayNetReceiver implements IMessageListener{
 		this.network = network;
 		if(type != MultiplayerType.Local){
 			worldManager.getPlayer().setUuid(network.getUUID());
-			network.addListener(MessageType.BEING_DEAD, this);
-			network.addListener(MessageType.BEING_RESPAWN, this);
+			network.addListener(MessageType.ATTACK, this);
+			network.addListener(MessageType.DEAD, this);
+			network.addListener(MessageType.RELOAD, this);
+			network.addListener(MessageType.RESPAWN, this);
 			network.addListener(MessageType.PLAYER_STATE, this);
 			network.addListener(MessageType.NPC_STATE, this);
 		}
@@ -38,9 +44,20 @@ public class GameplayNetReceiver implements IMessageListener{
 
 	@Override public void receive(MessageType messageType, Object object) {
 		switch(messageType){
-		case BEING_DEAD:{
-			// nothing is triggering this yet
-			BeingDead message = (BeingDead) object;
+		case ATTACK:{
+			Attack message = (Attack) object;
+			Being existing = null;
+			if(message.hasUuid())
+				existing = worldManager.getRemotePlayer(UUIDConvert.convert(message.getUuid()));
+			else
+				for(Being being : worldManager.getAllBeings())
+					if(being.getName().equals(message.getName()))
+						existing = being;
+			if(existing != null)
+				existing.attack(new Vector2(message.getPosX(), message.getPosY()), worldManager);
+			break;
+		}case DEAD:{
+			Dead message = (Dead) object;
 			Being existing = null;
 			if(message.hasUuid())
 				existing = worldManager.getRemotePlayer(UUIDConvert.convert(message.getUuid()));
@@ -51,10 +68,17 @@ public class GameplayNetReceiver implements IMessageListener{
 			if(existing != null)
 				existing.death(worldManager);
 			break;
-		}case BEING_RESPAWN:{
-			// nothing is triggering this yet
-			BeingRespawn message = (BeingRespawn) object;
-			UUID uuid = UUID.fromString(message.getUuid());
+		}case RELOAD:{
+			Reload message = (Reload) object;
+			UUID uuid = UUIDConvert.convert(message.getUuid());
+			Being existing = worldManager.getRemotePlayer(uuid);
+			if(existing != null)
+				existing.reload();
+			break;
+		}case RESPAWN:{
+			//nothing triggering this yet
+			Respawn message = (Respawn) object;
+			UUID uuid = UUIDConvert.convert(message.getUuid());
 			Being existing = worldManager.getRemotePlayer(uuid);
 			if(existing != null)
 				existing.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
@@ -112,7 +136,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			network.removeListener(this);
 	}
 
-	public void send(MessageType messageType, BeingDead message) {
+	public void send(MessageType messageType, Message message) {
 		if(network != null)
 			network.send(messageType, message);
 	}

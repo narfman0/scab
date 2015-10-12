@@ -68,6 +68,11 @@ public class Host extends BaseNetwork{
 				List<MessageStruct> messages = receiveMessages(client.inStream, client.socket);
 				for(MessageStruct struct : messages){
 					switch(struct.messageType){
+					case ATTACK:
+					case DEAD:
+						send(struct.messageType, struct.message);
+						receiveMessage(struct.messageType, struct.message);
+						break;
 					case NAME_UPDATE:
 						NameUpdate message = (NameUpdate) struct.message;
 						if(client.player == null)
@@ -83,10 +88,6 @@ public class Host extends BaseNetwork{
 						Text text = builder.build();
 						send(MessageType.TEXT, text);
 						receiveMessage(MessageType.TEXT, struct.message);
-						break;
-					case BEING_DEAD:
-						send(MessageType.BEING_DEAD, struct.message);
-						receiveMessage(struct.messageType, struct.message);
 						break;
 					default:
 						receiveMessage(struct.messageType, struct.message);

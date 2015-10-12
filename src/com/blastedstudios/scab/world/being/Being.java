@@ -23,7 +23,7 @@ import com.blastedstudios.gdxworld.util.FileUtil;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
-import com.blastedstudios.scab.network.Messages.BeingDead;
+import com.blastedstudios.scab.network.Messages.Dead;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.NetWeapon;
@@ -116,11 +116,11 @@ public class Being implements Serializable{
 			return;
 		
 		if(!dead && hp <= 0 && deathCallback != null){
-			BeingDead.Builder builder = BeingDead.newBuilder();
+			Dead.Builder builder = Dead.newBuilder();
 			builder.setName(name);
 			if(uuid != null)
 				builder.setUuid(UUIDConvert.convert(uuid));
-			receiver.send(MessageType.BEING_DEAD, builder.build());
+			receiver.send(MessageType.DEAD, builder.build());
 			deathCallback.dead(this);
 		}
 		if(dead)

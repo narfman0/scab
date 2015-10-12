@@ -4,16 +4,18 @@ option java_package = "com.blastedstudios.scab.network";
 option java_outer_classname = "Messages";
 
 enum MessageType {
-  BEING_DEAD = 0;
-  BEING_RESPAWN = 1;
+  ATTACK = 1;
   CONNECTED = 2;
-  DISCONNECTED = 3;
-  LEVEL_LOAD = 4;
-  NAME_UPDATE = 5;
-  PLAYER_STATE = 6;
-  TEXT = 7;
-  TEXT_REQUEST = 8;
-  NPC_STATE = 9;
+  DEAD = 3;
+  DISCONNECTED = 4;
+  LEVEL_LOAD = 5;
+  NAME_UPDATE = 6;
+  NPC_STATE = 7;
+  PLAYER_STATE = 8;
+  RELOAD = 9;
+  RESPAWN = 10;
+  TEXT = 11;
+  TEXT_REQUEST = 12;
 }
 
 message UUID {
@@ -43,7 +45,18 @@ message NetBeing {
   }
 }
 
-message BeingDead {
+message Attack {
+  optional string name = 1;
+  optional UUID uuid = 2;
+  optional float pos_x = 3;
+  optional float pos_y = 4;
+}
+
+message Reload {
+  optional UUID uuid = 1;
+}
+
+message Dead {
   optional string name = 1;
   optional UUID uuid = 2;
 }
@@ -68,8 +81,8 @@ message TextRequest {
   required string content = 1;
 }
 
-message BeingRespawn {
-  required string uuid = 1;
+message Respawn {
+  required UUID uuid = 1;
   optional string name = 2;
   optional float pos_x = 3;
   optional float pos_y = 4;

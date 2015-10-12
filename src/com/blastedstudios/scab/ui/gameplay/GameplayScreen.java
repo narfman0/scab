@@ -43,6 +43,9 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.BaseNetwork;
+import com.blastedstudios.scab.network.Messages.Attack;
+import com.blastedstudios.scab.network.Messages.MessageType;
+import com.blastedstudios.scab.network.Messages.Reload;
 import com.blastedstudios.scab.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.scab.ui.ScabScreen;
 import com.blastedstudios.scab.ui.drawable.ParticleManagerDrawable;
@@ -54,6 +57,7 @@ import com.blastedstudios.scab.ui.gameplay.particles.ParticleManager;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.ui.loading.GameplayLoadingWindowExecutor;
 import com.blastedstudios.scab.ui.loading.LoadingWindow;
+import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.util.ui.ScabWindow;
 import com.blastedstudios.scab.world.DialogBubble;
 import com.blastedstudios.scab.world.DialogManager;
@@ -159,8 +163,12 @@ public class GameplayScreen extends ScabScreen {
 		});
 		register(ActionEnum.RELOAD, new AbstractInputHandler() {
 			public void down(){
-				if(!worldManager.isPause() && worldManager.isInputEnable())
+				if(!worldManager.isPause() && worldManager.isInputEnable()){
 					worldManager.getPlayer().setReloading(true);
+					Reload.Builder builder = Reload.newBuilder();
+					builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+					receiver.send(MessageType.RELOAD, builder.build());
+				}
 			}
 		});
 		register(ActionEnum.INVENTORY, new AbstractInputHandler() {
@@ -291,8 +299,14 @@ public class GameplayScreen extends ScabScreen {
 				(inventoryWindow == null || !inventoryWindow.contains(x, y)) &&
 				(characterWindow == null || !characterWindow.contains(x, y)) &&
 				(backWindow == null || !backWindow.contains(x, y)) &&
-				(consoleWindow == null || !consoleWindow.contains(x, y)))
+				(consoleWindow == null || !consoleWindow.contains(x, y))){
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
+			Attack.Builder builder = Attack.newBuilder();
+			builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+			builder.setPosX(touchedDirection.x);
+			builder.setPosY(touchedDirection.y);
+			receiver.send(MessageType.ATTACK, builder.build());
+		}
 		
 		receiver.render(delta);
 	}
