@@ -6,7 +6,9 @@
 		<Action name="Aim">
 			<Parameter name="target" type="COORDINATE" />
 		</Action>
-		<Action name="ClosestCover" />
+		<Action name="ClosestEnemy">
+			<Parameter name="contextName" type="STRING" />
+		</Action>
 		<Action name="ClosestTurret" type="COORDINATE" />
 		<Action name="CooldownStart">
 			<Parameter name="identifier" type="STRING" />
@@ -56,6 +58,7 @@
 			<Parameter name="identifier" type="STRING" />
 		</Sensor>
 		<Sensor name="IsDead" type="BOOLEAN" />
+		<Sensor name="IsObjective" type="BOOLEAN" />
 		<Sensor name="PlayerLeft" type="BOOLEAN" />
 		<Sensor name="PlayerUnder" type="BOOLEAN" />
 		<Sensor name="Visible" type="BOOLEAN" />

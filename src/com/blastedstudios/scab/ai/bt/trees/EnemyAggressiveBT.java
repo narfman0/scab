@@ -2,7 +2,7 @@
 //                   MACHINE GENERATED CODE                
 //                       DO NOT MODIFY                     
 //                                                         
-// Generated on 02/25/2015 17:32:15
+// Generated on 10/12/2015 23:05:19
 // ******************************************************* 
 package com.blastedstudios.scab.ai.bt.trees;
 
@@ -50,6 +50,16 @@ public class EnemyAggressiveBT implements jbt.execution.core.IBTLibrary {
 										null, null, "SearchLocation")),
 						new jbt.model.task.composite.ModelSequence(
 								null,
+								new jbt.model.task.composite.ModelSelector(
+										null,
+										new jbt.model.task.composite.ModelSequence(
+												null,
+												new jbt.model.task.decorator.ModelInverter(
+														null,
+														new com.blastedstudios.scab.ai.bt.conditions.IsObjective(
+																null)),
+												new com.blastedstudios.scab.ai.bt.actions.ClosestEnemy(
+														null, "OBJECTIVE", null))),
 								new com.blastedstudios.scab.ai.bt.actions.CurrentObjective(
 										null),
 								new com.blastedstudios.scab.ai.bt.actions.Move(

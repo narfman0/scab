@@ -57,6 +57,24 @@
               </Node>
               <Node id="Node_24" type="Sequence">
                 <Children>
+                  <Node id="Node_48" type="Selector">
+                    <Children>
+                      <Node id="Node_49" type="Sequence">
+                        <Children>
+                          <Node id="Node_51" type="Inverter">
+                            <Children>
+                              <Node id="Node_47" name="IsObjective" type="Condition" />
+                            </Children>
+                          </Node>
+                          <Node id="Node_50" name="ClosestEnemy" type="Action">
+                            <Parameters>
+                              <Parameter name="contextName" fromcontext="false">OBJECTIVE</Parameter>
+                            </Parameters>
+                          </Node>
+                        </Children>
+                      </Node>
+                    </Children>
+                  </Node>
                   <Node id="Node_25" name="CurrentObjective" type="Action" />
                   <Node id="Node_29" name="Move" type="Action">
                     <Parameters>

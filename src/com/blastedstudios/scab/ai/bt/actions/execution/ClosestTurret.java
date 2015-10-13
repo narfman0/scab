@@ -39,7 +39,7 @@ public class ClosestTurret extends
 		Log.debug(this.getClass().getCanonicalName(), "spawned");
 	}
 
-	protected jbt.execution.core.ExecutionTask.Status internalTick() {
+	protected Status internalTick() {
 		NPC self = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
 		Turret closest = null;
@@ -50,7 +50,7 @@ public class ClosestTurret extends
 			return Status.FAILURE;
 		getContext().setVariable(AIFieldEnum.TURRET.name(), closest);
 		getContext().setVariable("ClosestTurretObjective", new float[]{closest.getMountLocation().x, closest.getMountLocation().y});
-		return jbt.execution.core.ExecutionTask.Status.SUCCESS;
+		return Status.SUCCESS;
 	}
 
 	protected void internalTerminate() {}
