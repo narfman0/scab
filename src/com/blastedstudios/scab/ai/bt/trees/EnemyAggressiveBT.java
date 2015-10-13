@@ -2,7 +2,7 @@
 //                   MACHINE GENERATED CODE                
 //                       DO NOT MODIFY                     
 //                                                         
-// Generated on 10/12/2015 23:05:19
+// Generated on 10/12/2015 23:47:34
 // ******************************************************* 
 package com.blastedstudios.scab.ai.bt.trees;
 
@@ -50,16 +50,23 @@ public class EnemyAggressiveBT implements jbt.execution.core.IBTLibrary {
 										null, null, "SearchLocation")),
 						new jbt.model.task.composite.ModelSequence(
 								null,
-								new jbt.model.task.composite.ModelSelector(
+								new jbt.model.task.composite.ModelParallel(
 										null,
-										new jbt.model.task.composite.ModelSequence(
+										jbt.model.task.composite.ModelParallel.ParallelPolicy.SELECTOR_POLICY,
+										new jbt.model.task.decorator.ModelInverter(
 												null,
-												new jbt.model.task.decorator.ModelInverter(
-														null,
-														new com.blastedstudios.scab.ai.bt.conditions.IsObjective(
-																null)),
-												new com.blastedstudios.scab.ai.bt.actions.ClosestEnemy(
-														null, "OBJECTIVE", null))),
+												new com.blastedstudios.scab.ai.bt.conditions.IsObjective(
+														null)),
+										new com.blastedstudios.scab.ai.bt.conditions.IsOffCooldown(
+												null, "closestEnemyRefresh",
+												null)),
+								new com.blastedstudios.scab.ai.bt.actions.ClosestEnemy(
+										null, "OBJECTIVE", null),
+								new com.blastedstudios.scab.ai.bt.actions.CooldownStart(
+										null, "closestEnemyRefresh", null,
+										(int) 5000, null)),
+						new jbt.model.task.composite.ModelSequence(
+								null,
 								new com.blastedstudios.scab.ai.bt.actions.CurrentObjective(
 										null),
 								new com.blastedstudios.scab.ai.bt.actions.Move(

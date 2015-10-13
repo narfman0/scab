@@ -487,7 +487,7 @@
         <world.quest.GDXQuest>
           <name>wave1</name>
           <prerequisites></prerequisites>
-          <repeatable>true</repeatable>
+          <repeatable>false</repeatable>
           <repeatableTriggerReset>.*</repeatableTriggerReset>
           <triggers>
             <plugin.quest.trigger.time.TimeTrigger>

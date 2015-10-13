@@ -13,6 +13,7 @@ import java.util.Queue;
 import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.world.GDXPath;
+import com.blastedstudios.gdxworld.world.GDXPath.CompletionEnum;
 import com.blastedstudios.scab.ai.AIWorld;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
@@ -99,6 +100,7 @@ public class ClosestEnemy extends
 		Queue<Vector2> path = aiWorld.getPathToPoint(self.getPosition(), closest.getPosition());
 		GDXPath gdxPath = new GDXPath();
 		gdxPath.getNodes().addAll(path);
+		gdxPath.setCompletionCriteria(CompletionEnum.END);
 		getContext().setVariable(getContextName(), gdxPath);
 		return Status.SUCCESS;
 	}
