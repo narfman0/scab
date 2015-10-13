@@ -52,17 +52,13 @@ message Attack {
   optional float pos_y = 4;
 }
 
-message Reload {
-  optional UUID uuid = 1;
-}
-
 message Dead {
   optional string name = 1;
   optional UUID uuid = 2;
 }
 
-message PlayerState {
-	repeated NetBeing players = 1;
+message LevelLoad {
+  required string name = 1;
 }
 
 message NPCState {
@@ -77,12 +73,16 @@ message NameUpdate {
   required string name = 1;
 }
 
-message TextRequest {
-  required string content = 1;
+message PlayerState {
+	repeated NetBeing players = 1;
+}
+
+message Reload {
+  optional UUID uuid = 1;
 }
 
 message Respawn {
-  required UUID uuid = 1;
+  optional UUID uuid = 1;
   optional string name = 2;
   optional float pos_x = 3;
   optional float pos_y = 4;
@@ -93,6 +93,6 @@ message Text {
   required string origin = 2;
 }
 
-message LevelLoad {
-  required string name = 1;
+message TextRequest {
+  required string content = 1;
 }

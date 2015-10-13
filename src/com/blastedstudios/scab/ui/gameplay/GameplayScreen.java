@@ -166,7 +166,8 @@ public class GameplayScreen extends ScabScreen {
 				if(!worldManager.isPause() && worldManager.isInputEnable()){
 					worldManager.getPlayer().setReloading(true);
 					Reload.Builder builder = Reload.newBuilder();
-					builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+					if(worldManager.getPlayer().getUuid() != null)
+						builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
 					receiver.send(MessageType.RELOAD, builder.build());
 				}
 			}
@@ -244,7 +245,8 @@ public class GameplayScreen extends ScabScreen {
 				}else if(worldManager.getPlayer().isDead() && worldManager.getRespawnLocation() != null){
 					worldManager.respawnPlayer();
 					Respawn.Builder builder = Respawn.newBuilder();
-					builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+					if(worldManager.getPlayer().getUuid() != null)
+						builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
 					receiver.send(MessageType.RESPAWN, builder.build());
 				}
 			}

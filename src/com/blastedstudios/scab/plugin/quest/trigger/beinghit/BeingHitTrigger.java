@@ -25,7 +25,7 @@ public class BeingHitTrigger extends AbstractQuestTrigger implements IBeingHitLi
 	}
 	
 	@Override public AbstractQuestTrigger clone(){
-		return new BeingHitTrigger(target, origin, damageAmount, damageRatio);
+		return super.clone(new BeingHitTrigger(target, origin, damageAmount, damageRatio));
 	}
 
 	@Override public String toString() {
