@@ -24,7 +24,6 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.Attack;
-import com.blastedstudios.scab.network.Messages.Dead;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.NetWeapon;
@@ -122,14 +121,8 @@ public class Being implements Serializable{
 			if(!activity.render(dt))
 				activity = null;
 		
-		if(!dead && hp <= 0 && deathCallback != null){
-			Dead.Builder builder = Dead.newBuilder();
-			builder.setName(name);
-			if(uuid != null)
-				builder.setUuid(UUIDConvert.convert(uuid));
-			receiver.send(MessageType.DEAD, builder.build());
+		if(!dead && hp <= 0 && deathCallback != null)
 			deathCallback.dead(this);
-		}
 		if(dead)
 			return;
 
@@ -571,7 +564,7 @@ public class Being implements Serializable{
 	}
 	
 	public boolean isFriendly(FactionEnum faction){
-		return friendlyFactions.contains(faction);
+		return this.faction == faction || friendlyFactions.contains(faction);
 	}
 
 	public String getResource() {
@@ -786,6 +779,7 @@ public class Being implements Serializable{
 		getRagdoll().getBodyPart(BodyPart.torso).setTransform(update.getPosX(), update.getPosY(), 0);
 		setVelocity(new Vector2(update.getVelX(), update.getVelY()));
 		aim(update.getAim());
+		setHp(update.getHp());
 	}
 
 	public UUID getUuid() {

@@ -37,9 +37,13 @@ import com.blastedstudios.gdxworld.world.GDXLevel.CreateLevelReturnStruct;
 import com.blastedstudios.gdxworld.world.GDXNPC;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.scab.ai.AIWorld;
+import com.blastedstudios.scab.network.Messages.Dead;
+import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.physics.ContactListener;
 import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.ui.gameplay.GameplayScreen.IGameplayListener;
+import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.util.VisibilityReturnStruct;
 import com.blastedstudios.scab.world.being.Being;
 import com.blastedstudios.scab.world.being.Being.IDeathCallback;
@@ -258,7 +262,15 @@ public class WorldManager implements IDeathCallback{
 	}
 
 	@Override public void dead(Being being) {
+		// let remote player be authoritative on himself. i know i know, but im lazy!
+		if(remotePlayers.contains(being) || (receiver.type == MultiplayerType.Client && being != player))
+			return;
 		being.death(this);
+		Dead.Builder builder = Dead.newBuilder();
+		builder.setName(being.getName());
+		if(being.getUuid() != null)
+			builder.setUuid(UUIDConvert.convert(being.getUuid()));
+		receiver.send(MessageType.DEAD, builder.build());
 	}
 
 	public void respawnPlayer() {

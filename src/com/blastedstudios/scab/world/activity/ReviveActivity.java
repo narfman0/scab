@@ -12,7 +12,7 @@ public class ReviveActivity extends BaseActivity {
 	private final Being target, self;
 	private final World world;
 	private final GameplayNetReceiver receiver;
-	private float duration = Properties.getFloat("activity.revive.duration", 2f);
+	private float duration = Properties.getFloat("activity.revive.duration", 3f);
 	
 	public ReviveActivity(Being self, Being target, World world, GameplayNetReceiver receiver){
 		this.self = self;
