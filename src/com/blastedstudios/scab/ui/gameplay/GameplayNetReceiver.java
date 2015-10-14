@@ -19,6 +19,7 @@ import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.being.Being;
 import com.blastedstudios.scab.world.being.NPC;
+import com.blastedstudios.scab.world.being.Player;
 import com.google.protobuf.Message;
 
 public class GameplayNetReceiver implements IMessageListener{
@@ -81,6 +82,10 @@ public class GameplayNetReceiver implements IMessageListener{
 			Being existing = worldManager.getRemotePlayer(uuid);
 			if(existing != null)
 				existing.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
+			else if(UUIDConvert.convert(message.getUuid()).equals(network.getUUID())){
+				Player self = worldManager.getPlayer();
+				self.respawn(worldManager.getWorld(), self.getPosition().x, self.getPosition().y);
+			}
 			break;
 		}case PLAYER_STATE:{
 			PlayerState message = (PlayerState)object;

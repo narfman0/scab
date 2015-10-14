@@ -45,7 +45,6 @@ import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.Reload;
-import com.blastedstudios.scab.network.Messages.Respawn;
 import com.blastedstudios.scab.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.scab.ui.ScabScreen;
 import com.blastedstudios.scab.ui.drawable.ParticleManagerDrawable;
@@ -65,6 +64,7 @@ import com.blastedstudios.scab.world.DialogManager.DialogStruct;
 import com.blastedstudios.scab.world.QuestManifestationExecutor;
 import com.blastedstudios.scab.world.QuestTriggerInformationProvider;
 import com.blastedstudios.scab.world.WorldManager;
+import com.blastedstudios.scab.world.activity.ReviveActivity;
 import com.blastedstudios.scab.world.being.Being;
 import com.blastedstudios.scab.world.being.NPC;
 import com.blastedstudios.scab.world.being.Player;
@@ -148,6 +148,7 @@ public class GameplayScreen extends ScabScreen {
 	}
 	
 	private void registerInput(){
+		final Player player = worldManager.getPlayer();
 		register(ActionEnum.BACK, new AbstractInputHandler() {
 			public void down(){
 				handlePause();
@@ -164,10 +165,10 @@ public class GameplayScreen extends ScabScreen {
 		register(ActionEnum.RELOAD, new AbstractInputHandler() {
 			public void down(){
 				if(!worldManager.isPause() && worldManager.isInputEnable()){
-					worldManager.getPlayer().setReloading(true);
+					player.setReloading(true);
 					Reload.Builder builder = Reload.newBuilder();
-					if(worldManager.getPlayer().getUuid() != null)
-						builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+					if(player.getUuid() != null)
+						builder.setUuid(UUIDConvert.convert(player.getUuid()));
 					receiver.send(MessageType.RELOAD, builder.build());
 				}
 			}
@@ -180,28 +181,28 @@ public class GameplayScreen extends ScabScreen {
 		register(ActionEnum.LEFT, new AbstractInputHandler() {
 			public void down(){
 				if(!worldManager.isPause() && worldManager.isInputEnable())
-					worldManager.getPlayer().setMoveLeft(true);
+					player.setMoveLeft(true);
 			}
 			public void up(){
-				worldManager.getPlayer().setMoveLeft(false);
+				player.setMoveLeft(false);
 			}
 		});
 		register(ActionEnum.RIGHT, new AbstractInputHandler() {
 			public void down(){
 				if(!worldManager.isPause() && worldManager.isInputEnable())
-					worldManager.getPlayer().setMoveRight(true);
+					player.setMoveRight(true);
 			}
 			public void up(){
-				worldManager.getPlayer().setMoveRight(false);
+				player.setMoveRight(false);
 			}
 		});
 		register(ActionEnum.UP, new AbstractInputHandler() {
 			public void down(){
 				if(!worldManager.isPause() && worldManager.isInputEnable())
-					worldManager.getPlayer().setJump(true);
+					player.setJump(true);
 			}
 			public void up(){
-				worldManager.getPlayer().setJump(false);
+				player.setJump(false);
 			}
 		});
 		register(ActionEnum.CONSOLE, new AbstractInputHandler() {
@@ -238,16 +239,14 @@ public class GameplayScreen extends ScabScreen {
 						if(quest.getManifestation() instanceof DialogManifestation){
 							String converted = DialogManager.splitRenderable(((DialogManifestation)quest.getManifestation()).getDialog(), DialogManager.DIALOG_WIDTH);
 							if(converted.equals(struct.dialog)){
-								worldManager.getPlayer().getQuestManager().setStatus(quest.getName(), CompletionEnum.COMPLETED);
+								player.getQuestManager().setStatus(quest.getName(), CompletionEnum.COMPLETED);
 								break;
 							}
 						}
-				}else if(worldManager.getPlayer().isDead() && worldManager.getRespawnLocation() != null){
-					worldManager.respawnPlayer();
-					Respawn.Builder builder = Respawn.newBuilder();
-					if(worldManager.getPlayer().getUuid() != null)
-						builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
-					receiver.send(MessageType.RESPAWN, builder.build());
+				}else{
+					Being closest = worldManager.getClosestBeing(player, true, true);
+					if(closest != null && closest.getPosition().dst(player.getPosition()) < Properties.getFloat("activity.revive.distance"))
+						player.applyActivity(new ReviveActivity(player, closest, worldManager.getWorld(), receiver));
 				}
 			}
 		});
@@ -379,10 +378,6 @@ public class GameplayScreen extends ScabScreen {
 					Log.log("GameplayScreen.render","New gun selected: " + worldManager.getPlayer().getGuns().get(i));
 				}
 		switch(key){
-		case Keys.F2:
-			if(worldManager.getPlayer().isDead() && worldManager.getRespawnLocation() != null)
-				worldManager.respawnPlayer();
-			break;
 		case Keys.F6:
 			if(debugCommandEnabled()){
 				Properties.set("debug.draw", ""+!Properties.getBool("debug.draw"));

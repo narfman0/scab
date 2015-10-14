@@ -465,4 +465,19 @@ public class WorldManager implements IDeathCallback{
 	public void setReceiver(GameplayNetReceiver receiver) {
 		this.receiver = receiver;
 	}
+	
+	public Being getClosestBeing(Being self, boolean friendly, boolean dead){
+		Being closest = null;
+		float closestSq = Float.MAX_VALUE;
+		for(Being being : getAllBeings())
+			if(being != self && (!dead ^ being.isDead()) &&
+					(!friendly ^ being.isFriendly(self.getFaction()))){
+				float distanceSq = being.getPosition().dst2(self.getPosition());
+				if(closest == null || distanceSq < closestSq){
+					closest = being;
+					closestSq = distanceSq;
+				}
+			}
+		return closest;
+	}
 }

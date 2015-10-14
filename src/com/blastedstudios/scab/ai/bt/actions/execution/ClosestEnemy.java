@@ -85,16 +85,7 @@ public class ClosestEnemy extends
 		NPC self = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
 		AIWorld aiWorld = (AIWorld) getContext().getVariable(AIFieldEnum.AI_WORLD.name());
-		Being closest = null;
-		float closestSq = Float.MAX_VALUE;
-		for(Being being : world.getAllBeings())
-			if(being != self && !being.isFriendly(self.getFaction())){
-				float distanceSq = being.getPosition().dst2(self.getPosition());
-				if(closest == null || distanceSq < closestSq){
-					closest = being;
-					closestSq = distanceSq;
-				}
-			}
+		Being closest = world.getClosestBeing(self, false, false);
 		if(closest == null)
 			return Status.FAILURE;
 		Queue<Vector2> path = aiWorld.getPathToPoint(self.getPosition(), closest.getPosition());

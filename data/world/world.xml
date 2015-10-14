@@ -562,29 +562,20 @@
       </quests>
       <backgrounds/>
       <lights>
-        <world.light.PointLight>
-          <color>-437918337</color>
-          <rays>1000</rays>
-          <coordinates>
-            <x>-6.928036</x>
-            <y>-0.6005802</y>
-          </coordinates>
-          <distance>10.0</distance>
-        </world.light.PointLight>
-        <world.light.PointLight>
-          <color>-437918337</color>
-          <rays>1000</rays>
-          <coordinates>
-            <x>11.32565</x>
-            <y>-0.4530754</y>
-          </coordinates>
-          <distance>10.0</distance>
-        </world.light.PointLight>
         <world.light.DirectionalLight>
-          <color>-437918337</color>
+          <color>-437918312</color>
           <rays>1000</rays>
           <direction>270.0</direction>
         </world.light.DirectionalLight>
+        <world.light.PointLight>
+          <color>-438036328</color>
+          <rays>1000</rays>
+          <coordinates>
+            <x>-13.0</x>
+            <y>3.0</y>
+          </coordinates>
+          <distance>40.0</distance>
+        </world.light.PointLight>
       </lights>
       <groups/>
       <particles/>
@@ -594,7 +585,7 @@
         <cameraShots/>
       </metadata>
       <properties class="tree-map"/>
-      <lightAmbient>-437918414</lightAmbient>
+      <lightAmbient>-437918439</lightAmbient>
     </world.GDXLevel>
   </levels>
   <worldProperties>

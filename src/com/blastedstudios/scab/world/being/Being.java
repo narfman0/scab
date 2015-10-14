@@ -37,6 +37,7 @@ import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.util.VectorHelper;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.WorldManager;
+import com.blastedstudios.scab.world.activity.BaseActivity;
 import com.blastedstudios.scab.world.being.component.IComponent;
 import com.blastedstudios.scab.world.weapon.AmmoTypeEnum;
 import com.blastedstudios.scab.world.weapon.DamageStruct;
@@ -73,6 +74,7 @@ public class Being implements Serializable{
 	protected transient List<IComponent> listeners;
 	protected transient AssetManager sharedAssets;
 	private transient UUID uuid;
+	private transient BaseActivity activity;
 
 	public Being(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
 			int currentWeapon, int cash, int level, int xp, FactionEnum faction,
@@ -115,6 +117,10 @@ public class Being implements Serializable{
 		
 		if(paused)
 			return;
+		
+		if(activity != null)
+			if(!activity.render(dt))
+				activity = null;
 		
 		if(!dead && hp <= 0 && deathCallback != null){
 			Dead.Builder builder = Dead.newBuilder();
@@ -788,5 +794,9 @@ public class Being implements Serializable{
 
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
+	}
+
+	public void applyActivity(BaseActivity activity) {
+		this.activity = activity;
 	}
 }
