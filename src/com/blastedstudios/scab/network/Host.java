@@ -89,7 +89,6 @@ public class Host extends BaseNetwork{
 						builder.setOrigin(client.toString());
 						Text text = builder.build();
 						send(MessageType.TEXT, text);
-						receiveMessage(MessageType.TEXT, struct.message);
 						break;
 					default:
 						receiveMessage(struct.messageType, struct.message);

@@ -2,6 +2,7 @@ package com.blastedstudios.scab.ui.gameplay;
 
 import java.util.UUID;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.BaseNetwork;
@@ -14,6 +15,8 @@ import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NPCState;
 import com.blastedstudios.scab.network.Messages.NetBeing;
 import com.blastedstudios.scab.network.Messages.PlayerState;
+import com.blastedstudios.scab.network.Messages.Text;
+import com.blastedstudios.scab.ui.gameplay.console.History;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.world.WorldManager;
@@ -26,8 +29,10 @@ public class GameplayNetReceiver implements IMessageListener{
 	private final WorldManager worldManager;
 	public final MultiplayerType type;
 	public final BaseNetwork network;
+	private final GameplayScreen screen;
 	
-	public GameplayNetReceiver(WorldManager worldManager, MultiplayerType type, BaseNetwork network){
+	public GameplayNetReceiver(GameplayScreen screen, WorldManager worldManager, MultiplayerType type, BaseNetwork network){
+		this.screen = screen;
 		this.worldManager = worldManager;
 		this.type = type;
 		this.network = network;
@@ -39,6 +44,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			network.addListener(MessageType.PLAYER_STATE, this);
 			network.addListener(MessageType.RELOAD, this);
 			network.addListener(MessageType.RESPAWN, this);
+			network.addListener(MessageType.TEXT, this);
 		}
 		worldManager.setSimulate(type != MultiplayerType.Client);
 	}
@@ -112,6 +118,12 @@ public class GameplayNetReceiver implements IMessageListener{
 				for(NPC npc : worldManager.getNpcs())
 					if(!npc.isDead() && npc.getName().equals(updateNPC.getName()))
 						npc.updateFromMessage(updateNPC);
+			break;
+		}case TEXT:{
+			Text message = (Text) object;
+			screen.showConsole();
+			if(!message.getOrigin().equals(worldManager.getPlayer().getName()))
+				History.add(message.getContent(), Color.BLACK);
 			break;
 		}default:
 			break;

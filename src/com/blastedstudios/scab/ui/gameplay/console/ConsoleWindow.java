@@ -11,19 +11,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
+import com.blastedstudios.scab.network.Messages.MessageType;
+import com.blastedstudios.scab.network.Messages.TextRequest;
 import com.blastedstudios.scab.ui.gameplay.GameplayScreen;
 import com.blastedstudios.scab.util.IConsoleCommand;
 import com.blastedstudios.scab.util.ui.ScabTextButton;
 import com.blastedstudios.scab.util.ui.ScabWindow;
 import com.blastedstudios.scab.world.WorldManager;
 
-public class ConsoleWindow extends ScabWindow {
+public class ConsoleWindow extends ScabWindow implements IHistoryListener{
 	private final TextField text;
 	private final TextArea history;
+	private final GameplayScreen screen;
 	
 	public ConsoleWindow(final Skin skin, final WorldManager world, 
 			final GameplayScreen screen, final EventListener listener) {
 		super("", skin);
+		this.screen = screen;
 		history = new TextArea("", skin);
 		redrawHistory();
 		for(IConsoleCommand command : PluginUtil.getPlugins(IConsoleCommand.class))
@@ -48,6 +52,12 @@ public class ConsoleWindow extends ScabWindow {
 		add(executeButton);
 		add(closeButton);
 		setSize(Gdx.graphics.getWidth()/2f, Gdx.graphics.getHeight()/2f);
+		History.addListener(this);
+	}
+	
+	@Override public boolean remove(){
+		History.removeListener(this);
+		return super.remove();
 	}
 	
 	private void redrawHistory(){
@@ -65,8 +75,7 @@ public class ConsoleWindow extends ScabWindow {
 	 */
 	public void execute() {
 		History.add(text.getText(), Color.BLACK);
-		boolean isCommand = text.getText().startsWith("!") || text.getText().startsWith("/");
-		if(isCommand)
+		if(text.getText().startsWith("!") || text.getText().startsWith("/"))
 			try{
 				String[] tokens = text.getText().substring(1).split(" ");
 				for(IConsoleCommand command : PluginUtil.getPlugins(IConsoleCommand.class))
@@ -81,7 +90,16 @@ public class ConsoleWindow extends ScabWindow {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+		else{
+			TextRequest.Builder builder = TextRequest.newBuilder();
+			builder.setContent(text.getText());
+			screen.getReceiver().send(MessageType.TEXT_REQUEST, builder.build());
+		}
 		text.setText("");
+		redrawHistory();
+	}
+
+	@Override public void added(String msg, Color color) {
 		redrawHistory();
 	}
 }

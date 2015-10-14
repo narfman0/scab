@@ -25,7 +25,10 @@ class LevelInformationWindow extends ScabWindow{
 			levelList.getItems().add(level.getName());
 		final Button startButton = new ScabTextButton("Start", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
-				screen.levelSelected(levelList.getSelected());
+				String selected = levelList.getSelected();
+				if(selected == null)
+					selected = levelList.getItems().first();
+				screen.levelSelected(selected);
 			}
 		});
 		add(isControl ? "Select level: " : "Level: ");

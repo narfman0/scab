@@ -49,6 +49,6 @@ public class UIHelper {
 		StringBuffer buf = new StringBuffer("No match for name(s) ");
 		for(String name : names)
 			buf.append(name + ",");
-		Log.error("UIHelper.get" + origin, buf.toString());
+		Log.debug("UIHelper.get" + origin, buf.toString());
 	}
 }

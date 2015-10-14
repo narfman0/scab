@@ -1,5 +1,6 @@
 package com.blastedstudios.scab.ui.gameplay.console;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import net.xeoh.plugins.base.annotations.PluginImplementation;
@@ -11,6 +12,7 @@ import com.blastedstudios.gdxworld.util.Properties;
 @PluginImplementation
 public class History implements ILogHandler{
 	static final LinkedList<ConsoleOutputStruct> items = new LinkedList<>();
+	private static final HashSet<IHistoryListener> listeners = new HashSet<>();
 
 	@Override
 	public void debug(String tag, String message) {
@@ -34,5 +36,15 @@ public class History implements ILogHandler{
 		items.add(new ConsoleOutputStruct(msg, color));
 		while(items.size() > Properties.getInt("history.size", 100))
 			items.removeFirst();
+		for(IHistoryListener listener : listeners)
+			listener.added(msg, color);
+	}
+	
+	public static void addListener(IHistoryListener listener){
+		listeners.add(listener);
+	}
+	
+	public static void removeListener(IHistoryListener listener){
+		listeners.remove(listener);
 	}
 }

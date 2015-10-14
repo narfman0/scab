@@ -114,7 +114,7 @@ public class GameplayScreen extends ScabScreen {
 				hud.npcAdded(npc);
 			}
 		});
-		receiver = new GameplayNetReceiver(worldManager, type, network);
+		receiver = new GameplayNetReceiver(this, worldManager, type, network);
 		worldManager.setReceiver(receiver);
 		player.getQuestManager().initialize(new QuestTriggerInformationProvider(this, worldManager), 
 				new QuestManifestationExecutor(this, worldManager));
@@ -207,21 +207,11 @@ public class GameplayScreen extends ScabScreen {
 		});
 		register(ActionEnum.CONSOLE, new AbstractInputHandler() {
 			public void down(){
-				if(Properties.getBool("debug.commands")){
-					if(consoleWindow == null){
-						EventListener listener = new EventListener() {
-							@Override public boolean handle(Event event) {
-								consoleWindow.remove();
-								consoleWindow = null;
-								return false;
-							}
-						};
-						stage.addActor(consoleWindow = new ConsoleWindow(skin, worldManager, GameplayScreen.this, listener));
-						consoleWindow.setX(Gdx.graphics.getWidth()/2 - consoleWindow.getWidth()/2);
-					}else{
-						consoleWindow.remove();
-						consoleWindow = null;
-					}
+				if(consoleWindow == null)
+					showConsole();
+				else{
+					consoleWindow.remove();
+					consoleWindow = null;
 				}
 			}
 		});
@@ -256,6 +246,20 @@ public class GameplayScreen extends ScabScreen {
 			public void up(){
 			}
 		});
+	}
+	
+	public void showConsole(){
+		if(consoleWindow != null)
+			return;
+		EventListener listener = new EventListener() {
+			@Override public boolean handle(Event event) {
+				consoleWindow.remove();
+				consoleWindow = null;
+				return false;
+			}
+		};
+		stage.addActor(consoleWindow = new ConsoleWindow(skin, worldManager, GameplayScreen.this, listener));
+		consoleWindow.setX(Gdx.graphics.getWidth()/2 - consoleWindow.getWidth()/2);
 	}
 	
 	private void handlePause(){
@@ -465,6 +469,10 @@ public class GameplayScreen extends ScabScreen {
 			this.tintTable.remove();
 		stage.addActor(this.tintTable = tintTable);
 		Log.log("GameplayScreen.applyTintTable", "New table applied at " + System.currentTimeMillis());
+	}
+
+	public GameplayNetReceiver getReceiver() {
+		return receiver;
 	}
 
 	public interface IGameplayListener{
