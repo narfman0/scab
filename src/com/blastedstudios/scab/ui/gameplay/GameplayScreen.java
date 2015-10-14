@@ -250,6 +250,12 @@ public class GameplayScreen extends ScabScreen {
 				}
 			}
 		});
+		register(ActionEnum.CHAT, new AbstractInputHandler() {
+			public void down(){
+			}
+			public void up(){
+			}
+		});
 	}
 	
 	private void handlePause(){

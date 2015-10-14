@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -20,12 +19,12 @@ import com.blastedstudios.scab.world.WorldManager;
 
 public class ConsoleWindow extends ScabWindow {
 	private final TextField text;
-	private final Table historyTable;
+	private final TextArea history;
 	
 	public ConsoleWindow(final Skin skin, final WorldManager world, 
 			final GameplayScreen screen, final EventListener listener) {
-		super("Console", skin);
-		historyTable = new Table(skin);
+		super("", skin);
+		history = new TextArea("", skin);
 		redrawHistory();
 		for(IConsoleCommand command : PluginUtil.getPlugins(IConsoleCommand.class))
 			command.initialize(world, screen);
@@ -41,20 +40,24 @@ public class ConsoleWindow extends ScabWindow {
 				listener.handle(event);
 			}
 		});
-		add(new ScrollPane(historyTable)).colspan(3);
+		add("Console");
 		row();
-		add(text);
+		add(history).colspan(3).fill().expand();
+		row();
+		add(text).fillX().expandX();
 		add(executeButton);
 		add(closeButton);
-		setSize(Gdx.graphics.getWidth()-8f, Gdx.graphics.getHeight()/2f);
+		setSize(Gdx.graphics.getWidth()/2f, Gdx.graphics.getHeight()/2f);
 	}
 	
 	private void redrawHistory(){
-		historyTable.clear();
+		StringBuilder builder = new StringBuilder();
 		for(ConsoleOutputStruct struct : History.items){
-			historyTable.add(struct.output, "default", struct.color);
-			historyTable.row();
+			builder.append(builder.length() == 0 ? "" : "\n");
+			builder.append(struct.output);
 		}
+		history.setText(builder.toString());
+		history.setCursorPosition(builder.length());
 	}
 
 	/**
@@ -62,20 +65,23 @@ public class ConsoleWindow extends ScabWindow {
 	 */
 	public void execute() {
 		History.add(text.getText(), Color.BLACK);
-		try{
-			String[] tokens = text.getText().split(" ");
-			for(IConsoleCommand command : PluginUtil.getPlugins(IConsoleCommand.class))
-				for(String match : command.getMatches())
-					try{
-						if(tokens[0].matches(match))
-							command.execute(tokens);
-					}catch(Exception e){
-						Log.error("ConsoleWindow.execute", "Failed to execute command: " + text.getText());
-						e.printStackTrace();
-					}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		boolean isCommand = text.getText().startsWith("!") || text.getText().startsWith("/");
+		if(isCommand)
+			try{
+				String[] tokens = text.getText().substring(1).split(" ");
+				for(IConsoleCommand command : PluginUtil.getPlugins(IConsoleCommand.class))
+					for(String match : command.getMatches())
+						try{
+							if(tokens[0].matches(match))
+								command.execute(tokens);
+						}catch(Exception e){
+							Log.error("ConsoleWindow.execute", "Failed to execute command: " + text.getText());
+							e.printStackTrace();
+						}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		text.setText("");
 		redrawHistory();
 	}
 }

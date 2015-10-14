@@ -14,6 +14,7 @@ public enum ActionEnum {
 	RELOAD(new int[]{Properties.getInt("input.reload", Keys.R), Properties.getInt("input.reload2", Keys.DEL)}),
 	CROUCH(new int[]{Properties.getInt("input.crouch", Keys.CONTROL_LEFT), Properties.getInt("input.crouch2", Keys.C)}),
 	BACK(new int[]{Properties.getInt("input.back", Keys.ESCAPE), Properties.getInt("input.back2", Keys.BACK)}),
+	CHAT(new int[]{Properties.getInt("input.talk", Keys.T), Properties.getInt("input.talk2", Keys.Y)}),
 	MODIFIER(new int[]{Properties.getInt("input.modifier", Keys.SHIFT_LEFT), Properties.getInt("input.modifier2", Keys.SHIFT_RIGHT)}),
 	CONSOLE(new int[]{Properties.getInt("input.console", Keys.PERIOD), Properties.getInt("input.console2", Keys.COLON)}),
 	UNDEFINED(new int[]{-1,-1});
