@@ -8,15 +8,16 @@ enum MessageType {
   CONNECTED = 2;
   DEAD = 3;
   DISCONNECTED = 4;
-  LEVEL_LOAD = 5;
-  NAME_UPDATE = 6;
-  NPC_STATE = 7;
-  PAUSE = 8;
-  PLAYER_STATE = 9;
-  RELOAD = 10;
-  RESPAWN = 11;
-  TEXT = 12;
-  TEXT_REQUEST = 13;
+  EXIT_GAMEPLAY = 5;
+  LEVEL_LOAD = 6;
+  NAME_UPDATE = 7;
+  NPC_STATE = 8;
+  PAUSE = 9;
+  PLAYER_STATE = 10;
+  RELOAD = 11;
+  RESPAWN = 12;
+  TEXT = 13;
+  TEXT_REQUEST = 14;
 }
 
 message UUID {
@@ -56,6 +57,11 @@ message Attack {
 message Dead {
   optional string name = 1;
   optional UUID uuid = 2;
+}
+
+message ExitGameplay {
+  required bool success = 1;
+  optional string next_level = 2;
 }
 
 message LevelLoad {

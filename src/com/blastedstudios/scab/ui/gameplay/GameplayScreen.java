@@ -41,6 +41,7 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.BaseNetwork;
+import com.blastedstudios.scab.network.Messages.ExitGameplay;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.Pause;
 import com.blastedstudios.scab.network.Messages.Reload;
@@ -298,6 +299,11 @@ public class GameplayScreen extends ScabScreen {
 	}
 	
 	public void levelComplete(final boolean success, final String nextLevelName){
+		ExitGameplay.Builder builder = ExitGameplay.newBuilder();
+		builder.setSuccess(success);
+		if(nextLevelName != null)
+			builder.setNextLevel(nextLevelName);
+		receiver.send(MessageType.EXIT_GAMEPLAY, builder.build());
 		receiver.dispose();
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, nextLevelName, worldManager, level);

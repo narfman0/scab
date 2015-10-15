@@ -8,6 +8,7 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.Messages.Attack;
+import com.blastedstudios.scab.network.Messages.ExitGameplay;
 import com.blastedstudios.scab.network.Messages.Pause;
 import com.blastedstudios.scab.network.Messages.Reload;
 import com.blastedstudios.scab.network.Messages.Respawn;
@@ -41,6 +42,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			worldManager.getPlayer().setUuid(network.getUUID());
 			network.addListener(MessageType.ATTACK, this);
 			network.addListener(MessageType.DEAD, this);
+			network.addListener(MessageType.EXIT_GAMEPLAY, this);
 			network.addListener(MessageType.NPC_STATE, this);
 			network.addListener(MessageType.PAUSE, this);
 			network.addListener(MessageType.PLAYER_STATE, this);
@@ -76,6 +78,11 @@ public class GameplayNetReceiver implements IMessageListener{
 						existing = being;
 			if(existing != null)
 				existing.death(worldManager);
+			break;
+		}case EXIT_GAMEPLAY:{
+			ExitGameplay message = (ExitGameplay) object;
+			String nextLevel = message.hasNextLevel() ? message.getNextLevel() : null;
+			screen.levelComplete(message.getSuccess(), nextLevel);
 			break;
 		}case PAUSE:{
 			Pause message = (Pause) object;

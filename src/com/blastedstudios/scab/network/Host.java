@@ -70,6 +70,7 @@ public class Host extends BaseNetwork{
 					switch(struct.messageType){
 					case ATTACK:
 					case DEAD:
+					case EXIT_GAMEPLAY:
 					case PAUSE:
 					case RELOAD:
 					case RESPAWN:
