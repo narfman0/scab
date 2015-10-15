@@ -14,11 +14,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.blastedstudios.gdxworld.plugin.quest.manifestation.beingspawn.BeingSpawnManifestation;
 import com.blastedstudios.gdxworld.plugin.quest.manifestation.dialog.DialogManifestation;
 import com.blastedstudios.gdxworld.ui.AbstractScreen;
@@ -77,7 +75,7 @@ public class GameplayScreen extends ScabScreen {
 	private final HUD hud;
 	private OrthographicCamera camera;
 	private WorldManager worldManager;
-	private ScabWindow characterWindow, inventoryWindow, backWindow;
+	private ScabWindow characterWindow, inventoryWindow;
 	private ConsoleWindow consoleWindow;
 	private final Box2DDebugRenderer renderer;
 	private final GDXRenderer gdxRenderer;
@@ -205,16 +203,6 @@ public class GameplayScreen extends ScabScreen {
 				player.setJump(false);
 			}
 		});
-		register(ActionEnum.CONSOLE, new AbstractInputHandler() {
-			public void down(){
-				if(consoleWindow == null)
-					showConsole();
-				else{
-					consoleWindow.remove();
-					consoleWindow = null;
-				}
-			}
-		});
 		register(ActionEnum.ACTION, new AbstractInputHandler() {
 			public void down(){
 				if(debugCommandEnabled()){
@@ -248,33 +236,20 @@ public class GameplayScreen extends ScabScreen {
 		});
 	}
 	
-	public void showConsole(){
-		if(consoleWindow != null)
-			return;
-		EventListener listener = new EventListener() {
-			@Override public boolean handle(Event event) {
-				consoleWindow.remove();
-				consoleWindow = null;
-				return false;
-			}
-		};
-		stage.addActor(consoleWindow = new ConsoleWindow(skin, worldManager, GameplayScreen.this, listener));
-		consoleWindow.setX(Gdx.graphics.getWidth()/2 - consoleWindow.getWidth()/2);
-	}
-	
-	private void handlePause(){
+	public void handlePause(){
 		if(consoleWindow == null && worldManager.isInputEnable()){
 			if(characterWindow == null){
 				cleanCharacterWindows();//just to be safe
-				ChangeListener listener = new ChangeListener() {
-					@Override public void changed(ChangeEvent event, Actor actor) {
+				stage.addActor(characterWindow = new CharacterWindow(skin, worldManager.getPlayer()));
+				stage.addActor(inventoryWindow = new InventoryWindow(skin, 
+						worldManager.getPlayer(), worldManager.getSharedAssets(), stage));
+				EventListener consoleListener = new EventListener() {
+					@Override public boolean handle(Event event) {
 						cleanCharacterWindows();
+						return false;
 					}
 				};
-				stage.addActor(characterWindow = new CharacterWindow(skin, worldManager.getPlayer(), listener));
-				stage.addActor(backWindow = new BackWindow(skin, this));
-				stage.addActor(inventoryWindow = new InventoryWindow(skin, 
-						worldManager.getPlayer(), listener, worldManager.getSharedAssets(), stage));
+				stage.addActor(consoleWindow = new ConsoleWindow(skin, worldManager, GameplayScreen.this, consoleListener));
 				worldManager.pause(true);
 			}else
 				cleanCharacterWindows();
@@ -307,13 +282,11 @@ public class GameplayScreen extends ScabScreen {
 		stage.draw();
 		if(worldManager.getPlayer().isSpawned())
 			hud.render();
-		worldManager.getPlayer().getQuestManager().tick(delta);
 		
 		int x = Gdx.input.getX(), y = Gdx.input.getY();
 		if(!worldManager.isPause() && worldManager.isInputEnable() && Gdx.input.isTouched() && 
 				(inventoryWindow == null || !inventoryWindow.contains(x, y)) &&
 				(characterWindow == null || !characterWindow.contains(x, y)) &&
-				(backWindow == null || !backWindow.contains(x, y)) &&
 				(consoleWindow == null || !consoleWindow.contains(x, y)))
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
 		
@@ -413,12 +386,12 @@ public class GameplayScreen extends ScabScreen {
 	}
 	
 	private void cleanCharacterWindows(){
-		for(ScabWindow window : new ScabWindow[]{characterWindow, inventoryWindow, backWindow})
+		for(ScabWindow window : new ScabWindow[]{characterWindow, inventoryWindow, consoleWindow})
 			if(window != null)
 				window.remove();
 		characterWindow = null;
 		inventoryWindow = null;
-		backWindow = null;
+		consoleWindow = null;
 		worldManager.pause(false);
 	}
 	

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
+import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.TextRequest;
 import com.blastedstudios.scab.ui.gameplay.GameplayScreen;
@@ -34,7 +35,7 @@ public class ConsoleWindow extends ScabWindow implements IHistoryListener{
 			command.initialize(world, screen);
 		text = new TextField("", skin);
 		text.setMessageText("<enter command>");
-		TextButton executeButton = new ScabTextButton("Execute", skin, new ClickListener() {
+		TextButton executeButton = new ScabTextButton("Send", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				execute();
 			}
@@ -44,14 +45,21 @@ public class ConsoleWindow extends ScabWindow implements IHistoryListener{
 				listener.handle(event);
 			}
 		});
-		add("Console");
+		TextButton exitButton = new ScabTextButton(Properties.get("ui.back.button.text", "Exit to Map"), skin, new ClickListener() {
+			@Override public void clicked(InputEvent event, float x, float y) {
+				screen.levelComplete(false, null);
+			}
+		});
+		add("Console").colspan(4);
 		row();
-		add(history).colspan(3).fill().expand();
+		add(history).colspan(4).fill().expand();
 		row();
 		add(text).fillX().expandX();
 		add(executeButton);
 		add(closeButton);
+		add(exitButton);
 		setSize(Gdx.graphics.getWidth()/2f, Gdx.graphics.getHeight()/2f);
+		setX(Gdx.graphics.getWidth()/2 - getWidth()/2);
 		History.addListener(this);
 	}
 	

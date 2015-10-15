@@ -11,11 +11,12 @@ enum MessageType {
   LEVEL_LOAD = 5;
   NAME_UPDATE = 6;
   NPC_STATE = 7;
-  PLAYER_STATE = 8;
-  RELOAD = 9;
-  RESPAWN = 10;
-  TEXT = 11;
-  TEXT_REQUEST = 12;
+  PAUSE = 8;
+  PLAYER_STATE = 9;
+  RELOAD = 10;
+  RESPAWN = 11;
+  TEXT = 12;
+  TEXT_REQUEST = 13;
 }
 
 message UUID {
@@ -73,8 +74,12 @@ message NameUpdate {
   required string name = 1;
 }
 
+message Pause {
+  required bool pause = 1;
+}
+
 message PlayerState {
-	repeated NetBeing players = 1;
+  repeated NetBeing players = 1;
 }
 
 message Reload {

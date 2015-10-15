@@ -121,7 +121,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			break;
 		}case TEXT:{
 			Text message = (Text) object;
-			screen.showConsole();
+			screen.handlePause();
 			if(!message.getOrigin().equals(worldManager.getPlayer().getName()))
 				History.add(message.getContent(), Color.BLACK);
 			break;

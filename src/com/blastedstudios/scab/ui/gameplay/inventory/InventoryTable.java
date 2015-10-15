@@ -1,17 +1,14 @@
 package com.blastedstudios.scab.ui.gameplay.inventory;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.blastedstudios.scab.ui.gameplay.inventory.GunButton.IButtonClicked;
 import com.blastedstudios.scab.util.ui.UIHelper;
@@ -25,17 +22,15 @@ public class InventoryTable extends Table implements IButtonClicked {
 	final List<Weapon> guns;
 	private final AssetManager sharedAssets;
 	private final Skin skin;
-	private final Being being;
 	private final IButtonClicked informationWindowListener;
 	
-	public InventoryTable(final Skin skin, final Being being, final ChangeListener listener,
+	public InventoryTable(final Skin skin, final Being being,
 			final AssetManager sharedAssets, IButtonClicked informationWindowListener){
 		try{
 			setColor(UIHelper.getColor(skin, "table-background", "background", "primary"));
 		}catch(Exception e){}
 		this.sharedAssets = sharedAssets;
 		this.skin = skin;
-		this.being = being;
 		this.informationWindowListener = informationWindowListener;
 		noGun = GunButton.createGunSprite(sharedAssets, "nogun");
 		gunsTable = new Table();
@@ -63,15 +58,5 @@ public class InventoryTable extends Table implements IButtonClicked {
 
 	@Override public void gunButtonClicked(Weapon weapon) {
 		informationWindowListener.gunButtonClicked(weapon);
-	}
-
-	public void accept(){
-		List<Weapon> guns = new LinkedList<Weapon>();
-		for(Actor actor : gunsTable.getChildren())
-			if(actor instanceof GunButton)
-				guns.add(((GunButton)actor).gun);
-		List<Weapon> inventory = new LinkedList<Weapon>();
-		being.setGuns(guns);
-		being.setInventory(inventory);
 	}
 }
