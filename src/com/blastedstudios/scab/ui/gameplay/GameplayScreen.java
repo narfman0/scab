@@ -1,5 +1,6 @@
 package com.blastedstudios.scab.ui.gameplay;
 
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.blastedstudios.gdxworld.GDXWorldEditor;
 import com.blastedstudios.gdxworld.plugin.quest.manifestation.beingspawn.BeingSpawnManifestation;
 import com.blastedstudios.gdxworld.plugin.quest.manifestation.dialog.DialogManifestation;
 import com.blastedstudios.gdxworld.ui.AbstractScreen;
@@ -267,8 +269,15 @@ public class GameplayScreen extends ScabScreen {
 		if(assetManager.getLoadedAssets() == 0)
 			return;
 		//if player is not spawned then we are in a cutscene, if input isn't enabled we shouldn't update camera
-		if(worldManager.getPlayer().isSpawned() && worldManager.isPlayerTrack())
-			camera.position.set(worldManager.getPlayer().getPosition().x, worldManager.getPlayer().getPosition().y, 0);
+		if(worldManager.getPlayer().isSpawned() && worldManager.isPlayerTrack() && !worldManager.isPause()){
+			Vector2 offset = new Vector2();
+			if(!Properties.getBool("camera.lead.mouse.modifier", false) ^ Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
+				Dimension dim = GDXWorldEditor.getDimension(Properties.getBool("graphics.fullscreen"));
+				offset.add(-dim.width/2f + Gdx.input.getX(), dim.height/2f - Gdx.input.getY());
+				offset.scl(camera.zoom/5f);
+			}
+			camera.position.set(worldManager.getPlayer().getPosition().cpy().add(offset), 0);
+		}
 		camera.update();
 		rayHandler.setCombinedMatrix(camera);
 
