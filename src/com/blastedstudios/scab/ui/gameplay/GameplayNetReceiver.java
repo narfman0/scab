@@ -8,6 +8,7 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.IMessageListener;
 import com.blastedstudios.scab.network.Messages.Attack;
+import com.blastedstudios.scab.network.Messages.Pause;
 import com.blastedstudios.scab.network.Messages.Reload;
 import com.blastedstudios.scab.network.Messages.Respawn;
 import com.blastedstudios.scab.network.Messages.Dead;
@@ -41,6 +42,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			network.addListener(MessageType.ATTACK, this);
 			network.addListener(MessageType.DEAD, this);
 			network.addListener(MessageType.NPC_STATE, this);
+			network.addListener(MessageType.PAUSE, this);
 			network.addListener(MessageType.PLAYER_STATE, this);
 			network.addListener(MessageType.RELOAD, this);
 			network.addListener(MessageType.RESPAWN, this);
@@ -74,6 +76,10 @@ public class GameplayNetReceiver implements IMessageListener{
 						existing = being;
 			if(existing != null)
 				existing.death(worldManager);
+			break;
+		}case PAUSE:{
+			Pause message = (Pause) object;
+			screen.handlePause(message.getPause());
 			break;
 		}case RELOAD:{
 			Reload message = (Reload) object;
@@ -121,7 +127,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			break;
 		}case TEXT:{
 			Text message = (Text) object;
-			screen.handlePause();
+			screen.handlePause(true);
 			if(!message.getOrigin().equals(worldManager.getPlayer().getName()))
 				History.add(message.getContent(), Color.BLACK);
 			break;

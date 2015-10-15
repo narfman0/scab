@@ -42,6 +42,7 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.scab.input.ActionEnum;
 import com.blastedstudios.scab.network.BaseNetwork;
 import com.blastedstudios.scab.network.Messages.MessageType;
+import com.blastedstudios.scab.network.Messages.Pause;
 import com.blastedstudios.scab.network.Messages.Reload;
 import com.blastedstudios.scab.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.scab.ui.ScabScreen;
@@ -147,11 +148,19 @@ public class GameplayScreen extends ScabScreen {
 	
 	private void registerInput(){
 		final Player player = worldManager.getPlayer();
-		register(ActionEnum.BACK, new AbstractInputHandler() {
+		AbstractInputHandler pauseHandler = new AbstractInputHandler() {
 			public void down(){
-				handlePause();
+				if(!worldManager.isPause()){
+					handlePause(true);
+					Pause.Builder builder = Pause.newBuilder();
+					builder.setPause(true);
+					receiver.send(MessageType.PAUSE, builder.build());
+				}
 			}
-		});
+		};
+		register(ActionEnum.BACK, pauseHandler);
+		register(ActionEnum.CHAT, pauseHandler);
+		register(ActionEnum.INVENTORY, pauseHandler);
 		register(ActionEnum.CROUCH, new AbstractInputHandler() {
 			public void down(){
 				worldManager.setDesireFixedRotation(false);
@@ -169,11 +178,6 @@ public class GameplayScreen extends ScabScreen {
 						builder.setUuid(UUIDConvert.convert(player.getUuid()));
 					receiver.send(MessageType.RELOAD, builder.build());
 				}
-			}
-		});
-		register(ActionEnum.INVENTORY, new AbstractInputHandler() {
-			public void down(){
-				handlePause();
 			}
 		});
 		register(ActionEnum.LEFT, new AbstractInputHandler() {
@@ -209,7 +213,6 @@ public class GameplayScreen extends ScabScreen {
 					game.pushScreen(new LevelEditorScreen(game, world, selectedFile, level, assetManager));
 					Log.log("GameplayScreen.render", "Edit mode entered");
 				}
-				cleanCharacterWindows();
 				DialogStruct struct = dialogManager.poll();
 				if(struct != null){
 					//TODO kinda nasty hack, here... on the slow side and doesn't go through GDXQuestManager
@@ -222,35 +225,36 @@ public class GameplayScreen extends ScabScreen {
 							}
 						}
 				}else{
-					Being closest = worldManager.getClosestBeing(player, true, true);
-					if(closest != null && closest.getPosition().dst(player.getPosition()) < Properties.getFloat("activity.revive.distance"))
-						player.applyActivity(new ReviveActivity(player, closest, worldManager.getWorld(), receiver));
+					if(!worldManager.isPause()){
+						Being closest = worldManager.getClosestBeing(player, true, true);
+						if(closest != null && closest.getPosition().dst(player.getPosition()) < Properties.getFloat("activity.revive.distance"))
+							player.applyActivity(new ReviveActivity(player, closest, worldManager.getWorld(), receiver));
+							//TODO if shot, cant revive pfft
+					}
 				}
-			}
-		});
-		register(ActionEnum.CHAT, new AbstractInputHandler() {
-			public void down(){
-			}
-			public void up(){
 			}
 		});
 	}
 	
-	public void handlePause(){
-		if(consoleWindow == null && worldManager.isInputEnable()){
-			if(characterWindow == null){
-				cleanCharacterWindows();//just to be safe
+	public void handlePause(boolean pause){
+		if(worldManager.isInputEnable()){
+			worldManager.pause(pause);
+			if(pause){
+				if(characterWindow != null)
+					cleanCharacterWindows();
 				stage.addActor(characterWindow = new CharacterWindow(skin, worldManager.getPlayer()));
-				stage.addActor(inventoryWindow = new InventoryWindow(skin, 
-						worldManager.getPlayer(), worldManager.getSharedAssets(), stage));
+				stage.addActor(inventoryWindow = new InventoryWindow(skin, worldManager.getPlayer(), worldManager.getSharedAssets(), stage));
 				EventListener consoleListener = new EventListener() {
 					@Override public boolean handle(Event event) {
 						cleanCharacterWindows();
+						worldManager.pause(false);
+						Pause.Builder builder = Pause.newBuilder();
+						builder.setPause(false);
+						receiver.send(MessageType.PAUSE, builder.build());
 						return false;
 					}
 				};
 				stage.addActor(consoleWindow = new ConsoleWindow(skin, worldManager, GameplayScreen.this, consoleListener));
-				worldManager.pause(true);
 			}else
 				cleanCharacterWindows();
 		}
@@ -392,7 +396,6 @@ public class GameplayScreen extends ScabScreen {
 		characterWindow = null;
 		inventoryWindow = null;
 		consoleWindow = null;
-		worldManager.pause(false);
 	}
 	
 	private boolean debugCommandEnabled(){
