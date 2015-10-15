@@ -274,7 +274,7 @@ public class GameplayScreen extends ScabScreen {
 				stage.addActor(characterWindow = new CharacterWindow(skin, worldManager.getPlayer(), listener));
 				stage.addActor(backWindow = new BackWindow(skin, this));
 				stage.addActor(inventoryWindow = new InventoryWindow(skin, 
-						worldManager.getPlayer(), listener, worldManager.getSharedAssets(), stage, false));
+						worldManager.getPlayer(), listener, worldManager.getSharedAssets(), stage));
 				worldManager.pause(true);
 			}else
 				cleanCharacterWindows();

@@ -27,15 +27,13 @@ public class InventoryWindow extends ScabWindow implements IButtonClicked {
 	private final Skin skin;
 	private final Stage stage;
 	private final InventoryTable inventoryTable;
-	private final boolean canSell;
 	private GunInformationWindow gunInformationWindow;
 
 	public InventoryWindow(final Skin skin, final Being being, final ChangeListener listener,
-			final AssetManager sharedAssets, final Stage stage, boolean canSell){
+			final AssetManager sharedAssets, final Stage stage){
 		super("", skin);
 		this.skin = skin;
 		this.stage = stage;
-		this.canSell = canSell;
 		inventoryTable = new InventoryTable(skin, being, listener, sharedAssets, this);
 		final Button acceptButton = new ScabTextButton("Accept", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
@@ -70,7 +68,7 @@ public class InventoryWindow extends ScabWindow implements IButtonClicked {
 	@Override public void gunButtonClicked(Weapon weapon) {
 		if(gunInformationWindow != null)
 			gunInformationWindow.remove();
-		stage.addActor(gunInformationWindow = new GunInformationWindow(skin, weapon, inventoryTable, true, canSell, false));
+		stage.addActor(gunInformationWindow = new GunInformationWindow(skin, weapon));
 	}
 	
 	@Override public boolean contains(float x, float y){
