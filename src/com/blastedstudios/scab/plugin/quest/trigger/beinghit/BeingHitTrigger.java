@@ -19,7 +19,7 @@ public class BeingHitTrigger extends AbstractQuestTrigger implements IBeingHitLi
 		this.damageRatio = damageRatio;
 	}
 
-	@Override public boolean activate() {
+	@Override public boolean activate(float dt) {
 		((QuestTriggerInformationProvider)getProvider()).addBeingHitListener(this);
 		return invoked;
 	}
