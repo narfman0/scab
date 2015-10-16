@@ -2,8 +2,8 @@ package com.blastedstudios.scab.plugin.quest.manifestation.factionchange;
 
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.gdxworld.world.quest.manifestation.AbstractQuestManifestation;
+import com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.scab.world.QuestManifestationExecutor;
-import com.blastedstudios.scab.world.being.FactionEnum;
 
 public class FactionChangeManifestation extends AbstractQuestManifestation {
 	private static final long serialVersionUID = 1L;

@@ -38,12 +38,20 @@ message NetBeing {
   repeated NetWeapon weapons = 10;
   optional string resource = 11;
   optional string ragdoll_resource = 12;
-  optional Faction faction = 13;
+  optional FactionEnum faction = 13;
   optional float aim = 14;
+  optional ClassEnum class = 15;
 
-  enum Faction {
+  enum FactionEnum {
   	FRIEND = 1;
   	ENEMY = 2;
+  }
+
+  enum ClassEnum {
+  	SOLDIER = 1;
+  	MEDIC = 2;
+  	BRAWLER = 3;
+  	DEMO = 4;
   }
 }
 

@@ -26,6 +26,7 @@ import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.scab.network.Messages.Attack;
 import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.scab.network.Messages.NetWeapon;
 import com.blastedstudios.scab.physics.PhysicsEnvironment;
 import com.blastedstudios.scab.physics.VisibleQueryCallback;

@@ -19,6 +19,7 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.scab.ai.AIWorld;
+import com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.WorldManager;

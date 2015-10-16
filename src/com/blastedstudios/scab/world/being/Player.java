@@ -12,6 +12,7 @@ import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.gdxworld.world.quest.GDXQuestManager;
+import com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.world.Stats;
 import com.blastedstudios.scab.world.weapon.Gun;
