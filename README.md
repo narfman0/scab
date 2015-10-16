@@ -6,9 +6,9 @@ Scab is a 2d multiplayer shooter with RPG and platforming elements
 Usage
 =====
 
-* Ensure an up to date Java JRE is installed, at the time of writing JRE 8u45
+* Ensure an up to date Java JRE is installed, at the time of writing JRE 8u60
 find here: http://www.oracle.com/technetwork/java/javase/downloads/index.html
-* Run the game using scripts in the ``scripts`` directory, e.g. runScab.bat in
+* Run the game using scripts in the ``scripts`` directory, e.g. run.bat in
 windows
 
 Development
