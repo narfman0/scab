@@ -65,7 +65,7 @@ public class WorldManager implements IDeathCallback{
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
 	private final Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	private final List<NPC> npcs = new LinkedList<>();
-	private final List<Being> remotePlayers = new LinkedList<>();
+	private final List<Player> remotePlayers = new LinkedList<>();
 	private final Player player;
 	private final Map<Body,GunShot> gunshots = new HashMap<>();
 	private final CreateLevelReturnStruct createLevelStruct;
@@ -443,7 +443,7 @@ public class WorldManager implements IDeathCallback{
 		return player;
 	}
 
-	public List<Being> getRemotePlayers() {
+	public List<Player> getRemotePlayers() {
 		return remotePlayers;
 	}
 
@@ -455,8 +455,8 @@ public class WorldManager implements IDeathCallback{
 		return world;
 	}
 	
-	public Being getRemotePlayer(UUID uuid){
-		for(Being being : remotePlayers)
+	public Player getRemotePlayer(UUID uuid){
+		for(Player being : remotePlayers)
 			if(uuid.equals(being.getUuid()))
 				return being;
 		return null;

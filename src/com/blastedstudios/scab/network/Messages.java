@@ -854,13 +854,13 @@ public final class Messages {
     float getAim();
 
     /**
-     * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+     * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
-    boolean hasClass_();
+    boolean hasPlayerClass();
     /**
-     * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+     * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
-    com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum getClass_();
+    com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum getPlayerClass();
   }
   /**
    * Protobuf type {@code proto.NetBeing}
@@ -1011,7 +1011,7 @@ public final class Messages {
                 unknownFields.mergeVarintField(15, rawValue);
               } else {
                 bitField0_ |= 0x00002000;
-                class__ = value;
+                playerClass_ = value;
               }
               break;
             }
@@ -1145,49 +1145,58 @@ public final class Messages {
     public enum ClassEnum
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>SOLDIER = 1;</code>
+       * <code>Soldier = 1;</code>
        */
-      SOLDIER(0, 1),
+      Soldier(0, 1),
       /**
-       * <code>MEDIC = 2;</code>
+       * <code>Medic = 2;</code>
        */
-      MEDIC(1, 2),
+      Medic(1, 2),
       /**
-       * <code>BRAWLER = 3;</code>
+       * <code>Brawler = 3;</code>
        */
-      BRAWLER(2, 3),
+      Brawler(2, 3),
       /**
-       * <code>DEMO = 4;</code>
+       * <code>Demo = 4;</code>
        */
-      DEMO(3, 4),
+      Demo(3, 4),
+      /**
+       * <code>Sniper = 5;</code>
+       */
+      Sniper(4, 5),
       ;
 
       /**
-       * <code>SOLDIER = 1;</code>
+       * <code>Soldier = 1;</code>
        */
-      public static final int SOLDIER_VALUE = 1;
+      public static final int Soldier_VALUE = 1;
       /**
-       * <code>MEDIC = 2;</code>
+       * <code>Medic = 2;</code>
        */
-      public static final int MEDIC_VALUE = 2;
+      public static final int Medic_VALUE = 2;
       /**
-       * <code>BRAWLER = 3;</code>
+       * <code>Brawler = 3;</code>
        */
-      public static final int BRAWLER_VALUE = 3;
+      public static final int Brawler_VALUE = 3;
       /**
-       * <code>DEMO = 4;</code>
+       * <code>Demo = 4;</code>
        */
-      public static final int DEMO_VALUE = 4;
+      public static final int Demo_VALUE = 4;
+      /**
+       * <code>Sniper = 5;</code>
+       */
+      public static final int Sniper_VALUE = 5;
 
 
       public final int getNumber() { return value; }
 
       public static ClassEnum valueOf(int value) {
         switch (value) {
-          case 1: return SOLDIER;
-          case 2: return MEDIC;
-          case 3: return BRAWLER;
-          case 4: return DEMO;
+          case 1: return Soldier;
+          case 2: return Medic;
+          case 3: return Brawler;
+          case 4: return Demo;
+          case 5: return Sniper;
           default: return null;
         }
       }
@@ -1557,19 +1566,19 @@ public final class Messages {
       return aim_;
     }
 
-    public static final int CLASS_FIELD_NUMBER = 15;
-    private com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum class__;
+    public static final int PLAYER_CLASS_FIELD_NUMBER = 15;
+    private com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum playerClass_;
     /**
-     * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+     * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
-    public boolean hasClass_() {
+    public boolean hasPlayerClass() {
       return ((bitField0_ & 0x00002000) == 0x00002000);
     }
     /**
-     * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+     * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
-    public com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum getClass_() {
-      return class__;
+    public com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum getPlayerClass() {
+      return playerClass_;
     }
 
     private void initFields() {
@@ -1587,7 +1596,7 @@ public final class Messages {
       ragdollResource_ = "";
       faction_ = com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum.FRIEND;
       aim_ = 0F;
-      class__ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.SOLDIER;
+      playerClass_ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.Soldier;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1657,7 +1666,7 @@ public final class Messages {
         output.writeFloat(14, aim_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeEnum(15, class__.getNumber());
+        output.writeEnum(15, playerClass_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1726,7 +1735,7 @@ public final class Messages {
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(15, class__.getNumber());
+          .computeEnumSize(15, playerClass_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1883,7 +1892,7 @@ public final class Messages {
         bitField0_ = (bitField0_ & ~0x00001000);
         aim_ = 0F;
         bitField0_ = (bitField0_ & ~0x00002000);
-        class__ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.SOLDIER;
+        playerClass_ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.Soldier;
         bitField0_ = (bitField0_ & ~0x00004000);
         return this;
       }
@@ -1981,7 +1990,7 @@ public final class Messages {
         if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
           to_bitField0_ |= 0x00002000;
         }
-        result.class__ = class__;
+        result.playerClass_ = playerClass_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2069,8 +2078,8 @@ public final class Messages {
         if (other.hasAim()) {
           setAim(other.getAim());
         }
-        if (other.hasClass_()) {
-          setClass_(other.getClass_());
+        if (other.hasPlayerClass()) {
+          setPlayerClass(other.getPlayerClass());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2986,37 +2995,37 @@ public final class Messages {
         return this;
       }
 
-      private com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum class__ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.SOLDIER;
+      private com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum playerClass_ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.Soldier;
       /**
-       * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+       * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
-      public boolean hasClass_() {
+      public boolean hasPlayerClass() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
       }
       /**
-       * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+       * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
-      public com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum getClass_() {
-        return class__;
+      public com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum getPlayerClass() {
+        return playerClass_;
       }
       /**
-       * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+       * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
-      public Builder setClass_(com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum value) {
+      public Builder setPlayerClass(com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum value) {
         if (value == null) {
           throw new NullPointerException();
         }
         bitField0_ |= 0x00004000;
-        class__ = value;
+        playerClass_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional .proto.NetBeing.ClassEnum class = 15;</code>
+       * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
-      public Builder clearClass_() {
+      public Builder clearPlayerClass() {
         bitField0_ = (bitField0_ & ~0x00004000);
-        class__ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.SOLDIER;
+        playerClass_ = com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum.Soldier;
         onChanged();
         return this;
       }
@@ -10909,7 +10918,7 @@ public final class Messages {
     java.lang.String[] descriptorData = {
       "\n\025network/network.proto\022\005proto\"E\n\004UUID\022\036" +
       "\n\026least_significant_bits\030\001 \002(\022\022\035\n\025most_s" +
-      "ignificant_bits\030\002 \002(\022\"\270\003\n\010NetBeing\022\031\n\004uu" +
+      "ignificant_bits\030\002 \002(\022\"\313\003\n\010NetBeing\022\031\n\004uu" +
       "id\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005p" +
       "os_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002" +
       "\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 " +
@@ -10917,31 +10926,32 @@ public final class Messages {
       "\003(\0132\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(\t\022" +
       "\030\n\020ragdoll_resource\030\014 \001(\t\022,\n\007faction\030\r \001" +
       "(\0162\033.proto.NetBeing.FactionEnum\022\013\n\003aim\030\016",
-      " \001(\002\022(\n\005class\030\017 \001(\0162\031.proto.NetBeing.Cla" +
-      "ssEnum\"$\n\013FactionEnum\022\n\n\006FRIEND\020\001\022\t\n\005ENE" +
-      "MY\020\002\":\n\tClassEnum\022\013\n\007SOLDIER\020\001\022\t\n\005MEDIC\020" +
-      "\002\022\013\n\007BRAWLER\020\003\022\010\n\004DEMO\020\004\"O\n\006Attack\022\014\n\004na" +
-      "me\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005p" +
-      "os_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"3\n\014Ex" +
-      "itGameplay\022\017\n\007success\030\001 \002(\010\022\022\n\nnext_leve" +
-      "l\030\002 \001(\t\"\031\n\tLevelLoad\022\014\n\004name\030\001 \002(\t\")\n\010NP" +
-      "CState\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\031\n",
-      "\tNetWeapon\022\014\n\004name\030\001 \002(\t\"\032\n\nNameUpdate\022\014" +
-      "\n\004name\030\001 \002(\t\"\026\n\005Pause\022\r\n\005pause\030\001 \002(\010\"/\n\013" +
-      "PlayerState\022 \n\007players\030\001 \003(\0132\017.proto.Net" +
-      "Being\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UU" +
-      "ID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID" +
-      "\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004" +
-      " \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030" +
-      "\002 \002(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t*\331\001" +
-      "\n\013MessageType\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002" +
-      "\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\021\n\rEXIT_GAM",
-      "EPLAY\020\005\022\016\n\nLEVEL_LOAD\020\006\022\017\n\013NAME_UPDATE\020\007" +
-      "\022\r\n\tNPC_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STA" +
-      "TE\020\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022" +
-      "\020\n\014TEXT_REQUEST\020\016B+\n\037com.blastedstudios." +
-      "scab.networkB\010Messages"
+      " \001(\002\022/\n\014player_class\030\017 \001(\0162\031.proto.NetBe" +
+      "ing.ClassEnum\"$\n\013FactionEnum\022\n\n\006FRIEND\020\001" +
+      "\022\t\n\005ENEMY\020\002\"F\n\tClassEnum\022\013\n\007Soldier\020\001\022\t\n" +
+      "\005Medic\020\002\022\013\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Snipe" +
+      "r\020\005\"O\n\006Attack\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(" +
+      "\0132\013.proto.UUID\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004" +
+      " \001(\002\"/\n\004Dead\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\013" +
+      "2\013.proto.UUID\"3\n\014ExitGameplay\022\017\n\007success" +
+      "\030\001 \002(\010\022\022\n\nnext_level\030\002 \001(\t\"\031\n\tLevelLoad\022" +
+      "\014\n\004name\030\001 \002(\t\")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132",
+      "\017.proto.NetBeing\"\031\n\tNetWeapon\022\014\n\004name\030\001 " +
+      "\002(\t\"\032\n\nNameUpdate\022\014\n\004name\030\001 \002(\t\"\026\n\005Pause" +
+      "\022\r\n\005pause\030\001 \002(\010\"/\n\013PlayerState\022 \n\007player" +
+      "s\030\001 \003(\0132\017.proto.NetBeing\"#\n\006Reload\022\031\n\004uu" +
+      "id\030\001 \001(\0132\013.proto.UUID\"P\n\007Respawn\022\031\n\004uuid" +
+      "\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos" +
+      "_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007conte" +
+      "nt\030\001 \002(\t\022\016\n\006origin\030\002 \002(\t\"\036\n\013TextRequest\022" +
+      "\017\n\007content\030\001 \002(\t*\331\001\n\013MessageType\022\n\n\006ATTA" +
+      "CK\020\001\022\r\n\tCONNECTED\020\002\022\010\n\004DEAD\020\003\022\020\n\014DISCONN",
+      "ECTED\020\004\022\021\n\rEXIT_GAMEPLAY\020\005\022\016\n\nLEVEL_LOAD" +
+      "\020\006\022\017\n\013NAME_UPDATE\020\007\022\r\n\tNPC_STATE\020\010\022\t\n\005PA" +
+      "USE\020\t\022\020\n\014PLAYER_STATE\020\n\022\n\n\006RELOAD\020\013\022\013\n\007R" +
+      "ESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEXT_REQUEST\020\016B+\n\037" +
+      "com.blastedstudios.scab.networkB\010Message" +
+      "s"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10966,7 +10976,7 @@ public final class Messages {
     internal_static_proto_NetBeing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
-        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "Class_", });
+        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "PlayerClass", });
     internal_static_proto_Attack_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_proto_Attack_fieldAccessorTable = new

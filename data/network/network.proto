@@ -40,7 +40,7 @@ message NetBeing {
   optional string ragdoll_resource = 12;
   optional FactionEnum faction = 13;
   optional float aim = 14;
-  optional ClassEnum class = 15;
+  optional ClassEnum player_class = 15;
 
   enum FactionEnum {
   	FRIEND = 1;
@@ -48,10 +48,11 @@ message NetBeing {
   }
 
   enum ClassEnum {
-  	SOLDIER = 1;
-  	MEDIC = 2;
-  	BRAWLER = 3;
-  	DEMO = 4;
+  	Soldier = 1;
+  	Medic = 2;
+  	Brawler = 3;
+  	Demo = 4;
+  	Sniper = 5;
   }
 }
 

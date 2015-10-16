@@ -12,6 +12,8 @@ import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.gdxworld.world.quest.GDXQuestManager;
+import com.blastedstudios.scab.network.Messages.NetBeing;
+import com.blastedstudios.scab.network.Messages.NetBeing.ClassEnum;
 import com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.scab.world.Stats;
@@ -22,11 +24,18 @@ public class Player extends Being {
 	private static final long serialVersionUID = 1L;
 	private GDXQuestManager questManager = new GDXQuestManager();
 	private final Map<String,Boolean> levelCompleted = new HashMap<>();
+	protected final ClassEnum playerClass;
 
-	public Player(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats, int currentGun,
-			int cash, int level, int xp, FactionEnum faction,
-			EnumSet<FactionEnum> factions, String resource) {
+	public Player(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
+			int currentGun,	int cash, int level, int xp, FactionEnum faction,
+			EnumSet<FactionEnum> factions, String resource, ClassEnum playerClass) {
 		super(name, guns, inventory, stats, currentGun, cash, level, xp, faction, factions, resource, null);
+		this.playerClass = playerClass;
+	}
+	
+	public Player(NetBeing netBeing){
+		super(netBeing);
+		playerClass = netBeing.getPlayerClass();
 	}
 	
 	@Override public void render(float dt, World world, Batch batch, 
@@ -75,5 +84,9 @@ public class Player extends Being {
 			if(gun.isSemiAutomatic())
 				gun.setAttackReleased(true);
 		}
+	}
+
+	public ClassEnum getPlayerClass() {
+		return playerClass;
 	}
 }

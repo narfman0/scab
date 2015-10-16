@@ -6,7 +6,7 @@ import com.blastedstudios.scab.world.being.NPCData;
 
 public class Stats implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private float hp, attack, defense, hpPerLevel, attackPerLevel, defensePerLevel,
+	private float hp, attack, defense, hpPerLevel, hpRegen, hpRegenPerLevel, attackPerLevel, defensePerLevel,
 		damage, accuracy, rateOfFire, reloadSpeed, muzzleVelocity, recoil, 
 		jetpackRecharge, jetpackMax, jetpackImpulse, distanceAware, distanceVision;
 	private int projectileCount, roundsPerClip;
@@ -166,6 +166,22 @@ public class Stats implements Serializable {
 	public void setDistanceVision(float distanceVision) {
 		this.distanceVision = distanceVision;
 	}
+
+	public float getHpRegen() {
+		return hpRegen;
+	}
+
+	public void setHpRegen(float hpRegen) {
+		this.hpRegen = hpRegen;
+	}
+
+	public float getHpRegenPerLevel() {
+		return hpRegenPerLevel;
+	}
+
+	public void setHpRegenPerLevel(float hpRegenPerLevel) {
+		this.hpRegenPerLevel = hpRegenPerLevel;
+	}
 	
 	public static Stats parseNPCData(NPCData npcData){
 		Stats stats = new Stats();
@@ -173,6 +189,8 @@ public class Stats implements Serializable {
 		stats.attack = npcData.getFloat("Attack");
 		stats.defense = npcData.getFloat("Defense");
 		stats.hpPerLevel = npcData.getFloat("HPPerLevel");
+		stats.setHpRegen(npcData.getFloat("HPRegen"));
+		stats.setHpRegenPerLevel(npcData.getFloat("HPRegenPerLevel"));
 		stats.attackPerLevel = npcData.getFloat("AttackPerLevel");
 		stats.defensePerLevel = npcData.getFloat("DefensePerLevel");
 		stats.jetpackRecharge = npcData.getFloat("JetpackRecharge");

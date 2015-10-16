@@ -101,6 +101,16 @@ public class Being implements Serializable{
 		if(bodypartDmgMap.isEmpty())
 			initializeBodypartDmgMap();
 	}
+	
+	public Being(NetBeing message){
+		this(message.getName(), new LinkedList<>(), new LinkedList<>(), new Stats(), 
+				message.getCurrentWeapon(), 0, 0, 0, FactionEnum.valueOf(message.getFaction().name()),
+				EnumSet.noneOf(FactionEnum.class), message.getResource(), message.getRagdollResource());
+		setUuid(UUIDConvert.convert(message.getUuid()));
+		stats.setHp(message.getHp());
+		for(NetWeapon netWeapon : message.getWeaponsList())
+			guns.add(WeaponFactory.getWeapon(netWeapon.getName()));
+	}
 
 	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,
 			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, 
@@ -126,6 +136,7 @@ public class Being implements Serializable{
 			deathCallback.dead(this);
 		if(dead)
 			return;
+		setHp(hp + getHpRegen() * dt);
 
 		// cap max velocity on x		
 		if(Math.abs(vel.x) > MAX_VELOCITY) {			
@@ -152,6 +163,10 @@ public class Being implements Serializable{
 		timeUntilReload = Math.max(0f, timeUntilReload-dt);
 	}
 	
+	private float getHpRegen() {
+		return stats.getHpRegen() + level * stats.getHpRegenPerLevel();
+	}
+
 	private void walk(boolean left, World world){
 		List<Vector2> normals = getTouchedNormals(world);
 		final Vector2 normal = normals.isEmpty() ? new Vector2(0f,1f) : VectorHelper.calculateAverage(normals);
@@ -760,20 +775,6 @@ public class Being implements Serializable{
 				builder.setRagdollResource(ragdollResource);
 		}
 		return builder.build();
-	}
-	
-	public static Being fromMessage(NetBeing message){
-		LinkedList<Weapon> guns = new LinkedList<>(), inventory = new LinkedList<>();
-		for(NetWeapon netWeapon : message.getWeaponsList())
-			guns.add(WeaponFactory.getWeapon(netWeapon.getName()));
-		Stats stats = new Stats();
-		stats.setHp(message.getHp());
-		FactionEnum faction = FactionEnum.valueOf(message.getFaction().name());
-		EnumSet<FactionEnum> factions = EnumSet.noneOf(FactionEnum.class);
-		Being being = new Being(message.getName(), guns, inventory, stats, message.getCurrentWeapon(), 0, 0, 0, 
-				faction, factions, message.getResource(), message.getRagdollResource());
-		being.setUuid(UUIDConvert.convert(message.getUuid()));
-		return being;
 	}
 	
 	public void updateFromMessage(NetBeing update){

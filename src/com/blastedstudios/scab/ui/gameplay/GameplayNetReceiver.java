@@ -113,9 +113,9 @@ public class GameplayNetReceiver implements IMessageListener{
 					// don't want to make a new player with my name! should refactor to use ids somehow in future
 					break;
 				UUID uuid = UUIDConvert.convert(netBeing.getUuid());
-				Being remotePlayer = worldManager.getRemotePlayer(uuid);
+				Player remotePlayer = worldManager.getRemotePlayer(uuid);
 				if(remotePlayer == null){
-					remotePlayer = Being.fromMessage(netBeing);
+					remotePlayer = new Player(netBeing);
 					worldManager.getRemotePlayers().add(remotePlayer);
 					remotePlayer.respawn(worldManager.getWorld(), netBeing.getPosX(), netBeing.getPosY());
 					Log.log("GameplayScreen.receive", "Received first player update: " + netBeing.getName());

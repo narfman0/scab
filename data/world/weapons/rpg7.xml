@@ -10,7 +10,7 @@
 		<projectileCount>1</projectileCount>
 	</stats>
 	<maxDistance>5</maxDistance>
-	<baseDamage>70</baseDamage>
+	<baseDamage>50</baseDamage>
 	<baseImpulse>30</baseImpulse>
 	<currentRounds>1</currentRounds>
 	<name>RPG-7</name>
