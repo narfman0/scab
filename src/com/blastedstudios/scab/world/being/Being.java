@@ -109,7 +109,7 @@ public class Being implements Serializable{
 		setUuid(UUIDConvert.convert(message.getUuid()));
 		stats.setHp(message.getHp());
 		for(NetWeapon netWeapon : message.getWeaponsList())
-			guns.add(WeaponFactory.getWeapon(netWeapon.getName()));
+			guns.add(WeaponFactory.getWeapon(netWeapon.getId()));
 	}
 
 	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,

@@ -26,9 +26,9 @@ public class WeaponFactory {
 		return guns.values();
 	}
 
-	public static Weapon getWeapon(String name){
+	public static Weapon getWeapon(String id){
 		try {
-			return (Weapon) serializer.load(Gdx.files.internal("data/world/weapons/" + name + ".xml"));
+			return (Weapon) serializer.load(Gdx.files.internal("data/world/weapons/" + id + ".xml"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

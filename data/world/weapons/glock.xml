@@ -12,6 +12,7 @@
 	<currentRounds>16</currentRounds>
 	<name>Glock</name>
 	<resource>glock</resource>
+	<id>glock</id>
 	<cost>100</cost>
 	<ammoType>_9mm</ammoType>
 	<fireSound>Glock-18_1</fireSound>

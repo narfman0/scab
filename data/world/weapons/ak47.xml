@@ -12,6 +12,7 @@
 	<currentRounds>30</currentRounds>
 	<name>AK-47</name>
 	<resource>ak-47</resource>
+	<id>ak47</id>
 	<cost>750</cost>
 	<ammoType>_7_62mm</ammoType>
 	<fireSound>AK47_1</fireSound>

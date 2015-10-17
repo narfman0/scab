@@ -4,6 +4,7 @@
 	</stats>
 	<name>Wrench</name>
 	<resource>wrench</resource>
+	<id>wrench</id>
 	<cost>100</cost>
 	<fireSound>clunk</fireSound>
 	<width>.15</width>

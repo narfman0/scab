@@ -12,6 +12,7 @@
 	<currentRounds>30</currentRounds>
 	<name>MP5</name>
 	<resource>smg</resource>
+	<id>mp5</id>
 	<cost>1200</cost>
 	<ammoType>_9mm</ammoType>
 	<fireSound>MP5_1</fireSound>

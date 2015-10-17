@@ -12,6 +12,7 @@
 	<currentRounds>8</currentRounds>
 	<name>Benelli M4</name>
 	<resource>benellim4</resource>
+	<id>benellim4</id>
 	<cost>1700</cost>
 	<ammoType>_00buck</ammoType>
 	<fireSound>gun4</fireSound>

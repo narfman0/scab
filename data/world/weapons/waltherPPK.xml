@@ -12,6 +12,7 @@
 	<currentRounds>9</currentRounds>
 	<name>Walther PPK</name>
 	<resource>waltherPPK</resource>
+	<id>waltherPPK</id>
 	<cost>1000</cost>
 	<ammoType>_38acp</ammoType>
 	<fireSound>Glock-18_1</fireSound>

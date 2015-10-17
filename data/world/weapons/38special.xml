@@ -12,6 +12,7 @@
 	<currentRounds>6</currentRounds>
 	<name>.38 Special</name>
 	<resource>38special</resource>
+	<id>38special</id>
 	<cost>150</cost>
 	<ammoType>_38specialJHP</ammoType>
 	<fireSound>Glock-18_1</fireSound>

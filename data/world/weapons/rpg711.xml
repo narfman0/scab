@@ -15,6 +15,7 @@
 	<currentRounds>1</currentRounds>
 	<name>RPG-7-11</name>
 	<resource>rpg711</resource>
+	<id>rpg711</id>
 	<cost>2600</cost>
 	<ammoType>RPG</ammoType>
 	<fireSound>missileLaunch</fireSound>

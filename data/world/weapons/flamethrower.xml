@@ -12,6 +12,7 @@
 	<currentRounds>200</currentRounds>
 	<name>Flamethrower</name>
 	<resource>flamethrower</resource>
+	<id>flamethrower</id>
 	<cost>750</cost>
 	<ammoType>GAS</ammoType>
 	<fireSound>flamethrower</fireSound>

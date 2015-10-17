@@ -56,6 +56,10 @@ message NetBeing {
   }
 }
 
+message NetWeapon {
+  required string id = 1;
+}
+
 message Attack {
   optional string name = 1;
   optional UUID uuid = 2;
@@ -79,10 +83,6 @@ message LevelLoad {
 
 message NPCState {
 	repeated NetBeing npcs = 1;
-}
-
-message NetWeapon {
-  required string name = 1;
 }
 
 message NameUpdate {

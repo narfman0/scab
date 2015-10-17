@@ -4,6 +4,7 @@
 	</stats>
 	<name>Sword</name>
 	<resource>sword</resource>
+	<id>sword</id>
 	<cost>100</cost>
 	<fireSound>clunk</fireSound>
 	<width>.1</width>

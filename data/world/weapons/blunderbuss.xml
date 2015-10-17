@@ -12,6 +12,7 @@
 	<currentRounds>1</currentRounds>
 	<name>Blunderbuss</name>
 	<resource>benellim4</resource>
+	<id>blunderbuss</id>
 	<cost>1700</cost>
 	<ammoType>_00buck</ammoType>
 	<fireSound>AK47_1</fireSound>

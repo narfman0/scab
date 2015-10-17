@@ -12,6 +12,7 @@
 	<currentRounds>30</currentRounds>
 	<name>Steyr Aug</name>
 	<resource>steyraug</resource>
+	<id>steyrAug</id>
 	<cost>2230</cost>
 	<ammoType>_7_62mm</ammoType>
 	<fireSound>AK47_1</fireSound>

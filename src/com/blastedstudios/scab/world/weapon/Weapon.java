@@ -15,7 +15,7 @@ public abstract class Weapon implements Serializable{
 	private static final long serialVersionUID = 1L;
 	protected int cost, rolls, minLevel;
 	protected Stats stats;
-	protected String name, resource, fireSound;
+	protected String name, resource, fireSound, id;
 	
 	public float getDamage() {
 		return stats.getDamage();
@@ -132,6 +132,14 @@ public abstract class Weapon implements Serializable{
 	public int getMinLevel() {
 		return minLevel;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public abstract long getMSSinceAttack();
 	public abstract boolean canAttack();
@@ -144,7 +152,7 @@ public abstract class Weapon implements Serializable{
 	
 	public NetWeapon buildMessage(){
 		NetWeapon.Builder builder = NetWeapon.newBuilder();
-		builder.setName(name);
+		builder.setId(id);
 		return builder.build();
 	}
 }

@@ -12,6 +12,7 @@
 	<currentRounds>5</currentRounds>
 	<name>PSG-1</name>
 	<resource>psg1</resource>
+	<id>psg1</id>
 	<cost>10000</cost>
 	<ammoType>_7_62mm</ammoType>
 	<fireSound>PSG-1_1</fireSound>

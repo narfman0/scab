@@ -12,6 +12,7 @@
 	<currentRounds>25</currentRounds>
 	<name>FAMAS</name>
 	<resource>famas</resource>
+	<id>famas</id>
 	<cost>1750</cost>
 	<ammoType>_7_62mm</ammoType>
 	<fireSound>MP5_1</fireSound>
