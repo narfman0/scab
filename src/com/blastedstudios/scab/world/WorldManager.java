@@ -70,6 +70,7 @@ public class WorldManager implements IDeathCallback{
 	private final Map<Body,GunShot> gunshots = new HashMap<>();
 	private final CreateLevelReturnStruct createLevelStruct;
 	private Vector2 respawnLocation;
+	private final LinkedList<Vector2> spawnPoints = new LinkedList<>();
 	private final GDXLevel level;
 	private final LinkedList<ParticleEffect> particles = new LinkedList<>();
 	private final LinkedList<Turret> turrets = new LinkedList<>();
@@ -491,5 +492,34 @@ public class WorldManager implements IDeathCallback{
 				}
 			}
 		return closest;
+	}
+	
+	public Vector2 getFurthestSpawn(){
+		Vector2 furthest = null;
+		float maxDistance = 0f;
+		List<Player> targets = getAllPlayers();
+		for(Vector2 spawn : spawnPoints){
+			float distance = Float.MAX_VALUE;
+			for(Player player : targets)
+				distance = Math.min(distance, player.getPosition().dst(spawn));
+			if(distance > maxDistance){
+				furthest = spawn;
+				maxDistance = distance;
+			}
+		}
+		if(furthest == null)
+			Log.error("WorldManager.getFurthestSpawn", "You don't have any spawn points added."
+					+ " Add a group spawn manifestation with name 'wave' to remedy.");
+		return furthest;
+	}
+	
+	public List<Player> getAllPlayers(){
+		List<Player> players = new ArrayList<>(remotePlayers);
+		players.add(player);
+		return players;
+	}
+
+	public LinkedList<Vector2> getSpawnPoints() {
+		return spawnPoints;
 	}
 }

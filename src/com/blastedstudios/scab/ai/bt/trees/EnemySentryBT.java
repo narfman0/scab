@@ -2,7 +2,7 @@
 //                   MACHINE GENERATED CODE                
 //                       DO NOT MODIFY                     
 //                                                         
-// Generated on 04/12/2015 22:13:03
+// Generated on 10/16/2015 21:51:08
 // ******************************************************* 
 package com.blastedstudios.scab.ai.bt.trees;
 
@@ -44,6 +44,31 @@ public class EnemySentryBT implements jbt.execution.core.IBTLibrary {
 								new com.blastedstudios.scab.ai.bt.actions.CurrentObjective(
 										null),
 								new com.blastedstudios.scab.ai.bt.actions.Move(
+										null, null, "CurrentObjectiveTarget")),
+						new jbt.model.task.composite.ModelSequence(
+								null,
+								new jbt.model.task.composite.ModelParallel(
+										null,
+										jbt.model.task.composite.ModelParallel.ParallelPolicy.SELECTOR_POLICY,
+										new jbt.model.task.decorator.ModelInverter(
+												null,
+												new com.blastedstudios.scab.ai.bt.conditions.IsObjective(
+														null)),
+										new com.blastedstudios.scab.ai.bt.conditions.IsOffCooldown(
+												null, "closestEnemyRefresh",
+												null)),
+								new com.blastedstudios.scab.ai.bt.actions.ClosestEnemy(
+										null, "OBJECTIVE", null),
+								new com.blastedstudios.scab.ai.bt.actions.CooldownStart(
+										null, "closestEnemyRefresh", null,
+										(int) 5000, null)),
+						new jbt.model.task.composite.ModelSequence(
+								null,
+								new com.blastedstudios.scab.ai.bt.actions.CurrentObjective(
+										null),
+								new com.blastedstudios.scab.ai.bt.actions.Move(
+										null, null, "CurrentObjectiveTarget"),
+								new com.blastedstudios.scab.ai.bt.actions.Aim(
 										null, null, "CurrentObjectiveTarget"))));
 
 	}
