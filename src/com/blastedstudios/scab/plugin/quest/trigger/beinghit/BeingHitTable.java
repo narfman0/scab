@@ -1,5 +1,6 @@
 package com.blastedstudios.scab.plugin.quest.trigger.beinghit;
 
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.blastedstudios.gdxworld.plugin.mode.quest.TriggerTable;
@@ -8,6 +9,7 @@ import com.blastedstudios.gdxworld.world.quest.trigger.AbstractQuestTrigger;
 public class BeingHitTable extends TriggerTable {
 	private final BeingHitTrigger trigger;
 	private final TextField beingText, originText, damageAmountText, damageRatioText;
+	private final CheckBox deathBox;
 
 	public BeingHitTable(Skin skin, BeingHitTrigger trigger) {
 		super(skin, trigger);
@@ -20,6 +22,8 @@ public class BeingHitTable extends TriggerTable {
 		damageRatioText.setMessageText("<damage ratio>");
 		originText = new TextField(trigger.getOrigin(), skin);
 		originText.setMessageText("<origin name regex>");
+		deathBox = new CheckBox("Death", skin);
+		deathBox.setChecked(trigger.isDeath());
 		add("Being: ");
 		add(beingText);
 		row();
@@ -31,6 +35,8 @@ public class BeingHitTable extends TriggerTable {
 		row();
 		add("Origin: ");
 		add(originText);
+		row();
+		add(deathBox);
 	}
 
 	@Override public AbstractQuestTrigger apply() {
@@ -39,6 +45,7 @@ public class BeingHitTable extends TriggerTable {
 		trigger.setDamageAmount(Float.parseFloat(damageAmountText.getText()));
 		trigger.setDamageRatio(Float.parseFloat(damageRatioText.getText()));
 		trigger.setOrigin(originText.getText());
+		trigger.setDeath(deathBox.isChecked());
 		return trigger;
 	}
 }
