@@ -3,3 +3,11 @@ hs_err_pid*
 *.log
 bin/
 .settings/
+/bin/
+.project
+.classpath
+.gradle
+build/
+/bin/
+/bin/
+/bin/
