@@ -6,6 +6,7 @@
 	<classpathentry sourcepath="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/org.jgrapht/jgrapht-core/0.9.2/e4b8437d0f1ff38dbe31d5aaf24f7586a7f16691/jgrapht-core-0.9.2-sources.jar" kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/org.jgrapht/jgrapht-core/0.9.2/2597c1f9aa80fcfdd1f2e8ad0f0655bd768d95ca/jgrapht-core-0.9.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/net.sf/jargs/1.0/8cbf18b0411477a8ae6ce14d610ee64c65b21474/jargs-1.0.jar"/>
 	<classpathentry sourcepath="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/org.jdom/jdom/2.0.2/2c0614e33230394e42f5cfe55c20d5ae8949c108/jdom-2.0.2-sources.jar" kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/org.jdom/jdom/2.0.2/d06c71e0df0ac4b94deb737718580ccce22d92e8/jdom-2.0.2.jar"/>
+	<classpathentry sourcepath="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.6.1/cf47bfc6a10f85d14bc4c078a48d163b5903a291/protobuf-java-2.6.1-sources.jar" kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.6.1/d9521f2aecb909835746b7a5facf612af5e890e8/protobuf-java-2.6.1.jar"/>
 	<classpathentry sourcepath="C:/Users/narfman0/.m2/repository/com/blastedstudios/GDXWorld/1.0/GDXWorld-1.0-sources.jar" kind="lib" path="C:/Users/narfman0/.m2/repository/com/blastedstudios/GDXWorld/1.0/GDXWorld-1.0.jar"/>
 	<classpathentry sourcepath="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar" kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-platform/1.9.3/f8b223142c03314b27fc89c04cb105a8902cf58b/gdx-box2d-platform-1.9.3-natives-desktop.jar"/>
@@ -40,8 +41,6 @@
 	<classpathentry kind="lib" path="C:/Users/narfman0/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/53f9c919f34d2ca9de8c51fc4e1e8282029a9232/jinput-platform-2.0.5-natives-osx.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/JBTCore_0.0.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/mmpm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/protobuf-java-2.6.1-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/protobuf-java-2.6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/sourceformatter.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/tween-engine-api-6.3.3-src.jar"/>
 	<classpathentry kind="lib" path="C:/Users/narfman0/workspace/scab/lib/tween-engine-api-6.3.3.jar"/>
