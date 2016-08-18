@@ -113,7 +113,8 @@ public class Host extends BaseNetwork{
 			TextRequest request = (TextRequest) message;
 			Text.Builder builder = Text.newBuilder();
 			builder.setContent(request.getContent());
-			builder.setOrigin(player.getName());
+			// sending text message as host. this receives the message for render
+			builder.setOrigin(player == null ? "null host player" : player.getName());
 			message = builder.build();
 			messageType = MessageType.TEXT;
 			receiveMessage(messageType, message);
