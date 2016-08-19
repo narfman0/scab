@@ -74,7 +74,6 @@ message Dead {
 
 message ExitGameplay {
   required bool success = 1;
-  optional string next_level = 2;
 }
 
 message LevelLoad {

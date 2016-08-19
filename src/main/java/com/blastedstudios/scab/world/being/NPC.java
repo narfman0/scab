@@ -4,17 +4,8 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import jbt.execution.core.BTExecutorFactory;
-import jbt.execution.core.ContextFactory;
-import jbt.execution.core.IBTExecutor;
-import jbt.execution.core.IBTLibrary;
-import jbt.execution.core.IContext;
-
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXPath;
@@ -27,6 +18,12 @@ import com.blastedstudios.scab.world.weapon.DamageStruct;
 import com.blastedstudios.scab.world.weapon.Gun;
 import com.blastedstudios.scab.world.weapon.Melee;
 import com.blastedstudios.scab.world.weapon.Weapon;
+
+import jbt.execution.core.BTExecutorFactory;
+import jbt.execution.core.ContextFactory;
+import jbt.execution.core.IBTExecutor;
+import jbt.execution.core.IBTLibrary;
+import jbt.execution.core.IContext;
 
 public class NPC extends Being {
 	public enum AIFieldEnum{AI_WORLD, ALERT, ATTACK_TICK, OBJECTIVE, SELF, WORLD, TURRET, VISIBLE}
@@ -70,10 +67,9 @@ public class NPC extends Being {
 		}
 	}
 	
-	public void render(float dt, World world, Batch batch, 
-			AssetManager sharedAssets, GDXRenderer gdxRenderer, IDeathCallback callback,
+	public void update(float dt, World world, IDeathCallback callback,
 			boolean paused, boolean inputEnabled, boolean simulate, GameplayNetReceiver receiver){
-		super.render(dt, world, batch, sharedAssets, gdxRenderer, callback, paused, inputEnabled, receiver);
+		super.update(dt, world, callback, paused, inputEnabled, receiver);
 		if(!dead && btExecutor != null && simulate)
 			btExecutor.tick();
 	}

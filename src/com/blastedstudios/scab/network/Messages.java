@@ -65,10 +65,6 @@ public final class Messages {
      * <code>TEXT = 13;</code>
      */
     TEXT(12, 13),
-    /**
-     * <code>TEXT_REQUEST = 14;</code>
-     */
-    TEXT_REQUEST(13, 14),
     ;
 
     /**
@@ -123,10 +119,6 @@ public final class Messages {
      * <code>TEXT = 13;</code>
      */
     public static final int TEXT_VALUE = 13;
-    /**
-     * <code>TEXT_REQUEST = 14;</code>
-     */
-    public static final int TEXT_REQUEST_VALUE = 14;
 
 
     public final int getNumber() { return value; }
@@ -146,7 +138,6 @@ public final class Messages {
         case 11: return RELOAD;
         case 12: return RESPAWN;
         case 13: return TEXT;
-        case 14: return TEXT_REQUEST;
         default: return null;
       }
     }
@@ -10786,14 +10777,14 @@ public final class Messages {
       "P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n" +
       "\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(" +
       "\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002 \002" +
-      "(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t*\331\001\n\013M" +
+      "(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t*\307\001\n\013M" +
       "essageType\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002\022\010\n" +
       "\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\021\n\rEXIT_GAMEPL",
       "AY\020\005\022\016\n\nLEVEL_LOAD\020\006\022\017\n\013NAME_UPDATE\020\007\022\r\n" +
       "\tNPC_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STATE\020" +
-      "\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014" +
-      "TEXT_REQUEST\020\016B+\n\037com.blastedstudios.sca" +
-      "b.networkB\010Messages"
+      "\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\rB+\n\037" +
+      "com.blastedstudios.scab.networkB\010Message" +
+      "s"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

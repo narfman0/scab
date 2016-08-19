@@ -111,27 +111,17 @@ public class Being implements Serializable{
 		for(NetWeapon netWeapon : message.getWeaponsList())
 			guns.add(WeaponFactory.getWeapon(netWeapon.getId()));
 	}
-
-	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,
-			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, 
+	
+	public void update(float dt, World world, IDeathCallback deathCallback, boolean paused, 
 			boolean inputEnabled, GameplayNetReceiver receiver){
 		if(ticksToActivateWeapon != -1 && getEquippedWeapon() != null && ticksToActivateWeapon-- == 0)
 			getEquippedWeapon().activate(world, ragdoll, this);
-		this.sharedAssets = sharedAssets;
 		Vector2 vel = ragdoll.getLinearVelocity();
-		
-		ragdoll.render(batch, dead, isGrounded(world), moveLeft || moveRight, vel.x, paused, inputEnabled);
-		boolean facingLeft = !isDead() && ragdoll.aim(lastGunHeadingRadians);
-		for(IComponent component : getListeners())
-			component.render(dt, batch, sharedAssets, gdxRenderer, facingLeft, paused);
-		
 		if(paused)
 			return;
-		
 		if(activity != null)
 			if(!activity.render(dt))
 				activity = null;
-		
 		if(!dead && hp <= 0 && deathCallback != null)
 			deathCallback.dead(this);
 		if(dead)
@@ -161,6 +151,17 @@ public class Being implements Serializable{
 			walk(false, world);
 		reload();
 		timeUntilReload = Math.max(0f, timeUntilReload-dt);
+	}
+
+	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,
+			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, 
+			boolean inputEnabled, GameplayNetReceiver receiver){
+		this.sharedAssets = sharedAssets;
+		Vector2 vel = ragdoll.getLinearVelocity();
+		boolean facingLeft = !isDead() && ragdoll.aim(lastGunHeadingRadians);
+		ragdoll.render(batch, dead, isGrounded(world), moveLeft || moveRight, vel.x, paused, inputEnabled);
+		for(IComponent component : getListeners())
+			component.render(dt, batch, sharedAssets, gdxRenderer, facingLeft, paused);
 	}
 	
 	private float getHpRegen() {

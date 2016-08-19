@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.World;
-import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.gdxworld.world.quest.GDXQuestManager;
@@ -38,10 +35,9 @@ public class Player extends Being {
 		playerClass = netBeing.getPlayerClass();
 	}
 	
-	@Override public void render(float dt, World world, Batch batch, 
-			AssetManager sharedAssets, GDXRenderer gdxRenderer, IDeathCallback deathCallback,
-			boolean paused, boolean inputEnabled, GameplayNetReceiver receiver){
-		super.render(dt, world, batch, sharedAssets, gdxRenderer, deathCallback, paused, inputEnabled, receiver);
+	@Override public void update(float dt, World world, IDeathCallback deathCallback, boolean paused,
+			boolean inputEnabled, GameplayNetReceiver receiver){
+		super.update(dt, world, deathCallback, paused, inputEnabled, receiver);
 		if(!paused)
 			questManager.tick(dt);
 	}

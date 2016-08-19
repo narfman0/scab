@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;
 
-import box2dLight.RayHandler;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
@@ -21,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.blastedstudios.gdxworld.GDXWorldEditor;
 import com.blastedstudios.gdxworld.plugin.quest.manifestation.beingspawn.BeingSpawnManifestation;
 import com.blastedstudios.gdxworld.plugin.quest.manifestation.dialog.DialogManifestation;
-import com.blastedstudios.gdxworld.ui.AbstractScreen;
 import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.ui.drawable.Drawable;
 import com.blastedstudios.gdxworld.ui.drawable.DrawableSorter;
@@ -56,8 +53,6 @@ import com.blastedstudios.scab.ui.gameplay.hud.HUD;
 import com.blastedstudios.scab.ui.gameplay.inventory.InventoryWindow;
 import com.blastedstudios.scab.ui.gameplay.particles.ParticleManager;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
-import com.blastedstudios.scab.ui.loading.GameplayLoadingWindowExecutor;
-import com.blastedstudios.scab.ui.loading.LoadingWindow;
 import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.util.ui.ScabWindow;
 import com.blastedstudios.scab.world.DialogBubble;
@@ -71,6 +66,8 @@ import com.blastedstudios.scab.world.being.Being;
 import com.blastedstudios.scab.world.being.NPC;
 import com.blastedstudios.scab.world.being.Player;
 import com.blastedstudios.scab.world.being.component.IComponent;
+
+import box2dLight.RayHandler;
 
 public class GameplayScreen extends ScabScreen {
 	private final DialogManager dialogManager;
@@ -307,23 +304,16 @@ public class GameplayScreen extends ScabScreen {
 		receiver.render(delta);
 	}
 	
-	public void levelComplete(final boolean success, final String nextLevelName){
+	public void levelComplete(final boolean success){
 		ExitGameplay.Builder builder = ExitGameplay.newBuilder();
 		builder.setSuccess(success);
-		if(nextLevelName != null)
-			builder.setNextLevel(nextLevelName);
 		receiver.send(MessageType.EXIT_GAMEPLAY, builder.build());
 		receiver.dispose();
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
-			listener.levelComplete(success, nextLevelName, worldManager, level);
+			listener.levelComplete(success, worldManager, level);
 		GDXGameFade.fadeOutPopScreen(game, new IPopListener() {
 			@Override public void screenPopped() {
 				dispose();
-				if(success && nextLevelName != null && !nextLevelName.equals(""))
-					((AbstractScreen)game.getScreen()).getStage().addActor(new LoadingWindow(skin, 
-							new GameplayLoadingWindowExecutor(game, worldManager.getPlayer(), 
-									world.getLevel(nextLevelName), world, selectedFile, gdxRenderer,
-									sharedAssets, receiver.type, receiver.network)));
 			}
 		});
 	}
@@ -394,7 +384,7 @@ public class GameplayScreen extends ScabScreen {
 			break;
 		case Keys.F12:
 			if(debugCommandEnabled()){
-				levelComplete(true, "");
+				levelComplete(true);
 				Log.log("Gameplayscreen.keyDown", "beat level cheater");
 			}
 			break;

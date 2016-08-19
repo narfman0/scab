@@ -47,7 +47,7 @@ public class ConsoleWindow extends ScabWindow implements IHistoryListener{
 		});
 		TextButton exitButton = new ScabTextButton(Properties.get("ui.back.button.text", "Exit to Map"), skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
-				screen.levelComplete(false, null);
+				screen.levelComplete(false);
 			}
 		});
 		add("Console").colspan(4);

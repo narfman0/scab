@@ -13,6 +13,7 @@ public interface IComponent extends IBeingListener,Plugin,Cloneable{
 	IComponent initialize(Being being);
 	void render(float dt, Batch batch, AssetManager sharedAssets,
 			GDXRenderer gdxRenderer, boolean facingLeft, boolean paused);
+	public void update(float dt, boolean facingLeft, boolean paused);
 	boolean keyDown(int key, WorldManager worldManager);
 	boolean keyUp(int key, WorldManager worldManager);
 }

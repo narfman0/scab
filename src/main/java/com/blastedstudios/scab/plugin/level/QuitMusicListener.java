@@ -8,7 +8,7 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
 public class QuitMusicListener implements ILevelCompletedListener{
-	@Override public void levelComplete(boolean success, String nextLevelName, WorldManager world, GDXLevel level) {
+	@Override public void levelComplete(boolean success, WorldManager world, GDXLevel level) {
 		if(!success)
 			SoundThematicHandlerPlugin.get().applyMusic(SoundThematicHandlerPlugin.getMainMusic());
 	}

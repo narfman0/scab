@@ -105,12 +105,18 @@ public class WorldManager implements IDeathCallback{
 			player.setFixedRotation(desireFixedRotation);
 		batch.end();
 		batch.begin();
-		if(player.isSpawned())
+		if(player.isSpawned()){
+			player.update(dt, world, this, pause, inputEnable, receiver);
 			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable, receiver);
-		for(NPC npc : npcs)
-			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, simulate, receiver);
-		for(Being being : remotePlayers)
+		}
+		for(NPC npc : npcs) {
+			npc.update(dt, world, this, pause, true, simulate, receiver);
+			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
+		}
+		for(Being being : remotePlayers){
+			being.update(dt, world, this, pause, true, receiver);
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
+		}
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(entry.getValue().isCanRemove())
@@ -118,8 +124,10 @@ public class WorldManager implements IDeathCallback{
 			else
 				entry.getValue().render(dt, batch, sharedAssets, entry.getKey(), this);
 		}
-		for(Turret turret : turrets)
+		for(Turret turret : turrets){
+			turret.update(dt, this);
 			turret.render(dt, batch, gdxRenderer, this);
+		}
 		renderTransferredParticles(dt, batch);
 		if(Properties.getBool("world.debug.draw", false))
 			debugRenderer.render(aiWorldDebug, cam.combined);

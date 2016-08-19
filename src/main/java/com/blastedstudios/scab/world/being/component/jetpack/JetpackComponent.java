@@ -54,8 +54,12 @@ public class JetpackComponent extends AbstractComponent {
 			lastJetpackActivated = false;
 			jetpackEffect.setDuration(0);
 		}
+	}
+	
+	@Override public void update(float dt, boolean facingLeft, boolean paused) {
+		if(!being.getStats().hasJetpack() || paused)
+			return;
 		jetpackRecharge();
-
 		if(isDashing() && !being.isDead())
 			applyDashForce();
 	}

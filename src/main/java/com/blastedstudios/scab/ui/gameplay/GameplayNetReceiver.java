@@ -81,8 +81,7 @@ public class GameplayNetReceiver implements IMessageListener{
 			break;
 		}case EXIT_GAMEPLAY:{
 			ExitGameplay message = (ExitGameplay) object;
-			String nextLevel = message.hasNextLevel() ? message.getNextLevel() : null;
-			screen.levelComplete(message.getSuccess(), nextLevel);
+			screen.levelComplete(message.getSuccess());
 			break;
 		}case PAUSE:{
 			Pause message = (Pause) object;

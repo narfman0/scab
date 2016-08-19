@@ -28,6 +28,7 @@ public abstract class AbstractComponent implements IComponent{
 	
 	public void render(float dt, Batch batch, AssetManager sharedAssets,
 			GDXRenderer gdxRenderer, boolean facingLeft, boolean paused){}
+	public void update(float dt, boolean facingLeft, boolean paused){}
 	public void receivedDamage(DamageStruct damage){}
 	public void dash(boolean right){}
 	public void setFixedRotation(boolean fixedRotation){}

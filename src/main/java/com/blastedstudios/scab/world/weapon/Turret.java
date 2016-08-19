@@ -37,6 +37,13 @@ public class Turret {
 		this.direction = Math.max(directionLow, Math.min(directionHigh, direction));
 	}
 	
+	public void update(float dt, WorldManager worldManager) {
+		if(reloadTime != 0l && System.currentTimeMillis() > reloadTime){
+			gun.setCurrentRounds(gun.getRoundsPerClip());
+			reloadTime = 0l;
+		}
+	}
+	
 	public void render(float dt, Batch batch, GDXRenderer gdxRenderer, WorldManager worldManager) {
 		if(gunSprite == null){
 			String gunPath = "data/textures/weapons/" + gun.getResource() + ".png",
@@ -51,10 +58,6 @@ public class Turret {
 		gunSprite.setRotation((float)Math.toDegrees(direction));
 		gunSprite.draw(batch);
 		weaponBaseSprite.draw(batch);
-		if(reloadTime != 0l && System.currentTimeMillis() > reloadTime){
-			gun.setCurrentRounds(gun.getRoundsPerClip());
-			reloadTime = 0l;
-		}
 	}
 	
 	public void shoot(Being source, WorldManager worldManager){
