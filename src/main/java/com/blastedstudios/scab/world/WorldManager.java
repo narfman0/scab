@@ -42,7 +42,6 @@ import com.blastedstudios.scab.network.Messages.MessageType;
 import com.blastedstudios.scab.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.scab.physics.ContactListener;
 import com.blastedstudios.scab.ui.gameplay.GameplayNetReceiver;
-import com.blastedstudios.scab.ui.gameplay.GameplayScreen.IGameplayListener;
 import com.blastedstudios.scab.ui.levelselect.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.scab.util.UUIDConvert;
 import com.blastedstudios.scab.util.VisibilityReturnStruct;
@@ -63,7 +62,6 @@ import com.blastedstudios.scab.world.weapon.shot.GunShot;
 public class WorldManager implements IDeathCallback{
 	public static final String REMOVE_USER_DATA = "r";
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
-	private final Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 	private final List<NPC> npcs = new LinkedList<>();
 	private final List<Player> remotePlayers = new LinkedList<>();
 	private final Player player;
@@ -77,65 +75,72 @@ public class WorldManager implements IDeathCallback{
 	private final AIWorld aiWorld;
 	private final TweenManager tweenManager;
 	private final AssetManager sharedAssets;
-	private final IGameplayListener listener;
+	private Box2DDebugRenderer debugRenderer;
 	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
 	private GameplayNetReceiver receiver;
 	
-	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets, IGameplayListener listener){
+	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets){
 		this.player = player;
 		this.level = level;
 		this.sharedAssets = sharedAssets;
-		this.listener = listener;
 		random = new Random();
 		tweenManager = new TweenManager();
-		Weapon gun = player.getEquippedWeapon();
-		if(gun != null && !(gun instanceof Melee))
-			((Gun)gun).addCurrentRounds(gun.getRoundsPerClip() - ((Gun)gun).getCurrentRounds());
+		if(player != null){
+			Weapon gun = player.getEquippedWeapon();
+			if(gun != null && !(gun instanceof Melee))
+				((Gun)gun).addCurrentRounds(gun.getRoundsPerClip() - ((Gun)gun).getCurrentRounds());
+		}
 		createLevelStruct = level.createLevel(world);
 		world.setContactListener(new ContactListener(this));
 		aiWorld = new AIWorld(world);
 		aiWorldDebug = aiWorld.createGraphVisible();
 		for(GDXNPC gdxNPC : level.getNpcs())
 			spawnNPC(gdxNPC, aiWorld);
+		if(Properties.getBool("world.debug.draw", false))
+			debugRenderer = new Box2DDebugRenderer();
 	}
 
-	public void render(float dt, GDXRenderer gdxRenderer, Camera cam, Batch batch){
-		if(!pause && inputEnable && !player.isDead())
+	public void update(float dt){
+		if(player != null && !pause && inputEnable && !player.isDead())
 			player.setFixedRotation(desireFixedRotation);
-		batch.end();
-		batch.begin();
-		if(player.isSpawned()){
+		if(player != null && player.isSpawned())
 			player.update(dt, world, this, pause, inputEnable, receiver);
-			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable, receiver);
-		}
-		for(NPC npc : npcs) {
+		for(NPC npc : npcs)
 			npc.update(dt, world, this, pause, true, simulate, receiver);
-			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
-		}
-		for(Being being : remotePlayers){
+		for(Being being : remotePlayers)
 			being.update(dt, world, this, pause, true, receiver);
-			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
-		}
-		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
-			Entry<Body, GunShot> entry = iter.next();
-			if(entry.getValue().isCanRemove())
+		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();)
+			if(iter.next().getValue().isCanRemove())
 				iter.remove();
-			else
-				entry.getValue().render(dt, batch, sharedAssets, entry.getKey(), this);
-		}
-		for(Turret turret : turrets){
+		for(Turret turret : turrets)
 			turret.update(dt, this);
-			turret.render(dt, batch, gdxRenderer, this);
-		}
-		renderTransferredParticles(dt, batch);
-		if(Properties.getBool("world.debug.draw", false))
-			debugRenderer.render(aiWorldDebug, cam.combined);
 		if(!pause)//min 1/20 because larger and you get really high hits on level startup/big cpu hits
 			world.step(Math.min(1f/20f, dt*2f), 10, 10);//TODO fix this to be reg, not *2
 		for(Body body : getBodiesIterable())
 			if(body != null && body.getUserData() != null && body.getUserData().equals(REMOVE_USER_DATA))
 				world.destroyBody(body);
+	}
+	
+	public void render(float dt, GDXRenderer gdxRenderer, Camera cam, Batch batch){
+		batch.end();
+		batch.begin();
+		if(player.isSpawned())
+			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable, receiver);
+		for(NPC npc : npcs) 
+			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
+		for(Being being : remotePlayers)
+			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
+		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
+			Entry<Body, GunShot> entry = iter.next();
+			if(!entry.getValue().isCanRemove())
+				entry.getValue().render(dt, batch, sharedAssets, entry.getKey(), this);
+		}
+		for(Turret turret : turrets)
+			turret.render(dt, batch, gdxRenderer, this);
+		renderTransferredParticles(dt, batch);
+		if(Properties.getBool("world.debug.draw", false))
+			debugRenderer.render(aiWorldDebug, cam.combined);
 		tweenManager.update(dt);
 	}
 	
@@ -260,7 +265,6 @@ public class WorldManager implements IDeathCallback{
 		npc.aim(npcData.getFloat("Aim"));
 		npcs.add(npc);
 		npc.respawn(world, coordinates.x, coordinates.y);
-		listener.npcAdded(npc);
 		return npc;
 	}
 	
@@ -290,7 +294,7 @@ public class WorldManager implements IDeathCallback{
 		List<Being> beings = new LinkedList<>();
 		beings.addAll(npcs);
 		beings.addAll(remotePlayers);
-		if(player.isSpawned())
+		if(player != null && player.isSpawned())
 			beings.add(player);
 		return beings;
 	}
@@ -523,7 +527,8 @@ public class WorldManager implements IDeathCallback{
 	
 	public List<Player> getAllPlayers(){
 		List<Player> players = new ArrayList<>(remotePlayers);
-		players.add(player);
+		if(player != null)
+			players.add(player);
 		return players;
 	}
 

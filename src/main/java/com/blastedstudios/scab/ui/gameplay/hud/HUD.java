@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.scab.util.ui.UIHelper;
-import com.blastedstudios.scab.world.being.NPC;
 import com.blastedstudios.scab.world.being.Player;
 
 /**
@@ -34,10 +33,5 @@ public class HUD {
 		for(IHUDElement element : elements)
 			element.render(spriteBatch);
 		spriteBatch.end();
-	}
-	
-	public void npcAdded(NPC npc){
-		for(IHUDElement element : elements)
-			element.npcAdded(npc);
 	}
 }

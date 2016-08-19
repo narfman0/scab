@@ -62,6 +62,7 @@ public class LevelSelectScreen extends ScabScreen{
 							levelSelected(message.getName());
 						}
 					});
+				case DedicatedServer:
 				case Host:
 					chat = new ChatWindow(skin, networkWindow.getSource());
 					break;
@@ -97,7 +98,7 @@ public class LevelSelectScreen extends ScabScreen{
 	}
 	
 	public void levelSelected(String levelName){
-		if(networkWindow.getMultiplayerType() == MultiplayerType.Host){
+		if(networkWindow.getMultiplayerType() == MultiplayerType.Host || networkWindow.getMultiplayerType() == MultiplayerType.DedicatedServer){
 			LevelLoad.Builder levelLoad = LevelLoad.newBuilder();
 			levelLoad.setName(levelName);
 			networkWindow.getSource().send(MessageType.LEVEL_LOAD, levelLoad.build());

@@ -63,7 +63,6 @@ import com.blastedstudios.scab.world.QuestTriggerInformationProvider;
 import com.blastedstudios.scab.world.WorldManager;
 import com.blastedstudios.scab.world.activity.ReviveActivity;
 import com.blastedstudios.scab.world.being.Being;
-import com.blastedstudios.scab.world.being.NPC;
 import com.blastedstudios.scab.world.being.Player;
 import com.blastedstudios.scab.world.being.component.IComponent;
 
@@ -108,11 +107,7 @@ public class GameplayScreen extends ScabScreen {
 		particleManager = new ParticleManager();
 		for(GDXParticle particle : level.getParticles())
 			particleManager.addParticle(particle);
-		worldManager = new WorldManager(player, level, sharedAssets, new IGameplayListener() {
-			@Override public void npcAdded(NPC npc) {
-				hud.npcAdded(npc);
-			}
-		});
+		worldManager = new WorldManager(player, level, sharedAssets);
 		receiver = new GameplayNetReceiver(this, worldManager, type, network);
 		worldManager.setReceiver(receiver);
 		player.getQuestManager().initialize(new QuestTriggerInformationProvider(this, worldManager), 
@@ -295,6 +290,7 @@ public class GameplayScreen extends ScabScreen {
 			hud.render();
 		
 		int x = Gdx.input.getX(), y = Gdx.input.getY();
+		worldManager.update(delta);
 		if(!worldManager.isPause() && worldManager.isInputEnable() && Gdx.input.isTouched() && 
 				(inventoryWindow == null || !inventoryWindow.contains(x, y)) &&
 				(characterWindow == null || !characterWindow.contains(x, y)) &&
@@ -454,9 +450,5 @@ public class GameplayScreen extends ScabScreen {
 
 	public GameplayNetReceiver getReceiver() {
 		return receiver;
-	}
-
-	public interface IGameplayListener{
-		void npcAdded(NPC npc);
 	}
 }

@@ -39,7 +39,8 @@ public class GameplayNetReceiver implements IMessageListener{
 		this.type = type;
 		this.network = network;
 		if(type != MultiplayerType.Local){
-			worldManager.getPlayer().setUuid(network.getUUID());
+			if(type != MultiplayerType.DedicatedServer)
+				worldManager.getPlayer().setUuid(network.getUUID());
 			network.addListener(MessageType.ATTACK, this);
 			network.addListener(MessageType.DEAD, this);
 			network.addListener(MessageType.EXIT_GAMEPLAY, this);
@@ -81,11 +82,13 @@ public class GameplayNetReceiver implements IMessageListener{
 			break;
 		}case EXIT_GAMEPLAY:{
 			ExitGameplay message = (ExitGameplay) object;
-			screen.levelComplete(message.getSuccess());
+			if(screen != null)
+				screen.levelComplete(message.getSuccess());
 			break;
 		}case PAUSE:{
 			Pause message = (Pause) object;
-			screen.handlePause(message.getPause());
+			if(screen != null)
+				screen.handlePause(message.getPause());
 			break;
 		}case RELOAD:{
 			Reload message = (Reload) object;
@@ -121,7 +124,7 @@ public class GameplayNetReceiver implements IMessageListener{
 				}else if(remotePlayer.getPosition() != null && netBeing.hasPosX())
 					remotePlayer.updateFromMessage(netBeing);
 			}
-			if(type == MultiplayerType.Host)
+			if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer)
 				network.send(messageType, message);
 			break;
 		}case NPC_STATE:{
@@ -151,7 +154,7 @@ public class GameplayNetReceiver implements IMessageListener{
 				network.send(MessageType.PLAYER_STATE, builder.build());
 			}
 		}
-		if(type == MultiplayerType.Host){
+		if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer){
 			NPCState.Builder builder = NPCState.newBuilder(); 
 			for(NPC npc : worldManager.getNpcs())
 				builder.addNpcs(npc.buildMessage(false));

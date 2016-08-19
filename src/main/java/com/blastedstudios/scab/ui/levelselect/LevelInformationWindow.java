@@ -18,7 +18,7 @@ class LevelInformationWindow extends ScabWindow{
 	
 	public LevelInformationWindow(final Skin skin, final GDXWorld world, final LevelSelectScreen screen, MultiplayerType type) {
 		super("", skin);
-		boolean isControl = type == MultiplayerType.Local || type == MultiplayerType.Host;
+		boolean isControl = type != MultiplayerType.Client;
 		levelList = new List<>(skin);
 		levelList.setTouchable(isControl ? Touchable.enabled : Touchable.disabled);
 		for(GDXLevel level : world.getLevels())

@@ -12,7 +12,7 @@ import com.blastedstudios.scab.world.being.Being;
 
 public class NetworkWindow extends ScabWindow{
 	public enum MultiplayerType{
-		Local, Host, Client
+		Local, Host, Client, DedicatedServer
 	}
 	
 	private final Table multiplayerTypeParentTable;
@@ -24,7 +24,7 @@ public class NetworkWindow extends ScabWindow{
 		super("", skin);
 		multiplayerTypeParentTable = new Table(skin);
 		multiplayerTypeSelect = new SelectBox<>(skin);
-		multiplayerTypeSelect.setItems(MultiplayerType.values());
+		multiplayerTypeSelect.setItems(MultiplayerType.Local, MultiplayerType.Host, MultiplayerType.Client);
 		multiplayerTypeSelect.addListener(new ChangeListener() {
 			@Override public void changed(ChangeEvent event, Actor actor) {
 				multiplayerTypeParentTable.clear();
@@ -42,6 +42,8 @@ public class NetworkWindow extends ScabWindow{
 					multiplayerTypeParentTable.add(clientTable);
 					break;
 				case Local:
+					break;
+				default:
 					break;
 				}
 				listener.networkSelected(multiplayerTypeSelect.getSelected());
