@@ -30,7 +30,8 @@ public class Host extends BaseNetwork{
 	
 	public Host(Being player){
 		this.player = player;
-		serverSocket = Gdx.net.newServerSocket(Protocol.TCP, Properties.getInt("network.port"), null);
+		int port = Properties.getInt("network.port");
+		serverSocket = Gdx.net.newServerSocket(Protocol.TCP, port, null);
 		timer = new Timer("Server accept thread");
 		timer.schedule(new TimerTask() {
 			@Override public void run() {
@@ -46,7 +47,7 @@ public class Host extends BaseNetwork{
 				}
 			}
 		}, 0, 100);
-		Log.debug("Host.<init>", "Network created, listening for conenctions");
+		Log.debug("Host.<init>", "Network created, listening for conenctions on port: " + port);
 		receiveMessage(MessageType.CONNECTED, null);
 	}
 	

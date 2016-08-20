@@ -148,7 +148,7 @@ public class GameplayNetReceiver implements IMessageListener{
 	public void render(float dt){
 		if(type != MultiplayerType.Local){
 			network.render();
-			if(!worldManager.getPlayer().isDead()){
+			if(type != MultiplayerType.DedicatedServer && !worldManager.getPlayer().isDead()){
 				PlayerState.Builder builder = PlayerState.newBuilder();
 				builder.addPlayers(worldManager.getPlayer().buildMessage(true));
 				network.send(MessageType.PLAYER_STATE, builder.build());

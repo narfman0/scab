@@ -1,5 +1,6 @@
 package com.blastedstudios.scab;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
@@ -21,6 +22,7 @@ public class ScabServer extends ApplicationAdapter{
 	private GameplayNetReceiver receiver;
 	
 	@Override public void create () {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		SaveHelper.loadProperties();
 		PluginUtil.initialize(ClassURI.CLASSPATH);
 		host = new Host(null);

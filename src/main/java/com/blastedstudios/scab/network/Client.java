@@ -16,8 +16,8 @@ public class Client extends BaseNetwork {
 		int port = Properties.getInt("network.port");
 		// if host is something like 1.2.3.4:8888 try to split up host,port to component parts and connect that way
 		if(host.contains(":")){
-			host = host.split(":")[0];
 			port = Integer.parseInt(host.split(":")[1]);
+			host = host.split(":")[0];
 		}
 		Socket socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
 		hostStruct = new HostStruct(socket);

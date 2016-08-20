@@ -1,0 +1,3 @@
+[submodule "GDXWorld"]
+	path = GDXWorld
+	url = git@github.com:narfman0/GDXWorld.git
