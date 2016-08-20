@@ -1,1 +1,1 @@
-include 'GDXWorld'
+includeFlat 'GDXWorld'
