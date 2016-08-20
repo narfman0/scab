@@ -91,7 +91,7 @@ public class WorldManager implements IDeathCallback{
 			if(gun != null && !(gun instanceof Melee))
 				((Gun)gun).addCurrentRounds(gun.getRoundsPerClip() - ((Gun)gun).getCurrentRounds());
 		}
-		createLevelStruct = level.createLevel(world);
+		createLevelStruct = level.createLevel(world, sharedAssets != null);
 		world.setContactListener(new ContactListener(this));
 		aiWorld = new AIWorld(world);
 		aiWorldDebug = aiWorld.createGraphVisible();
